@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:p="http://www.springframework.org/schema/p"
+       xmlns:tx="http://www.springframework.org/schema/tx"
+
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.0.xsd
+          http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.0.xsd
+          http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.0.xs">
+    
+    <context:annotation-config /> 
+    <context:property-placeholder location="classpath:datasource.properties"/>
+    
+    <bean id="dataSource"
+          class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+        <property name="driverClassName" value="${SQLSERVER.DRIVER}" />
+        <property name="url" value="${SQLSERVER.URL}" />
+        <property name="username" value="${SQLSERVER.USER}" />
+        <property name="password" value="${SQLSERVER.PASSWORD}" />
+    </bean>
+    
+    <bean id="sessionFactory"
+          class="org.springframework.orm.hibernate4.LocalSessionFactoryBean"
+          p:dataSource-ref="dataSource">
+        
+        <property name="packagesToScan">
+            <list>
+                <value>com.aeromexico.tideveloper.models</value>  
+            </list>
+        </property>
+        <property name="hibernateProperties">
+            <props>
+                <prop key="dialect">org.hibernate.dialect.SQLServerDialect</prop>
+                <prop key="javax.persistence.validation.mode">none</prop>
+                <prop key="org.hibernate.FlushMode">NEVER</prop>
+                <prop key="hibernate.connection.release_mode">auto</prop>
+            </props>
+        </property>
+    </bean>
+   <bean id="transactionManager"
+		class="org.springframework.orm.hibernate4.HibernateTransactionManager"
+		p:sessionFactory-ref="sessionFactory" />
+       
+
+</beans>

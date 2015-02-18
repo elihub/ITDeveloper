@@ -5,17 +5,26 @@
                            http://www.springframework.org/schema/beans/spring-beans-4.0.xsd                           
                            http://www.springframework.org/schema/security
                            http://www.springframework.org/schema/security/spring-security-3.2.xsd">
+         <beans:import resource="spring-persistence.xml"/>
+        
          <http auto-config="true">
 		<intercept-url pattern="/admin**" access="ROLE_USER" />
                 <intercept-url pattern="/*" access="ROLE_USER" />
-	</http>
- 
-	<authentication-manager>
-	  <authentication-provider>
-	    <user-service>
-		<user name="mkyong" password="123456" authorities="ROLE_USER" />
-	    </user-service>
-	  </authentication-provider>
-	</authentication-manager>
+	</http>         
+        
+	<beans:bean id="usuariosDAOImpl"
+		class="com.aeromexico.robotcsi.dao.UsuariosDAOImpl">
+		<beans:constructor-arg index="0" ref="sessionFactory" />
+	</beans:bean>
+	
+	<beans:bean id="customA"
+		class="com.aeromexico.tideveloper.security.DaoAuthenticationProvider">
+		<beans:property name="usuImp" ref="usuariosDAOImpl" />
+	</beans:bean>
 
+	<authentication-manager alias="authenticationManager">
+		<!-- <authentication-provider> <user-service> <user authorities="ROLE_SUPERVISOR" 
+			name="aeromexico" password="Aeromexico01" /> </user-service> </authentication-provider> -->
+		<authentication-provider ref="customA" />
+	</authentication-manager>
     </beans:beans>
