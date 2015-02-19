@@ -1,14 +1,7 @@
-<%-- 
-    Document   : template
-    Created on : 17/02/2015, 12:07:03 PM
-    Author     : Elida Carrillo
---%>
-
-<%@page contentType="text/html" pageEncoding="UTF-8"%>
-<!DOCTYPE html>
+<%@ taglib uri="http://tiles.apache.org/tags-tiles" prefix="tiles"%>
 <html>
     <head>
-        <link href="<c:url value='/resources/css/main.css' />" rel="stylesheet">
+        <!--<link href="<c:url value='/resources/css/main.css' />" rel="stylesheet">-->
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>JSP Page</title>
     </head>

@@ -1,5 +1,8 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
-<div class="menu">
+<link href="/resources/css/menu.css" rel="stylesheet">
+<script src="<c:url value="/resources/js/menu/script.js" />"></script>
+<div class="menu">    
 Menu
     <ul>
         <li>

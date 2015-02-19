@@ -31,13 +31,15 @@
             </props>
         </property>
     </bean>
-
-    <bean class="org.springframework.web.servlet.view.InternalResourceViewResolver"
-          p:prefix="/WEB-INF/views/"
-          p:suffix=".jsp" />
-    
     <!-- Resolves views selected for rendering by @Controllers to .jsp resources 
     in the /WEB-INF/views directory -->
+
+   <bean class="org.springframework.web.servlet.view.InternalResourceViewResolver"
+          p:prefix="/WEB-INF/views/"
+          p:suffix=".jsp" />
+
+    
+    <!-- Tiles configuration -->
     <bean id="titlesConfigurer" class="org.springframework.web.servlet.view.tiles3.TilesConfigurer">
         <property name="definitions">
             <list>

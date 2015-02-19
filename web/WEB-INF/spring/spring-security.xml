@@ -7,8 +7,9 @@
                            http://www.springframework.org/schema/security/spring-security-3.2.xsd">
          <beans:import resource="spring-persistence.xml"/>
         
-         <http auto-config="true">
+         <http auto-config="true" >
 		<intercept-url pattern="/admin**" access="ROLE_USER" />
+                <intercept-url pattern="/resouces/**" access="ROLE_USER" />
                 <intercept-url pattern="/*" access="ROLE_USER" />
 	</http>         
         
