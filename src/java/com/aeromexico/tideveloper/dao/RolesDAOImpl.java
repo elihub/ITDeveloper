@@ -1,18 +1,27 @@
 package com.aeromexico.tideveloper.dao;
 
 import com.aeromexico.tideveloper.models.Roles;
-import com.aeromexico.tideveloper.util.HibernateUtil;
 import java.util.List;
 import org.hibernate.Session;
+import org.hibernate.SessionFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Repository;
 
 /**
  *
  * @author mperal01
  */
+@Repository
 public class RolesDAOImpl implements RolesDAO {
+    private SessionFactory sessionFactory;
+    
+    @Autowired
+    public RolesDAOImpl(SessionFactory sessionFactory){
+    this.sessionFactory=sessionFactory;
+    }
     
     private Session currentSession() {
-        return HibernateUtil.getsession();
+        return sessionFactory.getCurrentSession();
     }
     
     @Override

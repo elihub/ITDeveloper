@@ -7,14 +7,20 @@ import org.hibernate.criterion.Example;
 import org.hibernate.criterion.Restrictions;
 
 import com.aeromexico.tideveloper.models.Usuarios;
-import com.aeromexico.cotizador.util.HibernateUtil;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
+import org.springframework.stereotype.Repository;
 
+@Repository
 public class UsuariosDAOImpl implements UsuariosDAO{
+    
+   private SessionFactory sessionFactory;
+   public UsuariosDAOImpl(SessionFactory sessionFactory){
+       this.sessionFactory=sessionFactory;
+   }
 
 	private Session currentSession() {
-            return HibernateUtil.getsession();
+            return sessionFactory.getCurrentSession();
 	}
 
     @Override
@@ -39,12 +45,12 @@ public class UsuariosDAOImpl implements UsuariosDAO{
     public Long saveUsuario(Usuarios u) {
         Long id=null;//=(Long) currentSession().save(u);
     //    return id;
-        SessionFactory sf=null;
+        //SessionFactory sf=null;
         Session s=null;
         Transaction tx=null;
-        try {
-            sf=HibernateUtil.getHQLSessionFactory();
-            s=sf.openSession();
+        try {            
+            //sf=HibernateUtil.getHQLSessionFactory();
+            s=sessionFactory.openSession();
             tx=s.getTransaction();
             tx.begin();
             id = (Long) s.save(u);
@@ -59,8 +65,8 @@ public class UsuariosDAOImpl implements UsuariosDAO{
             if(s!=null){
                 s.close();
             }                
-            if(sf!=null){
-                sf.close();
+            if(sessionFactory!=null){
+                sessionFactory.close();
             }
         }
         return id;
@@ -68,12 +74,12 @@ public class UsuariosDAOImpl implements UsuariosDAO{
 	
     @Override
     public void updateUsuarios(Usuarios u) {
-        SessionFactory sf=null;
+        //SessionFactory sf=null;
         Session s=null;
         Transaction tx=null;
         try {
-            sf=HibernateUtil.getHQLSessionFactory();
-            s=sf.openSession();
+            //sf=HibernateUtil.getHQLSessionFactory();
+            s=sessionFactory.openSession();
             tx=s.getTransaction();
             tx.begin();
             s.update(u);
@@ -88,8 +94,8 @@ public class UsuariosDAOImpl implements UsuariosDAO{
             if(s!=null){
                 s.close();
             }                
-            if(sf!=null){
-                sf.close();
+            if(sessionFactory!=null){
+                sessionFactory.close();
             }
         }
     }

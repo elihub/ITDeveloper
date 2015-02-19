@@ -32,7 +32,7 @@ public class DaoAuthenticationProvider extends AbstractUserDetailsAuthentication
         Collection<GrantedAuthority> authorities2 = new ArrayList<GrantedAuthority>();
         User user;
         if (upat.getName().equals("Aeromexico") && upat.getCredentials().toString().equals("Aeromexico01")) {
-            GrantedAuthorityImpl Role = new GrantedAuthorityImpl("ROLE_SUPERVISOR");
+            GrantedAuthorityImpl Role = new GrantedAuthorityImpl("ROLE_USER");
             authorities2.add(Role);
             user = new User(upat.getName(), upat.getCredentials().toString(), true, true, true, true, authorities2);
         } else {

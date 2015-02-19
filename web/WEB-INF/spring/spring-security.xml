@@ -13,13 +13,14 @@
 	</http>         
         
 	<beans:bean id="usuariosDAOImpl"
-		class="com.aeromexico.robotcsi.dao.UsuariosDAOImpl">
+		class="com.aeromexico.tideveloper.dao.UsuariosDAOImpl">
 		<beans:constructor-arg index="0" ref="sessionFactory" />
 	</beans:bean>
+        
 	<!--descomantar-->
 	<beans:bean id="customA"
 		class="com.aeromexico.tideveloper.security.DaoAuthenticationProvider">
-		<beans:property name="usuImp" ref="usuariosDAOImpl" />
+		<!--<beans:property name="usuImp" ref="usuariosDAOImpl" />-->
 	</beans:bean>
 
 	<authentication-manager alias="authenticationManager">
