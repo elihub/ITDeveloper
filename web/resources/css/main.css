@@ -3,6 +3,8 @@
         padding:0px;
         height:100%;
         overflow:hidden;
+        //background-color: rgb(232, 232, 236)
+        //background-color: #FFFFFF
     }
  
     .page {
@@ -10,15 +12,15 @@
         position:relative;
     }
      
-    .header {
+    /*.header {
         padding:10px;
         width:100%;
         text-align:center;
-    }
+    }*/
      
     .content {
-            padding:10px;
-            padding-bottom:20px; /* Height of the footer element */
+           // padding:10px;
+            //padding-bottom:20px; /* Height of the footer element */
             overflow:hidden;
     }
      

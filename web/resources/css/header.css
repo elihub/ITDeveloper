@@ -1,0 +1,18 @@
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on : 20/02/2015, 01:31:29 PM
+    Author     : Elida Carrillo
+*/
+
+.header {
+    padding:0px;
+    display: inline;
+    position: relative;
+    //height: 55px;
+    background-color: #00377b;
+    //width: auto;
+}

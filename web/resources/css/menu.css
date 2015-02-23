@@ -1,8 +1,11 @@
 #cssmenu {
   position: relative;
-  height: 44px;
-  background: #2b2f3a;
+  height: 45px;
+  background: #00377b;
   width: auto;
+  padding: 0px,0px,0px,5%;
+  
+ 
 }
 #cssmenu ul {
   list-style: none;
@@ -13,7 +16,7 @@
 #cssmenu > ul {
   position: relative;
   display: block;
-  background: #2b2f3a;
+  background: #00377b;
   width: 100%;
   z-index: 500;
 }
@@ -172,7 +175,7 @@
   text-align: right;
 }
 #cssmenu ul ul li:hover > a {
-  background: #f2f2f2;
+  background: #005189;
   color: #8c9195;
 }
 #cssmenu ul ul li:last-child > a,
