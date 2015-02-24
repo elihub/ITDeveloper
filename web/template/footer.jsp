@@ -1,1 +1,5 @@
-<div class="footer">I am the Footer !</div>
+<footer class="footer">
+    <div class="container">
+        <p class="text-muted">Aeromexico</p>
+    </div>
+</footer>
