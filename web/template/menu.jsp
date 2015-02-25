@@ -40,25 +40,22 @@
                 <span class="icon-bar"></span>
             </button>
 
-            <img height="50px" src="<c:url value="/resources/images/AM-LOGO.jpg" />">
+            <!--<img height="50px" src="<c:url value="/resources/images/AM-LOGO.jpg" />">-->
+            <a class="navbar-brand" href="#">ITDeveloper</a>
         </div>
         <div class="navbar-collapse collapse">
             <ul class="nav navbar-nav">
-                <li class="active"><a href="#">Home</a></li>
-                <li><a href="#about">About</a></li>
-                <li><a href="#contact">Contact</a></li>
-                <li class="dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Dropdown <span class="caret"></span></a>
+                <li  class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Servicios<span class="caret"></span></a>
                     <ul class="dropdown-menu" role="menu">
-                        <li><a href="#">Action</a></li>
-                        <li><a href="#">Another action</a></li>
-                        <li><a href="#">Something else here</a></li>
+                        <li><a href="#">REST</a></li>
                         <li class="divider"></li>
-                        <li class="dropdown-header">Nav header</li>
-                        <li><a href="#">Separated link</a></li>
-                        <li><a href="#">One more separated link</a></li>
+                        <li><a href="#">SOAP</a></li>
                     </ul>
                 </li>
+                <li><a href="#apis">Apis</a></li>
+                <li><a href="#resources">Resources</a></li>
+                <li><a href="#docs">Docs</a></li>
             </ul>
         </div><!--/.nav-collapse -->
     </div>
