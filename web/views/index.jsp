@@ -11,6 +11,7 @@
         <div class="body">
             <h1>Home page !</h1> 
             <p>The time on the server is ${serverTime}.</p>
+            <p>Otra linea.</p>
         </div>
  
  <!--Comentario-->
