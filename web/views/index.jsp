@@ -13,9 +13,5 @@
             <p>The time on the server is ${serverTime}.</p>
         </div>
  
- <!--Comentario-->
- <!--Comentario2-->
- <!--Comentario3-->
- 
     </tiles:putAttribute>
 </tiles:insertDefinition>
