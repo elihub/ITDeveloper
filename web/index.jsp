@@ -5,7 +5,7 @@
         Derecha
     </tiles:putAttribute>
     <tiles:putAttribute name="left">
-        Izquierda
+        <a href="<c:url value="bootstrap.htm"/>">Bootstrap</a>
     </tiles:putAttribute>
     <tiles:putAttribute name="body">
         <div class="body">

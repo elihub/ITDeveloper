@@ -13,8 +13,8 @@
        http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc.xsd
        http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
 
-    <import resource="spring-persistence.xml"/>
-    <bean class="org.springframework.web.servlet.mvc.support.ControllerClassNameHandlerMapping"/>
+   <!-- <bean class="org.springframework.web.servlet.mvc.support.ControllerClassNameHandlerMapping"/>-->
+    
     <mvc:annotation-driven />    
     <context:component-scan base-package="com.aeromexico.tideveloper.controller"/>
     <!-- Used to serve static resources like css, images and javascript files-->
@@ -25,19 +25,19 @@
     for the index controller we are using ParameterizableViewController, so we must
     define an explicit mapping for it.
     -->
-     <bean id="urlMapping" class="org.springframework.web.servlet.handler.SimpleUrlHandlerMapping">
+     <!--<bean id="urlMapping" class="org.springframework.web.servlet.handler.SimpleUrlHandlerMapping">
         <property name="mappings">
             <props>
                 <prop key="index.htm">indexController</prop>
             </props>
         </property>
-    </bean>
+    </bean>-->
     <!-- Resolves views selected for rendering by @Controllers to .jsp resources 
     in the /WEB-INF/views directory -->
 
-   <bean class="org.springframework.web.servlet.view.InternalResourceViewResolver"
+   <!--<bean class="org.springframework.web.servlet.view.InternalResourceViewResolver"
           p:prefix="/views/"
-          p:suffix=".jsp" />
+          p:suffix=".jsp" />-->
 
     
     <!-- Tiles configuration -->
@@ -55,13 +55,14 @@
           class="org.springframework.web.servlet.view.UrlBasedViewResolver">
         <property name="viewClass" value="org.springframework.web.servlet.view.tiles3.TilesView" />
     </bean>
+    
     <bean id="tilesviewResolver" class="org.springframework.web.servlet.view.tiles3.TilesViewResolver"/>
 
     <!--
     The index controller.
     -->
-   <bean name="indexController"
+   <!--<bean name="indexController"
           class="org.springframework.web.servlet.mvc.ParameterizableViewController"
-          p:viewName="index" />
+          p:viewName="index" />-->
 
 </beans>

@@ -12,19 +12,8 @@
                 <intercept-url pattern="/resouces/**" access="isAuthenticated()" />                
                 <intercept-url pattern="/*" access="isAuthenticated()" />
                 <form-login login-page="/views/login.jsp"></form-login>
-	</http>  
-               
-        
-	<beans:bean id="usuariosDAOImpl"
-		class="com.aeromexico.tideveloper.dao.UsuariosDAOImpl">
-		<beans:constructor-arg index="0" ref="sessionFactory" />
-	</beans:bean>
-        
-  
-	<beans:bean id="customA"
-		class="com.aeromexico.tideveloper.security.DaoAuthenticationProvider">
-		<beans:property name="userDao" ref="usuariosDAOImpl" />
-	</beans:bean>
+	</http>                 
+
 
 	<authentication-manager alias="authenticationManager">
 		<!-- <authentication-provider> <user-service> <user authorities="ROLE_SUPERVISOR" 

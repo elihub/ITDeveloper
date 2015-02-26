@@ -9,5 +9,10 @@
         <put-attribute name="menu" value="/template/menu.jsp" />
         <put-attribute name="footer" value="/template/footer.jsp" />
     </definition>
+    <definition name="bootstrap" extends="defaultTemplate">
+		<put-attribute name="content"
+			value="/views/bootstrap.jsp"></put-attribute>
+    </definition>
+    
   
 </tiles-definitions>

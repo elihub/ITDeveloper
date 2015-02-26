@@ -9,6 +9,7 @@
           http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.0.xsd
           http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.0.xs">
     
+    
     <context:annotation-config /> 
     <context:property-placeholder location="classpath:datasource.properties"/>
     
@@ -38,9 +39,24 @@
             </props>
         </property>
     </bean>
+    
+    <bean id="usuariosDAOImpl"
+		class="com.aeromexico.tideveloper.dao.UsuariosDAOImpl">
+		<!--<beans:constructor-arg index="0" ref="sessionFactory" />-->
+                <property name="sessionFactory" ref="sessionFactory" />
+	</bean>
+        
+  
+	<bean id="customA"
+		class="com.aeromexico.tideveloper.security.DaoAuthenticationProvider">
+		<property name="userDao" ref="usuariosDAOImpl" />
+	</bean>
+        
    <bean id="transactionManager"
 		class="org.springframework.orm.hibernate4.HibernateTransactionManager"
 		p:sessionFactory-ref="sessionFactory" />
+   
+   
        
 
 </beans>
