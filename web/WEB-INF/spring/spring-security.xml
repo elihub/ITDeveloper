@@ -7,10 +7,10 @@
                            http://www.springframework.org/schema/security/spring-security-3.2.xsd">
          <beans:import resource="spring-persistence.xml"/>
         
-         <http auto-config="true" >
-		<intercept-url pattern="/admin**" access="ROLE_USER" />
-                <intercept-url pattern="/resouces/**" access="ROLE_USER" />
-                <intercept-url pattern="/*" access="ROLE_USER" />
+         <http use-expressions="true" >
+		<intercept-url pattern="/views/index.jsp" access="isAuthenticated()" />
+                <intercept-url pattern="/resouces/**" access="isAuthenticated()" />                
+                <intercept-url pattern="/*" access="isAuthenticated()" />
                 <form-login login-page="/views/login.jsp"></form-login>
 	</http>  
                
@@ -20,10 +20,10 @@
 		<beans:constructor-arg index="0" ref="sessionFactory" />
 	</beans:bean>
         
-	<!--descomantar-->
+  
 	<beans:bean id="customA"
 		class="com.aeromexico.tideveloper.security.DaoAuthenticationProvider">
-		<!--<beans:property name="usuImp" ref="usuariosDAOImpl" />-->
+		<beans:property name="userDao" ref="usuariosDAOImpl" />
 	</beans:bean>
 
 	<authentication-manager alias="authenticationManager">

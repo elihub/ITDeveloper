@@ -2,6 +2,7 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
+    <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -32,12 +33,12 @@
 
     <div class="container">
 
-        <form class="form-signin" action="index.jsp">
+        <form class="form-signin" action="<c:url value="/j_spring_security_check" />" method="POST">
         <h2 class="form-signin-heading">Please sign in</h2>
         <label for="inputEmail" class="sr-only">Email address</label>
-        <input  id="j_user" class="form-control" placeholder="User" required autofocus>
+        <input  name="j_username" class="form-control" placeholder="User" required autofocus>
         <label for="inputPassword" class="sr-only">Password</label>
-        <input type="password" id="j_password" class="form-control" placeholder="Password" required>
+        <input type="password" name="j_password" class="form-control" placeholder="Password" required>
         <div class="checkbox">
           <label>
             <input type="checkbox" value="remember-me"> Remember me
