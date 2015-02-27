@@ -50,7 +50,7 @@
                     <ul class="dropdown-menu" role="menu">
                         <li><a href="#">REST</a></li>
                         <li class="divider"></li>
-                        <li><a href="<c:url value="/soap" />">SOAP</a></li>
+                        <li><a href="<c:url value="/servicios/soap" />">SOAP</a></li>
                     </ul>
                 </li>
                 <li><a href="#apis">Apis</a></li>

@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
  * @author mperal01
  */
 @Controller
+@RequestMapping(value = "/servicios/**")
 public class ServiciosController {
     
     @Autowired
