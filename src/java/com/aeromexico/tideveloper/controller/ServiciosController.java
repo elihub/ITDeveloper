@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
  * @author mperal01
  */
 @Controller
-public class SeriviciosController {
+public class ServiciosController {
     
     @Autowired
     private ServiciosDAO serviciosDAO;
