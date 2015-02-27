@@ -57,16 +57,7 @@
     <body >
         <tiles:insertAttribute name="header" />
         <tiles:insertAttribute name="menu" />
-        <div class="row">
-            <div class="col-md-2">
-                <tiles:insertAttribute name="right" />
-            </div>
-            <div class="col-md-10">
-                <tiles:insertAttribute name="left" />
-            </div>
-        </div>
-        <%--<tiles:insertAttribute name="body" />--%>
+        <tiles:insertAttribute name="content" />
         <tiles:insertAttribute name="footer" />
-    </div>
-</body>
+    </body>
 </html>

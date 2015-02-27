@@ -15,10 +15,10 @@ import org.springframework.web.bind.annotation.RequestMethod;
  */
 @Controller
 public class ControllerR {
-    @RequestMapping(method= RequestMethod.GET,value="/login")
-	public void home(){
+    @RequestMapping(method= RequestMethod.GET,value="/")
+	public String home(){
 		System.out.println("LoginLogoutController.java");
-		
+		return "index";
 	}
         @RequestMapping(method= RequestMethod.GET,value="/bootstrap.jsp")
 	public String bootStrap(){
