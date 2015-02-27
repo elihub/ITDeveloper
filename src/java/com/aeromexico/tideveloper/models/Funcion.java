@@ -1,5 +1,6 @@
 package com.aeromexico.tideveloper.models;
 
+import java.io.Serializable;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -13,7 +14,7 @@ import javax.persistence.Table;
  */
 @Entity
 @Table(name = "catFunciones")
-public class Funcion {
+public class Funcion implements Serializable{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "idFuncion")
