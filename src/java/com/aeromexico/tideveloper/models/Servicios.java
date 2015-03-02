@@ -7,6 +7,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -23,8 +25,15 @@ public class Servicios implements Serializable{
     @Column(name = "idServicio")
     private int id;
     private String nombre;
-    private int idFuncion;
-    private int idServicioTipo;
+    @OneToOne
+    @JoinColumn(name = "idArea")
+    private Area area;
+    @OneToOne
+    @JoinColumn(name = "idFuncion")
+    private Funcion funcion;
+    @OneToOne
+    @JoinColumn(name = "idServicioTipo")
+    private ServiciosTipo servicioTipo;
     private String descripcion;
     private int idUsuario;
     @Temporal(TemporalType.TIMESTAMP)
@@ -48,22 +57,30 @@ public class Servicios implements Serializable{
         this.nombre = nombre;
     }
 
-    public int getIdFuncion() {
-        return idFuncion;
+    public Area getArea() {
+        return area;
     }
 
-    public void setIdFuncion(int idFuncion) {
-        this.idFuncion = idFuncion;
+    public void setArea(Area area) {
+        this.area = area;
+    }
+    
+    public Funcion getFuncion() {
+        return funcion;
     }
 
-    public int getIdServicioTipo() {
-        return idServicioTipo;
+    public void setFuncion(Funcion funcion) {
+        this.funcion = funcion;
     }
 
-    public void setIdServicioTipo(int idServicioTipo) {
-        this.idServicioTipo = idServicioTipo;
+    public ServiciosTipo getServicioTipo() {
+        return servicioTipo;
     }
 
+    public void setServicioTipo(ServiciosTipo servicioTipo) {
+        this.servicioTipo = servicioTipo;
+    }
+    
     public String getDescripcion() {
         return descripcion;
     }
@@ -98,7 +115,6 @@ public class Servicios implements Serializable{
 
     @Override
     public String toString() {
-        return "Servicios{" + "id=" + id + ", nombre=" + nombre + ", idFuncion=" + idFuncion + ", idServicioTipo=" + idServicioTipo + ", descripcion=" + descripcion + ", idUsuario=" + idUsuario + ", fechaCreacion=" + fechaCreacion + ", fechaModificacion=" + fechaModificacion + '}';
+        return "Servicios{" + "id=" + id + ", nombre=" + nombre + ", funcion=" + funcion + ", servicioTipo=" + servicioTipo + ", descripcion=" + descripcion + ", idUsuario=" + idUsuario + ", fechaCreacion=" + fechaCreacion + ", fechaModificacion=" + fechaModificacion + '}';
     }
-
 }
