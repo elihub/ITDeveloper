@@ -53,7 +53,7 @@
                         <li><a href="<c:url value="/soap" />">SOAP</a></li>
                     </ul>
                 </li>
-                <li><a href="#apis">Apis</a></li>
+                <li><a href="<c:url value="/apis"/>">Apis</a></li>
                 <li><a href="#resources">Resources</a></li>
                 <li><a href="#docs">Docs</a></li>
             </ul>
