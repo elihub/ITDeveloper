@@ -4,9 +4,18 @@
 
 <tiles:insertDefinition name="bodyTemplate">
     <tiles:putAttribute name="right">
-        Derecha Soap
+        Izquierda Soap
     </tiles:putAttribute>
     <tiles:putAttribute name="left">
         SOAP
+        <table>
+            <tr>
+                <td>${serv.nombre}</td>
+                <td>${serv.descripcion}</td>
+                <td>${serv.funcion.nombre}</td>
+                <td>${serv.servicioTipo.nombre}</td>
+                <td>${serv.area.nombre}</td>
+            </tr>
+        </table>
     </tiles:putAttribute>
 </tiles:insertDefinition>
