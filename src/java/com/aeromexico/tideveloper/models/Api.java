@@ -7,11 +7,15 @@ package com.aeromexico.tideveloper.models;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
@@ -38,6 +42,9 @@ public class Api implements Serializable{
     private Date fechaCreacion;
     @Temporal(TemporalType.TIMESTAMP)
     private Date fechaModificacion;
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @JoinColumn(name = "idApi")
+    private List<ApisVersiones>versiones;
 
     public Integer getId() {
         return id;
@@ -95,11 +102,19 @@ public class Api implements Serializable{
         this.fechaModificacion = fechaModificacion;
     }
 
+    public List<ApisVersiones> getVersiones() {
+        return versiones;
+    }
+
+    public void setVersiones(List<ApisVersiones> versiones) {
+        this.versiones = versiones;
+    }
+
     @Override
     public String toString() {
-        return "Api{" + "id=" + id + ", nombre=" + nombre + ", funcion=" + funcion + ", descripcion=" + descripcion + ", idUsuario=" + idUsuario + ", fechaCreacion=" + fechaCreacion + ", fechaModificacion=" + fechaModificacion + '}';
+        return "Api{" + "id=" + id + ", nombre=" + nombre + ", funcion=" + funcion + ", descripcion=" + descripcion + ", idUsuario=" + idUsuario + ", fechaCreacion=" + fechaCreacion + ", fechaModificacion=" + fechaModificacion + ", versiones=" + versiones + '}';
     }
-    
-    
+
+   
 
 }
