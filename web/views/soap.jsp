@@ -17,5 +17,11 @@
                 <td>${serv.area.nombre}</td>
             </tr>
         </table>
+                <c:forEach items="${serv.versiones}" var="version" >
+                    ${version.nombre}
+                    </br>
+                    ${version.valor}
+                    </br>
+                </c:forEach>
     </tiles:putAttribute>
 </tiles:insertDefinition>
