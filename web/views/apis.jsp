@@ -9,7 +9,7 @@
        
             <table>
                 <tr>
-                    <td>${api.idApi}</td>
+                    <td>${api.id}</td>
                     <td>${api.nombre}</td>
                 </tr>
             </table>

@@ -7,11 +7,15 @@ package com.aeromexico.tideveloper.models;
 
 import java.io.Serializable;
 import java.util.Date;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
-import org.hibernate.annotations.Type;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 /**
  *
@@ -22,22 +26,25 @@ import org.hibernate.annotations.Type;
 public class Api implements Serializable{
     @Id    
     @GeneratedValue
-    private Integer idApi;
+    @Column(name = "idApi")
+    private Integer id;
     private String nombre;
-    private Integer idFuncion;
+    @OneToOne()
+    @JoinColumn(name = "idFuncion")
+    private Funcion funcion;
     private String descripcion;
     private Integer idUsuario;
-    @Type(type="date")
+    @Temporal(TemporalType.TIMESTAMP)
     private Date fechaCreacion;
-    @Type(type="date")
+    @Temporal(TemporalType.TIMESTAMP)
     private Date fechaModificacion;
 
-    public Integer getIdApi() {
-        return idApi;
+    public Integer getId() {
+        return id;
     }
 
-    public void setIdApi(Integer idApi) {
-        this.idApi = idApi;
+    public void setId(Integer id) {
+        this.id = id;
     }
 
     public String getNombre() {
@@ -48,12 +55,12 @@ public class Api implements Serializable{
         this.nombre = nombre;
     }
 
-    public Integer getIdFuncion() {
-        return idFuncion;
+    public Funcion getFuncion() {
+        return funcion;
     }
 
-    public void setIdFuncion(Integer idFuncion) {
-        this.idFuncion = idFuncion;
+    public void setFuncion(Funcion funcion) {
+        this.funcion = funcion;
     }
 
     public String getDescripcion() {
@@ -90,9 +97,9 @@ public class Api implements Serializable{
 
     @Override
     public String toString() {
-        return "Api{" + "idApi=" + idApi + ", nombre=" + nombre + ", idFuncion=" + idFuncion + ", descripcion=" + descripcion + ", idUsuario=" + idUsuario + ", fechaCreacion=" + fechaCreacion + ", fechaModificacion=" + fechaModificacion + '}';
+        return "Api{" + "id=" + id + ", nombre=" + nombre + ", funcion=" + funcion + ", descripcion=" + descripcion + ", idUsuario=" + idUsuario + ", fechaCreacion=" + fechaCreacion + ", fechaModificacion=" + fechaModificacion + '}';
     }
     
     
-    
+
 }
