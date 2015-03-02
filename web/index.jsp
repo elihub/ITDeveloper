@@ -7,6 +7,6 @@
         Derecha
     </tiles:putAttribute>
     <tiles:putAttribute name="left">
-        <a href="<c:url value="bootstrap.htm"/>">Bootstrap</a>
+        <a href="<c:url value="views/bootstrap.jsp"/>">Bootstrap</a>
     </tiles:putAttribute>
 </tiles:insertDefinition>
