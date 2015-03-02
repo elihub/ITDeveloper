@@ -24,6 +24,10 @@
 		<put-attribute name="content" value="/views/soap.jsp"></put-attribute>
     </definition>
     
+    <definition name="apis" extends="defaultTemplate">
+        <put-attribute name="content" value="/views/apis.jsp"></put-attribute>
+    </definition>
     
     
+  
 </tiles-definitions>
