@@ -21,11 +21,12 @@ import org.springframework.web.bind.annotation.ResponseBody;
  * @author Elida Carrillo
  */
 @Controller
+@RequestMapping("/apis/*")
 public class ApisController {
     @Autowired
     ApiDAO apiDao;
     
-    @RequestMapping(value = "/apis", method =RequestMethod.GET)
+    @RequestMapping(value = "view", method =RequestMethod.GET)
     public String getApi(Model model){
         System.out.println("En getApis");
         return "apis";
@@ -43,5 +44,8 @@ public class ApisController {
         System.out.println("Recupera los datos del api: ");
         return responce;
     }
-            
+    @RequestMapping(value="view/{idApi}", method = RequestMethod.GET )  
+    public String getApiById(){
+        return "apisVersiones";
+    }
 }
