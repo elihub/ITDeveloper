@@ -10,17 +10,20 @@
         <script>
             function format ( d ) {
                 return d.descripcion +
-                    'Ver documentacion';
+                        '<br /><a href="<c:url value="/servicios/versiones/"/>'+d.id+'">Ver documentacion</a>';
             }
             $(document).ready(function() {
             var table = $('#example').DataTable( {
                 "ajax": "<c:url value="/servicios/soapData" />",
+                "language":{
+                    "url":"<c:url value="/resources/js/tableSpanish.json" />"
+                },
                 "columns": [
                     {
                         "title" : '',
                         "className":      'details-control',
                         "orderable":      false,
-                        "data":           'valor',
+                        "data":           null,
                         "defaultContent": ''
                     },
                     {"data":'id'},
