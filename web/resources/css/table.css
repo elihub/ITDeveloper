@@ -464,6 +464,14 @@ table.dataTable td {
     height: 0;
 }
 
+td.details-control {
+    background: url('../images/details_open.png') no-repeat center center;
+    cursor: pointer;
+}
+tr.shown td.details-control {
+    background: url('../images/details_close.png') no-repeat center center;
+}
+
 @media screen and (max-width: 767px) {
     .dataTables_wrapper .dataTables_info,
     .dataTables_wrapper .dataTables_paginate {
@@ -483,6 +491,4 @@ table.dataTable td {
     .dataTables_wrapper .dataTables_filter {
         margin-top: 0.5em;
     }
-
-
 }

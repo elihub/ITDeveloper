@@ -8,6 +8,10 @@
     </tiles:putAttribute>
     <tiles:putAttribute name="left">
         <script>
+            function format ( d ) {
+                return d.descripcion +
+                    'Ver documentacion';
+            }
             $(document).ready(function() {
             var table = $('#example').DataTable( {
                 "ajax": "<c:url value="/servicios/soapData" />",
@@ -25,24 +29,8 @@
                 ],
                 "order": [[1, 'asc']]
             } );
-            /*
-            $.ajax({
-            type: "get",
-            url: "",
-            cache: false,    
-            data:null,
-            success: function(response){
-             $('#result').html("aqui");
-             //var obj = JSON.parse(response);
-             //alert(obj);
-             $('#result').html("First Name:- " + response.idRol +"</br>Last Name:- " + response.nombre  + "</br>Email:- " + response.descripcion);
-            },
-            error: function(){      
-             alert('Error while request..');
-            }
-           });*/
      
-            /* Add event listener for opening and closing details
+            // Add event listener for opening and closing details
             $('#example tbody').on('click', 'td.details-control', function () {
                 var tr = $(this).closest('tr');
                 var row = table.row( tr );
@@ -57,7 +45,7 @@
                     row.child( format(row.data()) ).show();
                     tr.addClass('shown');
                 }
-            } );*/
+            } );
         } );
             
         </script>
@@ -96,6 +84,5 @@
             </tr>
         </tfoot>
     </table>
-                    <div id="result">bla</div>
     </tiles:putAttribute>
 </tiles:insertDefinition>
