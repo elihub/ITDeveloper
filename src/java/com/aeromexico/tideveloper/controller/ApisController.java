@@ -7,7 +7,7 @@ package com.aeromexico.tideveloper.controller;
 
 import com.aeromexico.tideveloper.dao.ApiDAO;
 import com.aeromexico.tideveloper.models.Api;
-import com.aeromexico.tideveloper.models.Responce;
+import com.aeromexico.tideveloper.models.ajax.Response;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -32,10 +32,10 @@ public class ApisController {
     }
     
     @RequestMapping(value="/apisJson",method = RequestMethod.GET)
-    public @ResponseBody Responce getAllApis(){
+    public @ResponseBody Response getAllApis(){
         List<Api> ListApi =apiDao.findAll();
        // Api api =apiDao.findById(1);
-        Responce responce=new Responce();
+        Response responce=new Response();
         responce.setDraw(1);
         responce.setRecordsTotal(1);
         responce.setRecordsFiltered(1);

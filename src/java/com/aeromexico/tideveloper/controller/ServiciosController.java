@@ -1,9 +1,11 @@
 package com.aeromexico.tideveloper.controller;
 
 import com.aeromexico.tideveloper.dao.ServiciosDAO;
+import com.aeromexico.tideveloper.models.ajax.Response;
 import com.aeromexico.tideveloper.models.Servicios;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -30,8 +32,19 @@ public class ServiciosController {
         return "soap";
     }
     
-    @RequestMapping(value = "/soapData")
-    public @ResponseBody List<Servicios> getListServicios(){
-        return serviciosDAO.findAll();
+    @RequestMapping(value = "/soapData", produces = MediaType.APPLICATION_JSON_VALUE)
+    public @ResponseBody Response getListServicios(){
+        System.out.println("En lista servicios response body");
+        List<Servicios> listaServicios = serviciosDAO.findAll();
+        for(Servicios s:listaServicios){
+            System.out.println(s);
+        }
+        
+        Response r = new Response();
+        r.setDraw(1);
+        r.setRecordsFiltered(listaServicios.size());
+        r.setData(listaServicios);
+        
+        return r;
     } 
 }

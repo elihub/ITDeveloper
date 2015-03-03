@@ -33,7 +33,7 @@ public class ServiciosDAOImpl implements ServiciosDAO {
 
     @Override
     public List<Servicios> findAll() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return currentSession().createQuery("FROM Servicios").list();
     }
 
     @Override
