@@ -13,7 +13,7 @@
             </button>
 
             <!--<img height="50px" src="<c:url value="/resources/images/AM-LOGO.jpg" />">-->
-            <a class="navbar-brand" href="#">ITDeveloper</a>
+            <a class="navbar-brand" href="<c:url value="/" />">ITDeveloper</a>
         </div>
         <div class="navbar-collapse collapse">
             <ul class="nav navbar-nav">
