@@ -3,17 +3,7 @@
 <!doctype html>
 <html lang=''>
     <head>
-        <!--
-        <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <script src="http://code.jquery.com/jquery-latest.min.js" type="text/javascript"></script>
-        <script src="<c:url value="/resources/js/menu/script.js" />"></script>
-        <link href="<c:url value="/resources/css/menu.css"/>" rel="stylesheet">
-        <link href="<c:url value="/resources/css/main.css"/>" rel="stylesheet">
-        <link href="<c:url value="/resources/css/header.css"/>" rel="stylesheet">
-        <link href="<c:url value="/resources/css/table.css"/>" rel="stylesheet">
-        <title>JSP Page</title>-->
+       
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -28,12 +18,9 @@
         <link href="<c:url value="/resources/dist/css/bootstrap.min.css" />" rel="stylesheet">
         <!-- Bootstrap theme -->
         <link href="<c:url value="/resources/dist/css/bootstrap-theme.min.css" />" rel="stylesheet">
-        <!-- Custom styles for this template -->
+        <!-- Custom styles -->
         <link href="<c:url value="/resources/dist/css/sticky-footer.css" />" rel="stylesheet">
         <link href="<c:url value="/resources/css/table.css"/>" rel="stylesheet">
-
-        <!-- Custom styles for this template
-        <link href="theme.css" rel="stylesheet"> -->
 
         <!-- Just for debugging purposes. Don't actually copy these 2 lines! -->
         <!--[if lt IE 9]><script src="../../assets/js/ie8-responsive-file-warning.js"></script><![endif]-->
