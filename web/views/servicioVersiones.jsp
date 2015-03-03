@@ -26,7 +26,7 @@
             <tbody>
             <c:forEach items="${serv.versiones}" var="version" >
                 <tr>
-                    <td>${version.valor}-${version.nombre}</td>
+                    <td>v${version.version} - ${version.nombre}</td>
                     <td>link</td>
                 </tr>
             </c:forEach>
