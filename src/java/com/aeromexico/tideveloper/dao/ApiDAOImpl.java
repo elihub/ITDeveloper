@@ -39,7 +39,7 @@ public class ApiDAOImpl implements ApiDAO{
 
     @Override
     public List<Api> findAll() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return currentSession().createQuery("FROM Api").list();
     }
 
     @Override

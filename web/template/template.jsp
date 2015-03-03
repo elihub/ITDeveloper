@@ -12,6 +12,7 @@
         <link href="<c:url value="/resources/css/menu.css"/>" rel="stylesheet">
         <link href="<c:url value="/resources/css/main.css"/>" rel="stylesheet">
         <link href="<c:url value="/resources/css/header.css"/>" rel="stylesheet">
+        <link href="<c:url value="/resources/css/table.css"/>" rel="stylesheet">
         <title>JSP Page</title>-->
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -29,6 +30,7 @@
         <link href="<c:url value="/resources/dist/css/bootstrap-theme.min.css" />" rel="stylesheet">
         <!-- Custom styles for this template -->
         <link href="<c:url value="/resources/dist/css/sticky-footer.css" />" rel="stylesheet">
+        <link href="<c:url value="/resources/css/table.css"/>" rel="stylesheet">
 
         <!-- Custom styles for this template
         <link href="theme.css" rel="stylesheet"> -->
