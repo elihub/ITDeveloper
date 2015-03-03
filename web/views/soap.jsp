@@ -53,44 +53,54 @@
             });
 
         </script>
-        SOAP
-        <table>
-            <tr>
-                <td>${serv.nombre}</td>
-                <td>${serv.descripcion}</td>
-                <td>${serv.funcion.nombre}</td>
-                <td>${serv.servicioTipo.nombre}</td>
-                <td>${serv.area.nombre}</td>
-            </tr>
-        </table>
-        <c:forEach items="${serv.versiones}" var="version" >
-            ${version.nombre}
-            </br>
-            ${version.valor}
-            </br>
-        </c:forEach>
-        <div class="divDataTable">
-            <table id="example" class="display" cellspacing="0" width="100%">
-                <thead>
-                    <tr>
-                        <th></th>
-                        <th>ID</th>
-                        <th>Nombre</th>
-                        <th>Area</th>
-                        <th>Funcion</th>
-                    </tr>
-                </thead>
-
-                <tfoot>
-                    <tr>
-                        <th></th>
-                        <th>ID</th>
-                        <th>Nombre</th>
-                        <th>Area</th>
-                        <th>Funcion</th>
-                    </tr>
-                </tfoot>
+        <header >
+            <div class="page-header">
+                <br>
+                <h1>SOAP</h1>
+            </div>
+            <table>
+                <tr>
+                    <td>${serv.nombre}</td>
+                    <td>${serv.descripcion}</td>
+                    <td>${serv.funcion.nombre}</td>
+                    <td>${serv.servicioTipo.nombre}</td>
+                    <td>${serv.area.nombre}</td>
+                </tr>
             </table>
-        </div>
+            <c:forEach items="${serv.versiones}" var="version" >
+                ${version.nombre}
+                </br>
+                ${version.valor}
+                </br>
+            </c:forEach>
+            <div class="divDataTable">
+                <table id="example" class="display" cellspacing="0" width="100%">
+                    <thead>
+                        <tr>
+                            <th></th>
+                            <th>ID</th>
+                            <th>Nombre</th>
+                            <th>Area</th>
+                            <th>Funcion</th>
+                        </tr>
+                    </thead>
+
+                    <tfoot>
+                        <tr>
+                            <th></th>
+                            <th>ID</th>
+                            <th>Nombre</th>
+                            <th>Area</th>
+                            <th>Funcion</th>
+                        </tr>
+                    </tfoot>
+                </table>
+            </div>
+        </header>
+        <!-- About Section -->
+        <section id="about" class="content-section">
+            <div class="divDataTable">               
+            </div>            
+        </section>
     </tiles:putAttribute>
 </tiles:insertDefinition>
