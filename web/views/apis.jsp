@@ -1,6 +1,15 @@
 <%@taglib uri="http://tiles.apache.org/tags-tiles" prefix="tiles" %>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 
+<script type="text/css">
+    td.details-control {
+    background: url('../resources/images/details_open.png') no-repeat center center;
+    cursor: pointer;
+}
+tr.details td.details-control {
+    background: url('../resources/images/details_close.png') no-repeat center center;
+}
+</script>
 
 <script>
     function format(d) {
