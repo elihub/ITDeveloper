@@ -475,6 +475,9 @@ tr.shown td.details-control {
 .divDataTable{
     width: 95%;
 }
+.divDataForm{
+    width: 50%;
+}
 
 @media screen and (max-width: 767px) {
     .dataTables_wrapper .dataTables_info,
