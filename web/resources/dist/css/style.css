@@ -57,8 +57,11 @@ and open the template in the editor.
   display: block;
 }
 }
-
-
-a.list-group-item:hover .collapse{
-    display:block
+/*
+ul.nav li.dropdown:hover > ul.dropdown-menu {
+    display: block;    
 }
+
+.list-group-item:hover #demo4 {
+   display: block;
+}*/

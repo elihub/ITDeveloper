@@ -4,55 +4,10 @@
 
 <tiles:insertDefinition name="bodyTemplate">
     <tiles:putAttribute name="right">
-        <div class="page-header">
-        <c:forEach items="${menu}" var="m">
-            ${m} <br />
-        </c:forEach>
-        <ul role="menu" aria-labelledby="dropdownMenu" style="display: block; position: static; margin-bottom: 5px; *width: 180px;">
-            <li><a tabindex="-1" href="#">Action</a></li>
-            <li><a tabindex="-1" href="#">Another action</a></li>
-            <li><a tabindex="-1" href="#">Something that is a really really really long string here</a></li>
-            <li class="divider"></li>
-            <li class="dropdown-submenu left-submenu"> <a tabindex="-1" href="#">More options</a>
-                <ul class="dropdown-menu">
-                    <li><a tabindex="-1" href="#">shorter things</a></li>
-                    <li><a tabindex="-1" href="#">shorter things</a></li>
-                    <li><a tabindex="-1" href="#">shorter things</a></li>
-                    <li><a tabindex="-1" href="#">Second level link</a></li>
-                    <li><a tabindex="-1" href="#">Second level link</a></li>
-                    <li><a tabindex="-1" href="#">Second level link</a></li>
-                    <li><a tabindex="-1" href="#">Second level link</a></li>
-                </ul>
-            </li>
-        </ul>
-
-        <div id="MainMenu">
-            <div class="list-group panel">
-                <a href="#demo3" class="list-group-item list-group-item-success" data-parent="#MainMenu">Item 3</a>
-                <div class="collapse" id="demo3">
-                    <a href="#SubMenu1" class="list-group-item" data-toggle="collapse" data-parent="#SubMenu1">Subitem 1 <i class="fa fa-caret-down"></i></a>
-                    <div class="collapse list-group-submenu" id="SubMenu1">
-                        <a href="#" class="list-group-item" data-parent="#SubMenu1">Subitem 1 a</a>
-                        <a href="#" class="list-group-item" data-parent="#SubMenu1">Subitem 2 b</a>
-                        <a href="#SubSubMenu1" class="list-group-item" data-toggle="collapse" data-parent="#SubSubMenu1">Subitem 3 c <i class="fa fa-caret-down"></i></a>
-                        <div class="collapse list-group-submenu list-group-submenu-1" id="SubSubMenu1">
-                            <a href="#" class="list-group-item" data-parent="#SubSubMenu1">Sub sub item 1</a>
-                            <a href="#" class="list-group-item" data-parent="#SubSubMenu1">Sub sub item 2</a>
-                        </div>
-                        <a href="#" class="list-group-item" data-parent="#SubMenu1">Subitem 4 d</a>
-                    </div>
-                    <a href="javascript:;" class="list-group-item">Subitem 2</a>
-                    <a href="javascript:;" class="list-group-item">Subitem 3</a>
-                </div>
-                <a href="#demo4" class="list-group-item list-group-item-success" data-toggle="collapse" data-parent="#MainMenu">Item 4</a>
-                <div class="collapse" id="demo4">
-                    <a href="" class="list-group-item">Subitem 1</a>
-                    <a href="" class="list-group-item">Subitem 2</a>
-                    <a href="" class="list-group-item">Subitem 3</a>
-                </div>
-            </div>
-        </div>
-            </div>
+        <c:import url="/template/menuVertical.jsp" >
+           <c:param name="tituloMenuPrincipal" value="Servicios"/>
+           <c:param name="tituloMenuSecundario" value="SOAP"/>
+        </c:import>
     </tiles:putAttribute>
     <tiles:putAttribute name="left">
         <script>
@@ -60,8 +15,22 @@
                 return d.descripcion +
                         '<br /><a href="<c:url value="/servicios/versiones/"/>' + d.id + '">Ver documentacion</a>';
             }
+            
             $(document).ready(function () {
+                //PARA DESPLEGAR SUBMENU AUTOMATICO EN HOVER
+                $(function () {
+                    $(document).on('mouseenter.collapse', '[data-toggle=collapse]', function (e) {
+                        var $this = $(this),
+                                href, target = $this.attr('data-target') || e.preventDefault() || (href = $this.attr('href')) && href.replace(/.*(?=#[^\s]+$)/, '')
+                                ,
+                                option = $(target).hasClass('in') ? 'hide' : "show";
+                        $('.panel-collapse').not(target).collapse("hide");
+                        $(target).collapse(option);
+                    });
+                });
+
                 var table = $('#example').DataTable({
+                    "search": "false",
                     "ajax": "<c:url value="/servicios/soapData" />",
                     "language": {
                         "url": "<c:url value="/resources/js/tableSpanish.json" />"

@@ -20,8 +20,8 @@
     <definition name="index" extends="defaultTemplate">
 		<put-attribute name="content" value="/index.jsp"></put-attribute>
     </definition>
-    <definition name="soap" extends="defaultTemplate">
-		<put-attribute name="content" value="/views/soap.jsp"></put-attribute>
+    <definition name="soap" extends="defaultTemplate" >
+		<put-attribute name="content" value="/views/soap.jsp" ></put-attribute>
     </definition>
     <definition name="servicioVersiones" extends="defaultTemplate">
 		<put-attribute name="content" value="/views/servicioVersiones.jsp"></put-attribute>

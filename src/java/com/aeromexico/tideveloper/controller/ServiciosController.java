@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -29,8 +30,15 @@ public class ServiciosController {
 
     @Autowired
     private ServiciosDAO serviciosDAO;
-
+    
+    private List<Servicios> listaServicios= new ArrayList<>();
     private final RequestMappingHandlerMapping handlerMapping;
+    
+    @ModelAttribute("listaServicios")
+    public List<Servicios> getPerson(){
+        listaServicios = serviciosDAO.findAll();
+        return listaServicios;
+    }
 
     @Autowired
     public ServiciosController(RequestMappingHandlerMapping handlerMapping) {
@@ -43,6 +51,7 @@ public class ServiciosController {
         Servicios servicio = serviciosDAO.findById(1);
         System.out.println(servicio);
         model.addAttribute("serv", servicio);
+        
         Map<RequestMappingInfo,HandlerMethod> mapeo = this.handlerMapping.getHandlerMethods();
         Iterator<RequestMappingInfo> itM = mapeo.keySet().iterator();
         List<String> menu=new ArrayList<>();
@@ -64,7 +73,7 @@ public class ServiciosController {
     public @ResponseBody
     Response getListServicios() {
         System.out.println("En lista servicios response body");
-        List<Servicios> listaServicios = serviciosDAO.findAll();
+         
         for (Servicios s : listaServicios) {
             System.out.println(s);
         }
