@@ -49,7 +49,7 @@
             });
         </script>        
         <!-- Intro Header -->
-        <header >
+        <header>
             <div class="divDataTable">
                 <div class="page-header">
                     <br>
@@ -70,7 +70,6 @@
                             <th>IdUsuario</th>
                         </tr>
                     </thead>
-
                     <tfoot>
                         <tr>
                             <th></th>
@@ -81,9 +80,9 @@
                         </tr>
                     </tfoot>
                 </table>
-                Nueva Api  <a href="#new"><img src="../resources/images/new.png"/></a>
+                <a href="#new">Nueva Api <img src="../resources/images/new.png"/></a>
 
-        </header>
+       </header>
         <!-- About Section -->
         <section id="new" class="content-section">
            
