@@ -4,6 +4,7 @@
 
 <tiles:insertDefinition name="bodyTemplate">
     <tiles:putAttribute name="right">
+        <div class="page-header">
         <c:forEach items="${menu}" var="m">
             ${m} <br />
         </c:forEach>
@@ -27,8 +28,8 @@
 
         <div id="MainMenu">
             <div class="list-group panel">
-                <a href="#demo3" class="list-group-item list-group-item-success" data-toggle="collapse" data-parent="#MainMenu">Item 3</a>
-                <div id="demo3">
+                <a href="#demo3" class="list-group-item list-group-item-success" data-parent="#MainMenu">Item 3</a>
+                <div class="collapse" id="demo3">
                     <a href="#SubMenu1" class="list-group-item" data-toggle="collapse" data-parent="#SubMenu1">Subitem 1 <i class="fa fa-caret-down"></i></a>
                     <div class="collapse list-group-submenu" id="SubMenu1">
                         <a href="#" class="list-group-item" data-parent="#SubMenu1">Subitem 1 a</a>
@@ -51,6 +52,7 @@
                 </div>
             </div>
         </div>
+            </div>
     </tiles:putAttribute>
     <tiles:putAttribute name="left">
         <script>
