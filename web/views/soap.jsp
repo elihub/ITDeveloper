@@ -68,7 +68,6 @@
                     },
                     "columns": [
                         {
-                            "title": '',
                             "className": 'details-control',
                             "orderable": false,
                             "data": null,

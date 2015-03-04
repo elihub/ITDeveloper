@@ -8,9 +8,11 @@
     </tiles:putAttribute>
     <tiles:putAttribute name="left">        
         <script>
+
             function format(d) {
                 return d.descripcion + "  " + "<a href='<c:url value="view/" />" + d.id + "'>Ver documentacion</a>";
             }
+
             $(document).ready(function () {
                 var table = $('#example').DataTable({
                     "ajax": "<c:url value="apisJson" />",
@@ -25,15 +27,14 @@
                         {"data": 'id'},
                         {"data": 'nombre'},
                         {"data": 'descripcion'},
-                        {data: null,
-                            orderable: false,
-                            defaultContent: '<a href="" class="editor_edit"><img src="../resources/images/edit.png"></a>'},
-                        {data: null,
-                            orderable: false,
-                            defaultContent: '<a href="" class="editor_remove"><img src="../resources/images/remove.png"></a>'}
+                        /*{data: null,
+                         orderable: false,
+                         defaultContent: '<a href="" class="edit"><img src="../resources/images/edit.png"></a>'},
+                         {data: null,
+                         orderable: false,
+                         defaultContent: '<a href="" class="remove"><img src="../resources/images/remove.png"></a>'}*/
 
                     ],
-                            
                     "order": [[1, 'asc']]
                 });
 
@@ -53,7 +54,11 @@
                         tr.addClass('shown');
                     }
                 });
+
             });
+            // Delete a record            
+
+
         </script>        
         <!-- Intro Header -->
         <header>
@@ -74,8 +79,8 @@
                             <th>Id</th>
                             <th>Nombre</th>
                             <th>Descripcion</th>
-                            <th></th>
-                            <th></th>
+                            <!--<th></th>
+                            <th></th>-->
 
                         </tr>
                     </thead>
@@ -85,8 +90,8 @@
                             <th>Id</th>
                             <th>Nombre</th>
                             <th>Descripcion</th>
-                            <th></th>
-                            <th></th>
+                            <!--<th></th>
+                            <th></th>-->
 
                         </tr>
                     </tfoot>
@@ -97,12 +102,31 @@
         <!-- About Section -->
         <section id="new" class="content-section">
 
-            <div class="divDataTable">
-                <h2>About Grayscale</h2>
-                <p>Grayscale is a free Bootstrap 3 theme created by Start Bootstrap. It can be yours right now, simply download the template on <a href="http://startbootstrap.com/template-overviews/grayscale/">the preview page</a>. The theme is open source, and you can use it for any purpose, personal or commercial.</p>
-                <p>This theme features stock photos by <a href="http://gratisography.com/">Gratisography</a> along with a custom Google Maps skin courtesy of <a href="http://snazzymaps.com/">Snazzy Maps</a>.</p>
-                <p>Grayscale includes full HTML, CSS, and custom JavaScript files along with LESS files for easy customization.</p>
-            </div>            
+            <div class="divDataForm">
+                <form role="form">
+                    <div class="form-group">
+                        <label for="ejemplo_email_1">Email</label>
+                        <input type="email" class="form-control" id="ejemplo_email_1"
+                               placeholder="Introduce tu email">
+                    </div>
+                    <div class="form-group">
+                        <label for="ejemplo_password_1">Contraseña</label>
+                        <input type="password" class="form-control" id="ejemplo_password_1" 
+                               placeholder="Contraseña">
+                    </div>
+                    <div class="form-group">
+                        <label for="ejemplo_archivo_1">Adjuntar un archivo</label>
+                        <input type="file" id="ejemplo_archivo_1">
+                        <p class="help-block">Ejemplo de texto de ayuda.</p>
+                    </div>
+                    <div class="checkbox">
+                        <label>
+                            <input type="checkbox"> Activa esta casilla
+                        </label>
+                    </div>
+                    <button type="submit" class="btn btn-default">Enviar</button>
+                </form>
+            </div>         
         </section>
     </tiles:putAttribute>
 </tiles:insertDefinition>
