@@ -44,7 +44,7 @@ public class Api implements Serializable{
     private Date fechaModificacion;
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JoinColumn(name = "idApi")
-    private List<ApisVersiones>versiones;
+    private List<ApisVersiones> versiones;
 
     public Integer getId() {
         return id;
