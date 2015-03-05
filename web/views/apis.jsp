@@ -96,13 +96,13 @@
                         </tr>
                     </tfoot>
                 </table>
-                <a href="#new">Nueva Api <img src="../resources/images/new.png"/></a>
+                <a href="new">Nueva Api <img src="../resources/images/new.png"/></a>
 
         </header>
         <!-- About Section -->
         <section id="new" class="content-section">
 
-            <div class="divDataForm">
+            <!--<div class="divDataForm">
                 <form role="form">
                     <div class="form-group">
                         <label for="ejemplo_email_1">Email</label>
@@ -124,9 +124,9 @@
                             <input type="checkbox"> Activa esta casilla
                         </label>
                     </div>
-                    <button type="submit" class="btn btn-default">Enviar</button>
+                    <button type="submit" class="btn  btn-default ">Enviar</button>
                 </form>
-            </div>         
+            </div>  -->       
         </section>
     </tiles:putAttribute>
 </tiles:insertDefinition>

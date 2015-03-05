@@ -10,21 +10,26 @@
         <put-attribute name="footer" value="/template/footer.jsp" />
     </definition>
     
+    <definition name="templateIndex" template="/template/templateIndex.jsp">
+       
+    </definition>
+    
     <definition name="bodyTemplate" template="/template/body.jsp">
     </definition>
       
     <definition name="bootstrap" extends="defaultTemplate">
-		<put-attribute name="right"
-			value="/views/bootstrap.jsp"></put-attribute>
+        <put-attribute name="right"
+                               value="/views/bootstrap.jsp">
+        </put-attribute>
     </definition>
-    <definition name="index" extends="defaultTemplate">
-		<put-attribute name="content" value="/index.jsp"></put-attribute>
+    <definition name="index" extends="templateIndex" >
+        <put-attribute name="content" value="/index.jsp"></put-attribute>
     </definition>
     <definition name="soap" extends="defaultTemplate">
-		<put-attribute name="content" value="/views/soap.jsp"></put-attribute>
+        <put-attribute name="content" value="/views/soap.jsp"></put-attribute>
     </definition>
     <definition name="servicioVersiones" extends="defaultTemplate">
-		<put-attribute name="content" value="/views/servicioVersiones.jsp"></put-attribute>
+        <put-attribute name="content" value="/views/servicioVersiones.jsp"></put-attribute>
     </definition>
     
     <definition name="apis" extends="defaultTemplate">
@@ -33,6 +38,10 @@
     
     <definition name="apisVersiones" extends="defaultTemplate">
         <put-attribute name="content" value="/views/apisVersiones.jsp"></put-attribute>
+    </definition>
+    
+    <definition name="new" extends="defaultTemplate">
+        <put-attribute name="content" value="/views/altaEditApi.jsp"></put-attribute>
     </definition>
     
   
