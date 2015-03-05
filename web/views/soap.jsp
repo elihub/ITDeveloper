@@ -8,6 +8,7 @@
            <c:param name="tituloMenuPrincipal" value="Servicios"/>
            <c:param name="tituloMenuSecundario" value="SOAP"/>
         </c:import>
+        
     </tiles:putAttribute>
     <tiles:putAttribute name="left">
         <script>
