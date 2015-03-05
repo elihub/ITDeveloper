@@ -38,5 +38,9 @@
         <put-attribute name="content" value="/views/apisVersiones.jsp"></put-attribute>
     </definition>
     
+     <definition name="new" extends="defaultTemplate">
+        <put-attribute name="content" value="/views/newApi.jsp"></put-attribute>
+    </definition>
+    
   
 </tiles-definitions>
