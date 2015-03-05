@@ -52,11 +52,4 @@ public class ApisController {
         return "apisVersiones";
     }
     
-   /* @RequestMapping(value="new", method = RequestMethod.GET )  
-    public String getNewApi(Model model){
-        Api api=new Api();
-        model.addAttribute("api",api);
-        return "new";
-    }*/
-    
 }
