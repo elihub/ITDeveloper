@@ -1,16 +1,16 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.aeromexico.tideveloper.models;
 
 import java.io.Serializable;
+import java.util.List;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 /**
@@ -25,8 +25,9 @@ public class ApisVersiones implements Serializable{
     @Column(name="idApiVersion")
     private Integer id;
     private Double version;
-    private String nombre;
-    private String valor;
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @JoinColumn(name = "idApiVersion")
+    private List<ApisVersionesResources> resources;
 
     public Integer getId() {
         return id;
@@ -44,21 +45,17 @@ public class ApisVersiones implements Serializable{
         this.version = version;
     }
 
-    public String getNombre() {
-        return nombre;
+    public List<ApisVersionesResources> getResources() {
+        return resources;
     }
 
-    public void setNombre(String nombre) {
-        this.nombre = nombre;
+    public void setResources(List<ApisVersionesResources> resources) {
+        this.resources = resources;
     }
 
-    public String getValor() {
-        return valor;
+    @Override
+    public String toString() {
+        return "ApisVersiones{" + "id=" + id + ", version=" + version + ", resources=" + resources + '}';
     }
-
-    public void setValor(String valor) {
-        this.valor = valor;
-    }
-    
     
 }

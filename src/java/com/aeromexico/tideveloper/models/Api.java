@@ -16,7 +16,6 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -33,10 +32,8 @@ public class Api implements Serializable{
     @Column(name = "idApi")
     private Integer id;
     private String nombre;
-    @OneToOne()
-    @JoinColumn(name = "idFuncion")
-    private Funcion funcion;
     private String descripcion;
+    private String resumen;
     private Integer idUsuario;
     @Temporal(TemporalType.TIMESTAMP)
     private Date fechaCreacion;
@@ -45,6 +42,9 @@ public class Api implements Serializable{
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JoinColumn(name = "idApi")
     private List<ApisVersiones> versiones;
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @JoinColumn(name = "idApi")
+    private List<ApisDocs> docs;
 
     public Integer getId() {
         return id;
@@ -62,20 +62,20 @@ public class Api implements Serializable{
         this.nombre = nombre;
     }
 
-    public Funcion getFuncion() {
-        return funcion;
-    }
-
-    public void setFuncion(Funcion funcion) {
-        this.funcion = funcion;
-    }
-
     public String getDescripcion() {
         return descripcion;
     }
 
     public void setDescripcion(String descripcion) {
         this.descripcion = descripcion;
+    }
+
+    public String getResumen() {
+        return resumen;
+    }
+
+    public void setResumen(String resumen) {
+        this.resumen = resumen;
     }
 
     public Integer getIdUsuario() {
@@ -110,11 +110,17 @@ public class Api implements Serializable{
         this.versiones = versiones;
     }
 
-    @Override
-    public String toString() {
-        return "Api{" + "id=" + id + ", nombre=" + nombre + ", funcion=" + funcion + ", descripcion=" + descripcion + ", idUsuario=" + idUsuario + ", fechaCreacion=" + fechaCreacion + ", fechaModificacion=" + fechaModificacion + ", versiones=" + versiones + '}';
+    public List<ApisDocs> getDocs() {
+        return docs;
     }
 
-   
+    public void setDocs(List<ApisDocs> docs) {
+        this.docs = docs;
+    }
 
+    @Override
+    public String toString() {
+        return "Api{" + "id=" + id + ", nombre=" + nombre + ", descripcion=" + descripcion + ", resumen=" + resumen + ", idUsuario=" + idUsuario + ", fechaCreacion=" + fechaCreacion + ", fechaModificacion=" + fechaModificacion + ", versiones=" + versiones + ", docs=" + docs + '}';
+    }
+    
 }
