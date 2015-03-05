@@ -21,7 +21,7 @@
      </div>-->
    <!-- <div style="border-style: solid">-->
         <!-- Jumbotron -->
-        <div class="jumbotron" style="border-style: solid ;background-image: url(resources/images/AEROMEXICO.jpg);background-repeat: no-repeat; background-size: 20% 100%; background-position: center">       <!--<div class="jumbotron">-->
+        <div class="jumbotron" style="width: 80%;height: 250px;margin: 0 auto;style: solid ;background-image: url(resources/images/AEROMEXICO.jpg);background-repeat: no-repeat; background-size: 60% 100%; background-position: center">       <!--<div class="jumbotron">-->
             <!--<img src="resources/images/AEROMEXICO.jpg" style="width: 100px; height: 100px;"/>-->
             <!--<h3>Aeroméxico Developer</h3>-->
             <!-- <p class="lead">Cras justo odio, dapibus ac facilisis in, egestas eget quam. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet.</p>
