@@ -10,14 +10,17 @@
         <put-attribute name="footer" value="/template/footer.jsp" />
     </definition>
     
-    <definition name="bodyTemplate" template="/template/body.jsp">
+     <definition name="bodyTemplate" template="/template/body.jsp">
+    </definition>
+    
+    <definition name="template" template="/template/templateIndex.jsp">
     </definition>
       
     <definition name="bootstrap" extends="defaultTemplate">
 		<put-attribute name="right"
 			value="/views/bootstrap.jsp"></put-attribute>
     </definition>
-    <definition name="index" extends="defaultTemplate">
+    <definition name="index" extends="template">
 		<put-attribute name="content" value="/index.jsp"></put-attribute>
     </definition>
     <definition name="soap" extends="defaultTemplate" >
