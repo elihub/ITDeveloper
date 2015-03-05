@@ -476,7 +476,8 @@ tr.shown td.details-control {
     width: 95%;
 }
 .divDataForm{
-    width: 50%;
+    width: 60%;
+   // margin: 0 auto;
 }
 
 @media screen and (max-width: 767px) {
