@@ -14,6 +14,7 @@
 <script>
     $(document).ready(function () {
         /***********************Dinamic rows tab1**************************/
+        
         var i = 1;
         $("#add_row").click(function () {
             $('#addr' + i).html("<td>" + (i + 1) + "</td>" +
@@ -69,7 +70,7 @@
                 $('#rootwizard .progress-bar').css({width: $percent + '%'});
             }});
         window.prettyPrint && prettyPrint()
-        function submit(){
+        function submit() {
             alert("fin")
         }
     });
@@ -103,22 +104,19 @@
                 <div class="progress-bar" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="width: 0%;"></div>
             </div>
             <div class="tab-content">
-                <form role="form" class="tab-content" action="new" method="POST">
+                <form role="form" class="tab-content" action="api" method="POST">
                     <div class="tab-pane" id="tab1">
                         <label for="nombre">Nombre:</label>
                         <input type="text" value="${api.nombre}" class="form-control" id="nombre" name="nombre" placeholder="Nombre Api">
                         <label for="version">Versión:</label>
-                        <input type="text" value="${api.versiones.get(0).version}" class="form-control" id="version" name="version"  placeholder="Versión">
+                        <input type="text" value="${apiVersion.version}"  class="form-control" id="version" name="version"  placeholder="Versión">
                         <label for="descripcion">Descripción:</label>
                         <input type="text"  value="${api.descripcion}" class="form-control" id="descripcion" name="descripcion" placeholder="Descripción">
                         <label for="resumen">Resumen:</label>
-                        <textarea value="${api.resumen}" class="form-control" rows="3"></textarea>
-                    </div>
-                        <jsp:useBean id="listVersion" class="com.aeromexico.tideveloper.models.Api" scope="request"/>
-                        <jsp:setProperty name ="listVersion" property="version" value="1"/>
-                        <jsp:setProperty name ="listVersion" property="version" value="2"/>
-                        
-                    <div class="tab-pane" id="tab2">
+                        <textarea value="${api.resumen}" class="form-control" rows="3" name="resumen"></textarea>
+                    </div>          
+
+                    <div class="tab-pane" id="tab2">                   
                         <!--<p>
                             <input type='text' name='name' id='name' placeholder='Enter Your Name'>
                         </p>-->
@@ -142,7 +140,7 @@
                                         1
                                     </td>
                                     <td>
-                                        <input type="text" name=''  placeholder='Nombre Archivo' class="form-control"/>
+                                        <input type="text" name='nombreResource'  placeholder='Nombre Archivo' class="form-control"/>
                                     </td>
                                     <td>
                                         <input type="file" id="resource">
@@ -183,10 +181,10 @@
                                         1
                                     </td>
                                     <td>
-                                        <input type="text" name=''  placeholder='Nombre' class="form-control"/>
+                                        <input type="text" name='nombreDoc'  placeholder='Nombre' class="form-control"/>
                                     </td>
                                     <td>
-                                        <textarea class="form-control" rows="3"></textarea>
+                                        <textarea name ="resumenDoc" class="form-control" rows="3"></textarea>
                                     </td>
                                     <td>
                                         <input type="file" id="resource">

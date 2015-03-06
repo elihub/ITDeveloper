@@ -19,8 +19,10 @@ public class ApisDocs implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name="idApiDoc")
     private Integer id;
-    private String nombre;
-    private String resumen;
+    @Column(name="nombre")
+    private String nombreDoc;
+    @Column(name="resumen")
+    private String resumenDoc;
     private String dirDoc;
 
     public Integer getId() {
@@ -31,21 +33,24 @@ public class ApisDocs implements Serializable {
         this.id = id;
     }
 
-    public String getNombre() {
-        return nombre;
+    public String getNombreDoc() {
+        return nombreDoc;
     }
 
-    public void setNombre(String nombre) {
-        this.nombre = nombre;
+    public void setNombreDoc(String nombreDoc) {
+        this.nombreDoc = nombreDoc;
     }
 
-    public String getResumen() {
-        return resumen;
+    public String getResumenDoc() {
+        return resumenDoc;
     }
 
-    public void setResumen(String resumen) {
-        this.resumen = resumen;
+    public void setResumenDoc(String resumenDoc) {
+        this.resumenDoc = resumenDoc;
     }
+
+    
+
 
     public String getDirDoc() {
         return dirDoc;
@@ -57,7 +62,7 @@ public class ApisDocs implements Serializable {
 
     @Override
     public String toString() {
-        return "ApisDocs{" + "id=" + id + ", nombre=" + nombre + ", resumen=" + resumen + ", dirDoc=" + dirDoc + '}';
+        return "ApisDocs{" + "id=" + id + ", nombre=" + nombreDoc + ", resumen=" + resumenDoc + ", dirDoc=" + dirDoc + '}';
     }
     
 }

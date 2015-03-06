@@ -50,8 +50,8 @@ public class Api implements Serializable{
     public Api() {
       versiones=new ArrayList<>();
       docs=new ArrayList<>();
-      ApisVersiones apiVersion=new ApisVersiones();
-      versiones.add(apiVersion);
+      //ApisVersiones apiVersion=new ApisVersiones();
+      //versiones.add(apiVersion);
       
       
     }
@@ -122,11 +122,6 @@ public class Api implements Serializable{
         this.versiones = versiones;
     }
     
-     public void setVersion(ApisVersiones version) {
-         
-        this.versiones.add(version);
-    }
-
     public List<ApisDocs> getDocs() {
         return docs;
     }

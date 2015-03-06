@@ -19,7 +19,8 @@ public class ApisVersionesResources implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name="idApiVersionResource")
     private Integer id;
-    private String nombre;
+    @Column(name="nombre")
+    private String nombreResource;
     private String dirResource;
 
     public Integer getId() {
@@ -30,13 +31,14 @@ public class ApisVersionesResources implements Serializable {
         this.id = id;
     }
 
-    public String getNombre() {
-        return nombre;
+    public String getNombreResource() {
+        return nombreResource;
     }
 
-    public void setNombre(String nombre) {
-        this.nombre = nombre;
+    public void setNombreResource(String nombreResource) {
+        this.nombreResource = nombreResource;
     }
+   
 
     public String getDirResource() {
         return dirResource;
@@ -48,7 +50,7 @@ public class ApisVersionesResources implements Serializable {
 
     @Override
     public String toString() {
-        return "ApisVersionesResources{" + "id=" + id + ", nombre=" + nombre + ", dirResource=" + dirResource + '}';
+        return "ApisVersionesResources{" + "id=" + id + ", nombre=" + nombreResource + ", dirResource=" + dirResource + '}';
     }
     
 }
