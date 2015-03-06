@@ -25,8 +25,8 @@
         <!--Others
         <link href="<-c:url value="/resources/dist/css/grayscale.css" />" rel="stylesheet">-->
         <!-- Just for debugging purposes. Don't actually copy these 2 lines! -->
-        <!--[if lt IE 9]><script src="../../assets/js/ie8-responsive-file-warning.js"></script><![endif]-->
-        <script src="<c:url value="../assets/js/ie-emulation-modes-warning.js" />"></script>
+        <!--[if lt IE 9]><script src="../../assets/js/ie8-responsive-file-warning.js"></script><![endif]
+        <script src="<c:url value="../assets/js/ie-emulation-modes-warning.js" />"></script>-->
 
         <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
         <!--[if lt IE 9]>
@@ -40,9 +40,7 @@
         <!--<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>-->
         <script src="<c:url value="/resources/js/jquery-1.9.1.js" />"></script>
         <script src="<c:url value="/resources/js/dataTables.min.js" />"></script>
-        <script src="<c:url value="/resources/dist/js/bootstrap.js" />"></script>
-        <script src="<c:url value="/resources/dist/js/bootstrap-scrollspy.js" />"></script>
-        <script src="<c:url value="/resources/assets/js/docs.min.js" />"></script>        
+        <script src="<c:url value="/resources/dist/js/bootstrap.js" />"></script>        
         <script src="<c:url value="/resources/dist/js/jquery.easing.min.js" />"></script>
         <!--<script src="/resources/dist/js/grayscale.js"></script>-->
         <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->

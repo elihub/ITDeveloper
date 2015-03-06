@@ -2,7 +2,11 @@
     Created on : 24/02/2015, 12:55:11 PM
     Author     : mperal01
 */
-body { padding-top: 70px; }
+@media (min-width: 980px) {
+    body{
+        padding-top: 50px;
+    }
+}
 
 .navbar-default {
     background-color: #00377b;
@@ -25,8 +29,6 @@ body { padding-top: 70px; }
         padding-left: 8%;
     }
 }
-
-
 
 .navbar-default .navbar-nav>li>a {
     color: #fff;
