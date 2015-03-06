@@ -22,7 +22,7 @@
         <link href="<c:url value="/resources/dist/css/sticky-footer.css" />" rel="stylesheet">
         <link href="<c:url value="/resources/css/table.css"/>" rel="stylesheet">
         <!--Others-->
-        <link href="<c:url value="/resources/dist/css/grayscale.css" />" rel="stylesheet">
+        <!--<link href="<c:url value="/resources/dist/css/grayscale.css" />" rel="stylesheet">-->
         <!-- Just for debugging purposes. Don't actually copy these 2 lines! -->
         <!--[if lt IE 9]><script src="../../assets/js/ie8-responsive-file-warning.js"></script><![endif]-->
         <script src="<c:url value="../assets/js/ie-emulation-modes-warning.js" />"></script>
@@ -42,7 +42,7 @@
         <script src="<c:url value="/resources/dist/js/bootstrap.min.js" />"></script>
         <script src="<c:url value="/resources/assets/js/docs.min.js" />"></script>        
         <script src="<c:url value="/resources/dist/js/jquery.easing.min.js" />"></script>
-        <script src="<c:url value="/resources/dist/js/grayscale.js" />"></script>
+        <!--<script src="<c:url value="/resources/dist/js/grayscale.js" />"></script>-->
         <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
         <script src="<c:url value="/resources/assets/js/ie10-viewport-bug-workaround.js" />"></script>
         <!--Custom styles for my own styles-->

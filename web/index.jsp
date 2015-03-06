@@ -22,8 +22,7 @@
     <!-- <div style="border-style: solid">-->
     <!-- Jumbotron -->
     
-        <div class="jumbotron">       <!--<div class="jumbotron">-->
-            <!--<img src="resources/images/AEROMEXICO.jpg" style="width: 100px; height: 100px;"/>-->
+        <div class="jumbotron">       
             <div style="text-align: center"><img src="resources/images/AEROMEXICO.jpg" class="img-responsive" alt="Responsive image" style="margin:0px auto;width: 40%" > </div>
             <!-- <p><a class="btn btn-lg btn-success" href="#" role="button">Get started today</a></p>-->
        
