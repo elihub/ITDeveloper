@@ -48,7 +48,7 @@
                     <tbody>
                         <c:forEach items="${version.resources}" var="resource" >
                             <tr>
-                                <td>${version.version} - ${resource.nombre}</td>
+                                <td>${version.version} - ${resource.nombreResource}</td>
                                 <td><a href=""><img src="../../resources/images/download2.png"/></a></td>
 
                             </tr>
@@ -61,7 +61,7 @@
         <section id="documentation">
             <h2>DOCUMENTACION</h2>
             <c:forEach items="${api.docs}" var="doc" >
-                ${doc.nombre}-${doc.resumen} <br />
+                ${doc.nombreDoc}-${doc.resumenDoc} <br />
             </c:forEach>
             <br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br />
         </section>
