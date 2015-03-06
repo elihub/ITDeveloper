@@ -20,8 +20,7 @@
         <link href="<c:url value="/resources/dist/css/bootstrap-theme.min.css" />" rel="stylesheet">
         <link href="<c:url value="/resources/dist/css/bootstrap-responsive.css" />" rel="stylesheet">
         <link href="<c:url value="/resources/dist/css/docs.css" />" rel="stylesheet">
-        <!-- Custom styles 
-        <link href="<-c:url value="/resources/dist/css/sticky-footer.css" />" rel="stylesheet">-->
+        
         <link href="<c:url value="/resources/css/table.css"/>" rel="stylesheet">
         <!--Others
         <link href="<-c:url value="/resources/dist/css/grayscale.css" />" rel="stylesheet">-->
@@ -41,7 +40,8 @@
         <!--<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>-->
         <script src="<c:url value="/resources/js/jquery-1.9.1.js" />"></script>
         <script src="<c:url value="/resources/js/dataTables.min.js" />"></script>
-        <script src="<c:url value="/resources/dist/js/bootstrap.min.js" />"></script>
+        <script src="<c:url value="/resources/dist/js/bootstrap.js" />"></script>
+        <script src="<c:url value="/resources/dist/js/bootstrap-scrollspy.js" />"></script>
         <script src="<c:url value="/resources/assets/js/docs.min.js" />"></script>        
         <script src="<c:url value="/resources/dist/js/jquery.easing.min.js" />"></script>
         <!--<script src="/resources/dist/js/grayscale.js"></script>-->
@@ -50,7 +50,7 @@
         <!--Custom styles for my own styles-->
         <link href="<c:url value="/resources/dist/css/style.css" />" rel="stylesheet">
     </head>
-    <body id="page-top" data-spy="scroll" data-target=".navbar-fixed-top">
+    <body id="page-top" data-spy="scroll" data-offset="0">
         <tiles:insertAttribute name="header" />
         <tiles:insertAttribute name="menu" />
         <tiles:insertAttribute name="content" />
