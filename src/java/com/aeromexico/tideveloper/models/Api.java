@@ -6,6 +6,7 @@
 package com.aeromexico.tideveloper.models;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import javax.persistence.CascadeType;
@@ -45,6 +46,17 @@ public class Api implements Serializable{
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JoinColumn(name = "idApi")
     private List<ApisDocs> docs;
+
+    public Api() {
+      versiones=new ArrayList<>();
+      docs=new ArrayList<>();
+      ApisVersiones apiVersion=new ApisVersiones();
+      versiones.add(apiVersion);
+      
+      
+    }
+    
+    
 
     public Integer getId() {
         return id;
@@ -108,6 +120,11 @@ public class Api implements Serializable{
 
     public void setVersiones(List<ApisVersiones> versiones) {
         this.versiones = versiones;
+    }
+    
+     public void setVersion(ApisVersiones version) {
+         
+        this.versiones.add(version);
     }
 
     public List<ApisDocs> getDocs() {
