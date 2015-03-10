@@ -48,8 +48,8 @@ public class Api implements Serializable{
     private List<ApisDocs> docs;
 
     public Api() {
-      versiones=new ArrayList<>();
-      docs=new ArrayList<>();
+      //versiones=new ArrayList<>();
+      //docs=new ArrayList<>();
       //ApisVersiones apiVersion=new ApisVersiones();
       //versiones.add(apiVersion);
       
