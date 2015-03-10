@@ -29,6 +29,9 @@ public class ApisVersiones implements Serializable{
     @JoinColumn(name = "idApiVersion")
     private List<ApisVersionesResources> resources;
 
+    public ApisVersiones() {
+    }   
+
     public Integer getId() {
         return id;
     }
@@ -52,11 +55,7 @@ public class ApisVersiones implements Serializable{
     public void setResources(List<ApisVersionesResources> resources) {
         this.resources = resources;
     }
-    
-     public void setResource(ApisVersionesResources resource) {
-        this.resources.add(resource);
-    }
-
+  
     @Override
     public String toString() {
         return "ApisVersiones{" + "id=" + id + ", version=" + version + ", resources=" + resources + '}';

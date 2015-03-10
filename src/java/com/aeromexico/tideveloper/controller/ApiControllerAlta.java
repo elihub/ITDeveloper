@@ -64,6 +64,12 @@ public class ApiControllerAlta {
             @ModelAttribute("apiDocs") ApisDocs apiDocs,
             HttpServletRequest request,
             Model model) {
+        
+        List<ApisVersiones> listApiVersiones=new ArrayList<ApisVersiones>();
+        listApiVersiones.add(apisVersiones);
+        api.setVersiones(listApiVersiones);      
+        List<ApisVersionesResources> listApisVersionesResources=new ArrayList<ApisVersionesResources>();
+        List<ApisDocs> listApisDocs=new ArrayList<ApisDocs>();
 
         //get the user
         Util.getIdUserLogged(request);
@@ -97,12 +103,12 @@ public class ApiControllerAlta {
                     stream.write(bytes);
                     stream.close();
 
-                    System.out.println("Server File Location="
-                            + serverFile.getAbsolutePath());
+                    System.out.println("Server File Location="+ serverFile.getAbsolutePath());
 
                     message = message + "You successfully uploaded file=" + name + "<br />";
-                    ApisVersionesResources apiVR = new ApisVersionesResources(name, pathFile);
-                    api.getVersiones().get(0).setResource(apiVR);
+                    ApisVersionesResources apiVR = new ApisVersionesResources(name, serverFile.getAbsolutePath());  
+                    listApisVersionesResources.add(apiVR);                        
+                    
                     System.out.println(message);
                 } catch (Exception e) {
                     return "You failed to upload " + name + " => " + e.getMessage();
@@ -110,6 +116,7 @@ public class ApiControllerAlta {
             }
         }
 
+        api.getVersiones().get(0).setResources(listApisVersionesResources);
         //get the files of docs
         if (apiDocs.getFilesDocs().length > 1) {
             System.out.println("files doc size" + apiDocs.getFilesDocs().length);
@@ -141,17 +148,17 @@ public class ApiControllerAlta {
                             + serverFile.getAbsolutePath());
 
                     message = message + "You successfully uploaded file=" + name + "<br />";
-                    apiDocs=new ApisDocs(name,resumen,pathFile);
-                    List<ApisDocs> listApiDocs=new ArrayList<>();
-                    listApiDocs.add(apiDocs);
-                    api.setDocs(listApiDocs);
+                    
+                    ApisDocs apiDoc=new ApisDocs(name,resumen,pathFile);
+                    listApisDocs.add(apiDoc);              
+                    
                     System.out.println(message);
                 } catch (Exception e) {
                     return "You failed to upload " + name + " => " + e.getMessage();
                 }
             }
         }
-
+        api.setDocs(listApisDocs);
         System.out.println("Api" + api.toString());
        // System.out.println("Api versones" + apisVersiones.toString());
         //System.out.println("Api versones resources" + apisVersionesResources.toString());
