@@ -10,17 +10,18 @@
 <script src="<c:url value="/resources/dist/js/jquery.bootstrap.wizard.js" />"></script>
 <!--<script src="<c:url value="/resources/dist/js/jquery.bootstrap.wizard.min.js" />"></script>-->
 <script src="<c:url value="/resources/dist/js/prettify.js" />"></script>
+<script src="<c:url value="/resources/js/formValidation.min.js" />"></script>
+<script src="<c:url value="/resources/js/bootstrap.formValidation.js" />"></script>
 
 <script>
     $(document).ready(function () {
         /***********************Dinamic rows tab1**************************/
-        
+
         var i = 1;
         $("#add_row").click(function () {
             $('#addr' + i).html("<td>" + (i + 1) + "</td>" +
                     "<td><input name='nombreResources' type='text' placeholder='Nombre' class='form-control input-md'  /> </td>"
                     + "<td><input  name='files' type='file' id='files'></td>");
-
             $('#tab_logic').append('<tr id="addr' + (i + 1) + '"></tr>');
             i++;
         });
@@ -37,7 +38,6 @@
                     "<td><input name='nombreDocs' type='text' placeholder='Nombre' class='form-control input-md'  /> </td>"
                     + "<td><textarea class='form-control' rows='3' name='resumenDocs'></textarea></td>"
                     + "<td><input name='filesDocs' type='file' id='resource'></td>");
-
             $('#tab_logic2').append('<tr id="add' + (n + 1) + '"></tr>');
             n++;
         });
@@ -47,21 +47,45 @@
                 n--;
             }
         });
-
-
+        var mensaje = "";
+        var bandera = false;
         /********************************Wizard steps********************************/
         $('#rootwizard').bootstrapWizard({onNext: function (tab, navigation, index) {
-                /*if (index == 2) {
-                 // Make sure we entered the name
-                 if (!$('#name').val()) {
-                 alert('You must enter your name');
-                 $('#name').focus();
-                 return false;
-                 }
-                 }*/
 
-                // Set the name for the next tab
-                //$('#tab3').html('Hello, ' + $('#name').val());
+                if (index == 1) {                    
+                    // Make sure we entered the name
+                    if (!$('#nombre').val()) {
+                        alert('El nombre es requerido');
+                        bandera = true;
+                        mensaje = "Llene los campos requeridos de la API";                        
+                        $('#nombre').focus();
+                        return false;
+                    }
+                    if (!$('#descripcion').val()) {
+                        alert('El nombre es requerido');
+                        bandera = true;
+                        mensaje = "Llene los campos requeridos de la API";                        
+                        $('#descripcion').focus();
+                        return false;
+                    }
+                    if (!$('#version').val()||isNaN($('#version').val())==false || /^[1-9]\d$/.test(formulario.edad.value)==false) {
+                        alert('El nombre es requerido');
+                        bandera = true;
+                        mensaje = "Llene los campos requeridos de la API";                        
+                        $('#version').focus();
+                        return false;
+                    }
+                    
+                    
+                }
+                if (index == 3) {                    
+                    if (bandera == true) {
+                        alert(mensaje);
+                        $('#tab1').focus();
+                        return false;
+                    }
+                }
+
 
             }, onTabShow: function (tab, navigation, index) {
                 var $total = navigation.find('li').length;
@@ -70,14 +94,8 @@
                 $('#rootwizard .progress-bar').css({width: $percent + '%'});
             }});
         window.prettyPrint && prettyPrint()
-        function submit() {
-            alert("fin")
-        }
-    });
 
-
-
-</script>        
+    });</script>        
 
 <div class='container'  style="width: 70%;padding-left: 20%">
 
@@ -91,7 +109,7 @@
                 <div class="navbar-inner">
                     <div class="container">
                         <ul>
-                            <li><a href="#tab1" data-toggle="tab">Nombre de la API</a></li>                                    
+                            <li><a href="#tab1" data-toggle="tab">Datos de la API</a></li>                                    
                             <li><a href="#tab2" data-toggle="tab">Subir Resour(es)</a></li>
                             <li><a href="#tab3" data-toggle="tab">Subir Documentación</a></li>
                             <li><a href="#tab4" data-toggle="tab">Finalizar</a></li>
@@ -104,14 +122,14 @@
                 <div class="progress-bar" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="width: 0%;"></div>
             </div>
             <div class="tab-content">
-                <form role="form" class="tab-content" method="POST" enctype="multipart/form-data">
+                <form id="altaApiForm" role="form" data-toggle="validator" class="tab-content" method="POST" enctype="multipart/form-data">
                     <div class="tab-pane" id="tab1">
-                        <label for="nombre">Nombre:</label>
-                        <input type="text" value="${api.nombre}" class="form-control" id="nombre" name="nombre" placeholder="Nombre Api">
+                        <label for="nombre" >Nombre:</label>
+                        <input type="text" value="${api.nombre}" class="form-control" id="nombre" name="nombre" placeholder="Nombre Api" required>
                         <label for="version">Versión:</label>
-                        <input type="text" value="${apiVersion.version}"  class="form-control" id="version" name="version"  placeholder="Versión">
+                        <input type="text" value="${apiVersion.version}"  class="form-control" id="version" name="version"  placeholder="Versión" required>
                         <label for="descripcion">Descripción:</label>
-                        <input type="text"  value="${api.descripcion}" class="form-control" id="descripcion" name="descripcion" placeholder="Descripción">
+                        <input type="text"  value="${api.descripcion}" class="form-control" id="descripcion" name="descripcion" placeholder="Descripción" required>
                         <label for="resumen">Resumen:</label>
                         <textarea value="${api.resumen}" class="form-control" rows="3" name="resumen"></textarea>
                     </div>          

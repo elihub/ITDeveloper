@@ -20,6 +20,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
 import javax.servlet.http.HttpServletRequest;
+import org.apache.commons.io.FilenameUtils;
+import org.kohsuke.rngom.digested.Main;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -64,12 +66,12 @@ public class ApiControllerAlta {
             @ModelAttribute("apiDocs") ApisDocs apiDocs,
             HttpServletRequest request,
             Model model) {
-        
-        List<ApisVersiones> listApiVersiones=new ArrayList<ApisVersiones>();
+
+        List<ApisVersiones> listApiVersiones = new ArrayList<ApisVersiones>();
         listApiVersiones.add(apisVersiones);
-        api.setVersiones(listApiVersiones);      
-        List<ApisVersionesResources> listApisVersionesResources=new ArrayList<ApisVersionesResources>();
-        List<ApisDocs> listApisDocs=new ArrayList<ApisDocs>();
+        api.setVersiones(listApiVersiones);
+        List<ApisVersionesResources> listApisVersionesResources = new ArrayList<ApisVersionesResources>();
+        List<ApisDocs> listApisDocs = new ArrayList<ApisDocs>();
 
         //get the user
         Util.getIdUserLogged(request);
@@ -81,11 +83,13 @@ public class ApiControllerAlta {
 
         //get the files of resources      
         String message = "";
-        System.out.println("tamaño del resources"+apisVersionesResources.getFiles().length);
-        if (apisVersionesResources.getFiles().length > 0) {
+        System.out.println("tamaño del resources" + apisVersionesResources.getFiles().length);
+        if (apisVersionesResources.getFiles().length >= 1 && apisVersionesResources.getFiles().length == apisVersionesResources.getNombreResources().length) {
             for (int i = 0; i < apisVersionesResources.getFiles().length; i++) {
                 MultipartFile file = apisVersionesResources.getFiles()[i];
-                String name = apisVersionesResources.getNombreResources()[i];
+                System.out.println("name file:"+file.getOriginalFilename());
+                String extencionFile = "."+FilenameUtils.getExtension(file.getOriginalFilename());
+                String name = apisVersionesResources.getNombreResources()[i] + extencionFile;
                 try {
                     byte[] bytes = file.getBytes();
 
@@ -103,12 +107,12 @@ public class ApiControllerAlta {
                     stream.write(bytes);
                     stream.close();
 
-                    System.out.println("Server File Location="+ serverFile.getAbsolutePath());
+                    System.out.println("Server File Location=" + serverFile.getAbsolutePath());
 
-                    message = message + "You successfully uploaded file=" + name + "<br />";
-                    ApisVersionesResources apiVR = new ApisVersionesResources(name, serverFile.getAbsolutePath());  
-                    listApisVersionesResources.add(apiVR);                        
-                    
+                    message = message + "You successfully uploaded file=" + name + extencionFile + "<br />";
+                    ApisVersionesResources apiVR = new ApisVersionesResources(name, serverFile.getAbsolutePath());
+                    listApisVersionesResources.add(apiVR);
+
                     System.out.println(message);
                 } catch (Exception e) {
                     return "You failed to upload " + name + " => " + e.getMessage();
@@ -118,14 +122,16 @@ public class ApiControllerAlta {
 
         api.getVersiones().get(0).setResources(listApisVersionesResources);
         //get the files of docs
-        if (apiDocs.getFilesDocs().length > 1) {
+        if (apiDocs.getFilesDocs().length >= 1 && apiDocs.getFilesDocs().length == apiDocs.getNombreDocs().length) {
             System.out.println("files doc size" + apiDocs.getFilesDocs().length);
             System.out.println("files doc name size" + apiDocs.getNombreDocs().length);
 
             for (int i = 0; i < apiDocs.getFilesDocs().length; i++) {
                 MultipartFile file = apiDocs.getFilesDocs()[i];
                 String name = apiDocs.getNombreDocs()[i];
-                String resumen=apiDocs.getResumenDocs()[i];
+                String resumen = apiDocs.getResumenDocs()[i];                
+                String extencionFile =  "."+FilenameUtils.getExtension(file.getOriginalFilename());
+               
 
                 try {
                     byte[] bytes = file.getBytes();
@@ -137,7 +143,7 @@ public class ApiControllerAlta {
                     }
 
                     // Create the file on server
-                    String pathFile = dir.getAbsolutePath() + File.separator + name;
+                    String pathFile = dir.getAbsolutePath() + File.separator + name + extencionFile;
                     File serverFile = new File(pathFile);
                     BufferedOutputStream stream = new BufferedOutputStream(
                             new FileOutputStream(serverFile));
@@ -147,11 +153,11 @@ public class ApiControllerAlta {
                     System.out.println("Server File Location="
                             + serverFile.getAbsolutePath());
 
-                    message = message + "You successfully uploaded file=" + name + "<br />";
-                    
-                    ApisDocs apiDoc=new ApisDocs(name,resumen,pathFile);
-                    listApisDocs.add(apiDoc);              
-                    
+                    message = message + "You successfully uploaded docs=" + name + extencionFile + "<br />";
+
+                    ApisDocs apiDoc = new ApisDocs(name, resumen, pathFile);
+                    listApisDocs.add(apiDoc);
+
                     System.out.println(message);
                 } catch (Exception e) {
                     return "You failed to upload " + name + " => " + e.getMessage();
@@ -159,13 +165,15 @@ public class ApiControllerAlta {
             }
         }
         api.setDocs(listApisDocs);
-        System.out.println("Api" + api.toString());
-       // System.out.println("Api versones" + apisVersiones.toString());
-        //System.out.println("Api versones resources" + apisVersionesResources.toString());
-        //System.out.println("Api Docs" + apiDocs.toString());
+        System.out.println("Api" + api.toString());       
         System.out.println("Estoy en alta de apis");
-
+        try {
+            if(apiDao.save(api)!=0);
+            System.out.println("success insert");
+        } catch (Exception e) {
+            return "fail upload contact the administrator of the page";
+        }
         return "apis";
     }
-
+   
 }

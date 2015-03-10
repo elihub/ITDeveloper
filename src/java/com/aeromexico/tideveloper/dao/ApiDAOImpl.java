@@ -19,22 +19,22 @@ import org.springframework.transaction.annotation.Transactional;
  */
 @Transactional
 @Repository
-public class ApiDAOImpl implements ApiDAO{
+public class ApiDAOImpl implements ApiDAO {
+
     private SessionFactory sessionFactory;
 
     @Autowired
     public ApiDAOImpl(SessionFactory sessionFactory) {
         this.sessionFactory = sessionFactory;
-    }    
-    
-    
-     private Session currentSession() {
+    }
+
+    private Session currentSession() {
         return sessionFactory.openSession();
     }
 
     @Override
     public Api findById(int id) {
-        return (Api) currentSession().get(Api.class,id);
+        return (Api) currentSession().get(Api.class, id);
     }
 
     @Override
@@ -43,8 +43,9 @@ public class ApiDAOImpl implements ApiDAO{
     }
 
     @Override
-    public int save(Api s) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public int save(Api s) {        
+        int id=(int)currentSession().save(s);
+        return id;        
     }
 
     @Override
@@ -56,5 +57,5 @@ public class ApiDAOImpl implements ApiDAO{
     public void delete(Api s) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
-    
+
 }
