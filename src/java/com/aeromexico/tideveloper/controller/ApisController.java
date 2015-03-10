@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.SessionAttributes;
 
 /**
  *
@@ -24,6 +25,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
  */
 @Controller
 @RequestMapping("/apis/*")
+@SessionAttributes("api")
 public class ApisController {
     @Autowired
     ApiDAO apiDao;
@@ -50,8 +52,7 @@ public class ApisController {
     public String getApiById(@PathVariable("idApi") int idApi, Model model){
         Api api=apiDao.findById(idApi);
         model.addAttribute("api",api);
-        return "apisVerng postApiById(@PathVariable(\"idApi\") int idApi, Model model, @ModelAttribute(\"api\") Api apiMod){\n" +
-"        siones";
+        return "apisVersiones";
     }
     
     @RequestMapping(value="view/{idApi}", method = RequestMethod.POST )  
