@@ -12,6 +12,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -49,6 +50,14 @@ public class ApisController {
     public String getApiById(@PathVariable("idApi") int idApi, Model model){
         Api api=apiDao.findById(idApi);
         model.addAttribute("api",api);
+        return "apisVerng postApiById(@PathVariable(\"idApi\") int idApi, Model model, @ModelAttribute(\"api\") Api apiMod){\n" +
+"        siones";
+    }
+    
+    @RequestMapping(value="view/{idApi}", method = RequestMethod.POST )  
+    public String postApiById(@PathVariable("idApi") int idApi, Model model, @ModelAttribute("api") Api apiMod){
+        
+        model.addAttribute("api",apiMod);
         return "apisVersiones";
     }
     
