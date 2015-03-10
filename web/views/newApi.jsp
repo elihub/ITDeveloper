@@ -18,8 +18,8 @@
         var i = 1;
         $("#add_row").click(function () {
             $('#addr' + i).html("<td>" + (i + 1) + "</td>" +
-                    "<td><input name='name" + i + "' type='text' placeholder='Nombre' class='form-control input-md'  /> </td>"
-                    + "<td><input  name='resource" + i + "' type='file' id='resource'></td>");
+                    "<td><input name='nombreResources' type='text' placeholder='Nombre' class='form-control input-md'  /> </td>"
+                    + "<td><input  name='files' type='file' id='files'></td>");
 
             $('#tab_logic').append('<tr id="addr' + (i + 1) + '"></tr>');
             i++;
@@ -34,9 +34,9 @@
         var n = 1;
         $("#add_row2").click(function () {
             $('#add' + n).html("<td>" + (n + 1) + "</td>" +
-                    "<td><input name='name" + n + "' type='text' placeholder='Nombre' class='form-control input-md'  /> </td>"
-                    + "<td><textarea class='form-control' rows='3'></textarea></td>"
-                    + "<td><input  name='resource" + n + "' type='file' id='resource'></td>");
+                    "<td><input name='nombreDocs' type='text' placeholder='Nombre' class='form-control input-md'  /> </td>"
+                    + "<td><textarea class='form-control' rows='3' name='resumenDocs'></textarea></td>"
+                    + "<td><input name='filesDocs' type='file' id='resource'></td>");
 
             $('#tab_logic2').append('<tr id="add' + (n + 1) + '"></tr>');
             n++;
@@ -104,7 +104,7 @@
                 <div class="progress-bar" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="width: 0%;"></div>
             </div>
             <div class="tab-content">
-                <form role="form" class="tab-content" action="api" method="POST">
+                <form role="form" class="tab-content" method="POST" enctype="multipart/form-data">
                     <div class="tab-pane" id="tab1">
                         <label for="nombre">Nombre:</label>
                         <input type="text" value="${api.nombre}" class="form-control" id="nombre" name="nombre" placeholder="Nombre Api">
@@ -140,10 +140,10 @@
                                         1
                                     </td>
                                     <td>
-                                        <input type="text" name='nombreResource'  placeholder='Nombre Archivo' class="form-control"/>
+                                        <input type="text" name='nombreResources' id='nombreResource'  placeholder='Nombre Archivo' class="form-control"/>
                                     </td>
                                     <td>
-                                        <input type="file" id="resource">
+                                        <input type="file" id="files" name="files">
                                     </td> 
 
                                 </tr>
@@ -181,13 +181,13 @@
                                         1
                                     </td>
                                     <td>
-                                        <input type="text" name='nombreDoc'  placeholder='Nombre' class="form-control"/>
+                                        <input type="text" name='nombreDocs'  placeholder='Nombre' class="form-control"/>
                                     </td>
                                     <td>
-                                        <textarea name ="resumenDoc" class="form-control" rows="3"></textarea>
+                                        <textarea name ="resumenDocs" class="form-control" rows="3"></textarea>
                                     </td>
                                     <td>
-                                        <input type="file" id="resource">
+                                        <input type="file" name="filesDocs" id="resource">
                                     </td> 
 
                                 </tr>

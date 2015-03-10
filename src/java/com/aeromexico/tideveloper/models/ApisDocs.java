@@ -7,23 +7,41 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.persistence.Transient;
+import org.springframework.web.multipart.MultipartFile;
 
 /**
  *
  * @author mperal01
  */
-@Table(name="tabApisDocs")
+@Table(name = "tabApisDocs")
 @Entity
 public class ApisDocs implements Serializable {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name="idApiDoc")
+    @Column(name = "idApiDoc")
     private Integer id;
-    @Column(name="nombre")
+    @Column(name = "nombre")
     private String nombreDoc;
-    @Column(name="resumen")
+    @Column(name = "resumen")
     private String resumenDoc;
     private String dirDoc;
+    @Transient
+    private String[] nombreDocs;
+    @Transient
+    private String[] resumenDocs;
+    @Transient
+    private MultipartFile[] filesDocs;
+
+    public ApisDocs() {
+    }
+
+    public ApisDocs(String nombreDoc, String resumenDoc, String dirDoc) {
+        this.nombreDoc = nombreDoc;
+        this.resumenDoc = resumenDoc;
+        this.dirDoc = dirDoc;
+    }
 
     public Integer getId() {
         return id;
@@ -49,9 +67,6 @@ public class ApisDocs implements Serializable {
         this.resumenDoc = resumenDoc;
     }
 
-    
-
-
     public String getDirDoc() {
         return dirDoc;
     }
@@ -60,9 +75,33 @@ public class ApisDocs implements Serializable {
         this.dirDoc = dirDoc;
     }
 
+    public String[] getNombreDocs() {
+        return nombreDocs;
+    }
+
+    public void setNombreDocs(String[] nombreDocs) {
+        this.nombreDocs = nombreDocs;
+    }
+
+    public String[] getResumenDocs() {
+        return resumenDocs;
+    }
+
+    public void setResumenDocs(String[] resumenDocs) {
+        this.resumenDocs = resumenDocs;
+    }
+
+    public MultipartFile[] getFilesDocs() {
+        return filesDocs;
+    }
+
+    public void setFilesDocs(MultipartFile[] filesDocs) {
+        this.filesDocs = filesDocs;
+    }
+
     @Override
     public String toString() {
-        return "ApisDocs{" + "id=" + id + ", nombre=" + nombreDoc + ", resumen=" + resumenDoc + ", dirDoc=" + dirDoc + '}';
+        return "ApisDocs{" + "id=" + id + ", nombreDoc=" + nombreDoc + ", resumenDoc=" + resumenDoc + ", dirDoc=" + dirDoc + ", nombreDocs=" + nombreDocs + ", resumenDocs=" + resumenDocs + ", filesDocs=" + filesDocs + '}';
     }
-    
+
 }

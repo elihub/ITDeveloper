@@ -52,6 +52,10 @@ public class ApisVersiones implements Serializable{
     public void setResources(List<ApisVersionesResources> resources) {
         this.resources = resources;
     }
+    
+     public void setResource(ApisVersionesResources resource) {
+        this.resources.add(resource);
+    }
 
     @Override
     public String toString() {
