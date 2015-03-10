@@ -9,6 +9,7 @@ import com.aeromexico.tideveloper.dao.ApiDAO;
 import com.aeromexico.tideveloper.models.Api;
 import com.aeromexico.tideveloper.models.ajax.Response;
 import java.util.List;
+import javax.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -16,8 +17,10 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
+import org.springframework.web.servlet.view.RedirectView;
 
 /**
  *
@@ -62,4 +65,12 @@ public class ApisController {
         return "apisVersiones";
     }
     
+    @RequestMapping(value="view/downloads", method = RequestMethod.GET )  
+    public RedirectView getDeleteResource(HttpServletRequest request, @RequestParam(value = "version") int posVersion
+            , @RequestParam(value = "resource") int posResource){
+        System.out.println("Estamos en redireccion");
+        RedirectView rv = new RedirectView(request.getContextPath()+"/apis/view/1");
+		rv.setExposeModelAttributes(false);
+		return rv;
+    }
 }

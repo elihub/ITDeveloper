@@ -78,7 +78,8 @@
             /*$('.textArea').val('');*/
             $('#loginForm').find('[name="nombre"]').focus();
         });
-
+        
+        $('.form-horizontal').formValidation();
     });
 </script>
 <div class="row" style="margin-left: 10px">
@@ -157,20 +158,21 @@
         <section id="downloads">
             <h2>DESCARGAS</h2>
             <c:forEach items="${api.versiones}" var="version" varStatus="indVersion">
-                
+                <c:set var="totalVersiones" value="${indVersion.count}" />
                 <table class="table">
                     <thead>
                         <tr>
-                            <th colspan="2">${indVersion.index} - v${version.version}</th>
+                            <th colspan="4">${indVersion.index} - v${version.version}</th>
                         </tr>
                     </thead>
                     <tbody>
                         <c:forEach items="${version.resources}" var="resource" varStatus="indResources">
+                            <c:set var="totalResources" value="${indResources.count}" />
                             <tr>
                                 <td>${version.version} - ${resource.nombreResource}</td>
                                 <td><a href=""><img src="<c:url value="/resources/images/download2.png" />"/></a></td>
-                                <td><a href="" class="edit"><img src="<c:url value="/resources/images/edit.png" />"></a></td>
-                                <td><a href="" class="remove"><img src="<c:url value="/resources/images/remove.png" />"></a></td>
+                                <td style="width: 30px"><a href="" class="edit"><img src="<c:url value="/resources/images/edit.png" />"></a></td>
+                                <td style="width: 30px"><a href="<c:url value="/apis/view/downloads?version=${indVersion.index}&resource=${indResources.index}" />" class="remove"><img src="<c:url value="/resources/images/remove.png" />"></a></td>
 
                             </tr>
                         </c:forEach>
@@ -180,38 +182,38 @@
                     <button class="btn btn-default" data-toggle="modal" data-target="#downloadModal${indVersion.index}">Agregar Archivo</button>
                 </p>
                 <div class="modal fade" id="downloadModal${indVersion.index}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-                <div class="modal-dialog">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                            <h4 class="modal-title">Agregar Archivo</h4>
-                        </div>
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                                <h4 class="modal-title">Agregar Archivo</h4>
+                            </div>
 
-                        <div class="modal-body">
-                            <!-- The form is placed inside the body of modal -->
-                            <form id="form" method="post" class="form-horizontal">
-                                <div class="form-group">
-                                    <label class="col-xs-3 control-label">Nombre</label>
-                                    <div class="col-xs-9">
-                                        <input type="text" class="form-control" name="username" />
+                            <div class="modal-body">
+                                <!-- The form is placed inside the body of modal -->
+                                <form:form id="form" method="post" class="form-horizontal" modelAttribute="api" enctype="multipart/form-data">
+                                    <div class="form-group">
+                                        <label class="col-xs-3 control-label">Nombre</label>
+                                        <div class="col-xs-9">
+                                            <input type="text" class="form-control" name="versiones[${indVersion.index}].resources[${totalResources}].nombreResource" required/>
+                                        </div>
                                     </div>
-                                </div>
-                                <div class="form-group">
-                                    <label class="col-xs-3 control-label">Archivo</label>
-                                    <div class="col-xs-9">
-                                        <input type="file" name="username" />
+                                    <div class="form-group">
+                                        <label class="col-xs-3 control-label">Archivo</label>
+                                        <div class="col-xs-9">
+                                            <input type="file" name="versiones[${indVersion.index}].resources[${totalResources}].files" required/>
+                                        </div>
                                     </div>
-                                </div>
-                                <div class="form-group">
-                                    <div class="col-xs-5 col-xs-offset-5">
-                                        <button type="submit" class="btn btn-default">Aceptar</button>
+                                    <div class="form-group">
+                                        <div class="col-xs-5 col-xs-offset-5">
+                                            <button type="submit" class="btn btn-default">Aceptar</button>
+                                        </div>
                                     </div>
-                                </div>
-                            </form>
+                                </form:form>
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
             </c:forEach>
             <br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br />
         </section>
