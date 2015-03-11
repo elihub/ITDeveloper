@@ -6,12 +6,15 @@
 <%@taglib uri="http://tiles.apache.org/tags-tiles" prefix="tiles" %>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!-- Custom styles -->
-<link href="<c:url value="/resources/dist/css/prettify.css" />" rel="stylesheet">
+<!--<link href="<%--<c:url value="/resources/dist/css/prettify.css" />"--%> rel="stylesheet">-->
+<link href="<c:url value="/resources/css/form-wizard-and-validation.css" />" rel="stylesheet">
 <script src="<c:url value="/resources/dist/js/jquery.bootstrap.wizard.js" />"></script>
-<!--<script src="<c:url value="/resources/dist/js/jquery.bootstrap.wizard.min.js" />"></script>-->
-<script src="<c:url value="/resources/dist/js/prettify.js" />"></script>
-<script src="<c:url value="/resources/js/formValidation.min.js" />"></script>
-<script src="<c:url value="/resources/js/bootstrap.formValidation.js" />"></script>
+<!--<script src="<%--<c:url value="/resources/dist/js/jquery.bootstrap.wizard.min.js" />">--%></script>-->
+<!--<script src="<%--<c:url value="/resources/js/formValidation.min.js" />">--%></script>-->
+<!--<script src="<%--<c:url value="/resources/js/jquery.validate.js" />">--%></script>-->
+<%--<script src="<c:url value="/resources/js/bootstrap.formValidation.js" />"></script>--%>
+
+
 
 <script>
     $(document).ready(function () {
@@ -47,53 +50,51 @@
                 n--;
             }
         });
-        var mensaje = "";
-        var bandera = false;
-        /********************************Wizard steps********************************/
-        $('#rootwizard').bootstrapWizard({onNext: function (tab, navigation, index) {
+        
+        /*******************************************************************/       
 
-                if (index == 1) {                    
-                    // Make sure we entered the name
-                    if (!$('#nombre').val()) {
-                        alert('El nombre es requerido');
-                        bandera = true;
-                        mensaje = "Llene los campos requeridos de la API";                        
-                        $('#nombre').focus();
-                        return false;
-                    }
-                    if (!$('#descripcion').val()) {
-                        alert('El nombre es requerido');
-                        bandera = true;
-                        mensaje = "Llene los campos requeridos de la API";                        
-                        $('#descripcion').focus();
-                        return false;
-                    }
-                    if (!$('#version').val()||isNaN($('#version').val())==false || /^[1-9]\d$/.test(formulario.edad.value)==false) {
-                        alert('El nombre es requerido');
-                        bandera = true;
-                        mensaje = "Llene los campos requeridos de la API";                        
-                        $('#version').focus();
-                        return false;
-                    }
-                    
-                    
+        var navListItems = $('div.setup-panel div a'),
+                allWells = $('.setup-content'),
+                allNextBtn = $('.nextBtn');
+
+        allWells.hide();
+
+        navListItems.click(function (e) {
+            e.preventDefault();
+            var $target = $($(this).attr('href')),
+                    $item = $(this);
+
+            if (!$item.hasClass('disabled')) {
+                navListItems.removeClass('btn-primary').addClass('btn-default');
+                $item.addClass('btn-primary');
+                allWells.hide();
+                $target.show();
+                $target.find('input:eq(0)').focus();
+            }
+        });
+
+        allNextBtn.click(function () {
+            var curStep = $(this).closest(".setup-content"),
+                    curStepBtn = curStep.attr("id"),
+                    nextStepWizard = $('div.setup-panel div a[href="#' + curStepBtn + '"]').parent().next().children("a"),
+                    curInputs = curStep.find("input[type='text'],input[type='url']"),
+                    isValid = true;
+
+            $(".form-group").removeClass("has-error");
+            for (var i = 0; i < curInputs.length; i++) {
+                if (!curInputs[i].validity.valid) {
+                    isValid = false;
+                    $(curInputs[i]).closest(".form-group").addClass("has-error");
                 }
-                if (index == 3) {                    
-                    if (bandera == true) {
-                        alert(mensaje);
-                        $('#tab1').focus();
-                        return false;
-                    }
-                }
+            }
+
+            if (isValid)
+                nextStepWizard.removeAttr('disabled').trigger('click');
+        });
+
+        $('div.setup-panel div a.btn-primary').trigger('click');
 
 
-            }, onTabShow: function (tab, navigation, index) {
-                var $total = navigation.find('li').length;
-                var $current = index + 1;
-                var $percent = ($current / $total) * 100;
-                $('#rootwizard .progress-bar').css({width: $percent + '%'});
-            }});
-        window.prettyPrint && prettyPrint()
 
     });</script>        
 
@@ -102,136 +103,86 @@
     <section id="wizard">
         <div class="page-header">
             <h3>Alta de API</h3>
-        </div>
-
-        <div id="rootwizard">
-            <div class="navbar">
-                <div class="navbar-inner">
-                    <div class="container">
-                        <ul>
-                            <li><a href="#tab1" data-toggle="tab">Datos de la API</a></li>                                    
-                            <li><a href="#tab2" data-toggle="tab">Subir Resour(es)</a></li>
-                            <li><a href="#tab3" data-toggle="tab">Subir Documentación</a></li>
-                            <li><a href="#tab4" data-toggle="tab">Finalizar</a></li>
-
-                        </ul>
-                    </div>
-                </div>
-            </div>
-            <div id="bar" class="progress">
-                <div class="progress-bar" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="width: 0%;"></div>
-            </div>
-            <div class="tab-content">
-                <form id="altaApiForm" role="form" data-toggle="validator" class="tab-content" method="POST" enctype="multipart/form-data">
-                    <div class="tab-pane" id="tab1">
-                        <label for="nombre" >Nombre:</label>
-                        <input type="text" value="${api.nombre}" class="form-control" id="nombre" name="nombre" placeholder="Nombre Api" required>
-                        <label for="version">Versión:</label>
-                        <input type="text" value="${apiVersion.version}"  class="form-control" id="version" name="version"  placeholder="Versión" required>
-                        <label for="descripcion">Descripción:</label>
-                        <input type="text"  value="${api.descripcion}" class="form-control" id="descripcion" name="descripcion" placeholder="Descripción" required>
-                        <label for="resumen">Resumen:</label>
-                        <textarea value="${api.resumen}" class="form-control" rows="3" name="resumen"></textarea>
-                    </div>          
-
-                    <div class="tab-pane" id="tab2">                   
-                        <!--<p>
-                            <input type='text' name='name' id='name' placeholder='Enter Your Name'>
-                        </p>-->
-                        <table class="table table-bordered table-hover" id="tab_logic">
-                            <thead>
-                                <tr >
-                                    <th class="text-center">
-                                        #
-                                    </th>
-                                    <th class="text-center">
-                                        Nombre
-                                    </th>                                   
-                                    <th class="text-center">
-                                        Resource
-                                    </th>                                            
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr id='addr0'>
-                                    <td>
-                                        1
-                                    </td>
-                                    <td>
-                                        <input type="text" name='nombreResources' id='nombreResource'  placeholder='Nombre Archivo' class="form-control"/>
-                                    </td>
-                                    <td>
-                                        <input type="file" id="files" name="files">
-                                    </td> 
-
-                                </tr>
-                                <tr id='addr1'></tr>
-                            </tbody>                                    
-                            <tfoot>
-                            <a id="add_row" class="btn btn-default pull-left">Nuevo</a>
-                            <a id='delete_row' class="pull-right btn btn-default">Eliminar</a>
-                            </tfoot>
-                        </table>
+        </div> 
 
 
-                    </div>
-                    <div class="tab-pane" id="tab3">
-                        <table class="table table-bordered table-hover" id="tab_logic2">
-                            <thead>
-                                <tr >
-                                    <th class="text-center">
-                                        #
-                                    </th>
-                                    <th class="text-center">
-                                        Nombre Archivo
-                                    </th>
-                                    <th class="text-center">
-                                        Resumen
-                                    </th>
-                                    <th class="text-center">
-                                        Archivo
-                                    </th>                                            
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr id='add0'>
-                                    <td>
-                                        1
-                                    </td>
-                                    <td>
-                                        <input type="text" name='nombreDocs'  placeholder='Nombre' class="form-control"/>
-                                    </td>
-                                    <td>
-                                        <textarea name ="resumenDocs" class="form-control" rows="3"></textarea>
-                                    </td>
-                                    <td>
-                                        <input type="file" name="filesDocs" id="resource">
-                                    </td> 
 
-                                </tr>
-                                <tr id='add1'></tr>
-                            </tbody>                                    
-                            <tfoot>
-                            <a id="add_row2" class="btn btn-default pull-left">Nuevo</a>
-                            <a id='delete_row2' class="pull-right btn btn-default">Eliminar</a>
-                            </tfoot>
-                        </table>
-                    </div>
-                    <div class="tab-pane" id="tab4">                       
-                        <input class="btn btn-default" type="submit" onclick="" value="Guardar">
-                    </div>
-
-                    <ul class="pager wizard">
-                        <li class="previous first" style="display:none;"><a href="#">First</a></li>
-                        <li class="previous"><a href="#">Previous</a></li>
-                        <li class="next last" style="display:none;"><a href="#">Last</a></li>
-                        <li class="next"><a href="#">Next</a></li>
-                    </ul>
-
-                </form>
-            </div>
-        </div>
 
     </section>
+ 
+    <div class="stepwizard">
+        <div class="stepwizard-row setup-panel">
+            <div class="stepwizard-step">
+                <a href="#step-1" type="button" class="btn btn-primary btn-circle">1</a>
+                <p>Step 1</p>
+            </div>
+            <div class="stepwizard-step">
+                <a href="#step-2" type="button" class="btn btn-default btn-circle" disabled="disabled">2</a>
+                <p>Step 2</p>
+            </div>
+            <div class="stepwizard-step">
+                <a href="#step-3" type="button" class="btn btn-default btn-circle" disabled="disabled">3</a>
+                <p>Step 3</p>
+            </div>
+        </div>
+    </div>
+    <form role="form">
+        <div class="row setup-content" id="step-1">
+            <div class="col-xs-12">
+                <div class="col-md-12">
+                    <h3> Step 1</h3>
+                    <label  class="control-label" for="nombre" >Nombre:</label>
+                    <input type="text" value="${api.nombre}" class="form-control" id="nombre" name="nombre" placeholder="Nombre Api" required="required" >
+                    <label for="version">Versión:</label>
+                    <input type="text" value="${apiVersion.version}"  class="form-control" id="version" name="version"  placeholder="Versión" required="required">
+                    <label for="descripcion">Descripción:</label>
+                    <input type="text"  value="${api.descripcion}" class="form-control" id="descripcion" name="descripcion" placeholder="Descripción" required="required">
+                    <label for="resumen">Resumen:</label>
+                    <textarea value="${api.resumen}" class="form-control" rows="3" name="resumen"></textarea>
+                    <button class="btn btn-primary nextBtn btn-lg pull-right" type="button" >Next</button>
+                </div>
+            </div>
+        </div>
+        <div class="row setup-content" id="step-2">
+            <div class="col-xs-12">
+                <div class="col-md-12">
+                    <h3> Step 2</h3>
+                    <div class="form-group">
+                        <label class="control-label">First Name</label>
+                        <input  maxlength="100" type="text" required="required" class="form-control" placeholder="Enter First Name"  />
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label">Last Name</label>
+                        <input maxlength="100" type="text" required="required" class="form-control" placeholder="Enter Last Name" />
+                    </div>
+                    <button class="btn btn-primary nextBtn btn-lg pull-right" type="button" >Next</button>
+                </div>
+            </div>
+        </div>
+        <div class="row setup-content" id="step-3">
+            <div class="col-xs-12">
+                <div class="col-md-12">
+                    <h3> Step 3</h3>
+                    <div class="form-group">
+                        <label class="control-label">Company Name</label>
+                        <input maxlength="200" type="text" required="required" class="form-control" placeholder="Enter Company Name" />
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label">Company Address</label>
+                        <input maxlength="200" type="text" required="required" class="form-control" placeholder="Enter Company Address"  />
+                    </div>
+                    <button class="btn btn-primary nextBtn btn-lg pull-right" type="button" >Next</button>
+                </div>
+            </div>
+        </div>
+        <div class="row setup-content" id="step-4">
+            <div class="col-xs-12">
+                <div class="col-md-12">
+                    <h3> Step 4</h3>
+                    <button class="btn btn-success btn-lg pull-right" type="submit">Finish!</button>
+                </div>
+            </div>
+        </div>
+    </form>
 </div>
 
