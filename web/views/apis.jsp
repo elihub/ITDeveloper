@@ -23,16 +23,16 @@
                             "orderable": false,
                             "data": 'valor',
                             "defaultContent": ''
-                        },
-                        {"data": 'id'},
+                        },                        
                         {"data": 'nombre'},
                         {"data": 'descripcion'},
                         /*{data: null,
                          orderable: false,
-                         defaultContent: '<a href="" class="edit"><img src="../resources/images/edit.png"></a>'},
+                         defaultContent: '<a href="" class="edit"><img src="../resources/images/edit.png"></a>'},*/
                          {data: null,
                          orderable: false,
-                         defaultContent: '<a href="" class="remove"><img src="../resources/images/remove.png"></a>'}*/
+                         //defaultContent: "<a href='<c:url value='delete/'/>"+{"data":'id'}+"' class='remove'><img src='../resources/images/remove.png'></a>"}
+                         defaultContent: "<a href='' class='remove'><img src='../resources/images/remove.png'></a>"}
 
                     ],
                     "order": [[1, 'asc']]
@@ -75,10 +75,10 @@
                 <table id="example" class="display" cellspacing="0" width="100%">
                     <thead>
                         <tr>
-                            <th></th>
-                            <th>Id</th>
+                            <th></th>                            
                             <th>Nombre</th>
                             <th>Descripcion</th>
+                            <th></th>
                             <!--<th></th>
                             <th></th>-->
 
@@ -86,10 +86,10 @@
                     </thead>
                     <tfoot>
                         <tr>
-                            <th></th>
-                            <th>Id</th>
+                            <th></th>                            
                             <th>Nombre</th>
                             <th>Descripcion</th>
+                            <th></th>
                             <!--<th></th>
                             <th></th>-->
 
@@ -101,32 +101,7 @@
         </header>
         <!-- About Section -->
         <section id="new" class="content-section">
-
-            <!--<div class="divDataForm">
-                <form role="form">
-                    <div class="form-group">
-                        <label for="ejemplo_email_1">Email</label>
-                        <input type="email" class="form-control" id="ejemplo_email_1"
-                               placeholder="Introduce tu email">
-                    </div>
-                    <div class="form-group">
-                        <label for="ejemplo_password_1">Contraseña</label>
-                        <input type="password" class="form-control" id="ejemplo_password_1" 
-                               placeholder="Contraseña">
-                    </div>
-                    <div class="form-group">
-                        <label for="ejemplo_archivo_1">Adjuntar un archivo</label>
-                        <input type="file" id="ejemplo_archivo_1">
-                        <p class="help-block">Ejemplo de texto de ayuda.</p>
-                    </div>
-                    <div class="checkbox">
-                        <label>
-                            <input type="checkbox"> Activa esta casilla
-                        </label>
-                    </div>
-                    <button type="submit" class="btn  btn-default ">Enviar</button>
-                </form>
-            </div>  -->       
+                   
         </section>
     </tiles:putAttribute>
 </tiles:insertDefinition>

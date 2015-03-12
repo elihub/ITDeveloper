@@ -178,5 +178,13 @@ public class ApiControllerAlta {
         }
         return "apis";
     }
+    
+    @RequestMapping(value="delete/{idApi}", method = RequestMethod.GET)
+    public String getDelete(@RequestParam("idApi") int idAPi){
+        Api api=new Api();
+        api.setId(idAPi);
+        apiDao.delete(api);
+        return "apis";
+    }
 
 }

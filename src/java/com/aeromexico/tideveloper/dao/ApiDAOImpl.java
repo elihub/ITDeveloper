@@ -73,6 +73,6 @@ public class ApiDAOImpl implements ApiDAO{
 
     @Override
     public void delete(Api s) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        currentSession().delete(s);
     }
 }
