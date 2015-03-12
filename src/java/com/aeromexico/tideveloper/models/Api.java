@@ -47,16 +47,7 @@ public class Api implements Serializable{
     @JoinColumn(name = "idApi")
     private List<ApisDocs> docs;
 
-    public Api() {
-      //versiones=new ArrayList<>();
-      //docs=new ArrayList<>();
-      //ApisVersiones apiVersion=new ApisVersiones();
-      //versiones.add(apiVersion);
-      
-      
-    }
-    
-    
+   
 
     public Integer getId() {
         return id;
