@@ -25,7 +25,7 @@ public class ApiDAOImpl implements ApiDAO{
     
     
      private Session currentSession() {
-        return sessionFactory.openSession();
+        return sessionFactory.getCurrentSession();
     }
 
     @Override
@@ -46,29 +46,7 @@ public class ApiDAOImpl implements ApiDAO{
 
     @Override
     public void update(Api s) {
-        //SessionFactory sf=null;
-        Session ses = null;
-        Transaction tx = null;
-        try {
-            //sf=HibernateUtil.getHQLSessionFactory();
-            ses = currentSession();
-            tx = ses.getTransaction();
-            tx.begin();
-            ses.update(s);
-            tx.commit();
-        } catch (Exception e) {
-            //e.printStackTrace();
-            if (tx != null) {
-                tx.rollback();
-            }
-        } finally {
-            if (ses != null) {
-                ses.close();
-            }
-            if (sessionFactory != null) {
-                sessionFactory.close();
-            }
-        }
+        currentSession().update(s);
     }
 
     @Override
