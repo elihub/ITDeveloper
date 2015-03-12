@@ -5,6 +5,7 @@
 <script src="<c:url value="/resources/js/bootstrap.formValidation.js" />"></script>
 <script>
     $(document).ready(function () {
+        //*MENU navBar lado izquierdo
         $('body').scrollspy({target: '#sidebar', offset: 80});
         var clicked = false;
         $('#mynav li a').click(
@@ -21,7 +22,8 @@
                 $('#mycontent > section > h2').css('padding-top', 0);
             clicked = false;
         });
-
+        
+        
         $('#loginForm').formValidation({
             framework: 'bootstrap',
             icon: {
@@ -57,29 +59,46 @@
                 }
             }
         });
-
-        $('#loginForm').on('success.form.fv', function (e) {
-            // Prevent form submission
-            /*e.preventDefault();
-             
-             var validator = $(e.target).data('formValidation');
-             $('#loginModal')
-             .one('hidden.bs.modal', function () {
-             $('#welcomeModal')
-             .find('.nombre')
-             .html(validator.getFieldElements('nombre').val()).end()
-             .modal('show');
-             })
-             .modal('hide');
-             */
-        });
-
         $('#loginModal').on('shown.bs.modal', function () {
             /*$('.textArea').val('');*/
             $('#loginForm').find('[name="nombre"]').focus();
         });
-        
+        $('#loginForm').on('success.form.fv', function (e) {
+            // Prevent form submission
+            /*e.preventDefault();
+
+            var validator = $(e.target).data('formValidation');
+            $('#loginModal')
+                    .one('hidden.bs.modal', function () {
+                        $('#welcomeModal')
+                                .find('.nombre')
+                                .html(validator.getFieldElements('nombre').val()).end()
+                                .modal('show');
+                    })
+                    .modal('hide');
+            */
+        });
         $('.form-horizontal').formValidation();
+
+        $('.editResource').bind('click',function(e){
+            e.preventDefault();
+            var td1 = $(this).parent().parent().find('td').text()
+            var url = ($(this).attr('href'));
+            var cat = getURLParameter(url, 'version');
+            var typ = getURLParameter(url, 'resource');
+            
+            $('#editDownloadModal')
+                .find('.nombre')
+                .prop('name','versiones['+cat+'].resources['+typ+'].nombreResource').val(td1).end()
+                .find('.file').prop('name','versiones['+cat+'].resources['+typ+'].files').removeAttr('required').end()
+                .modal('show');
+            $('.form-horizontal').formValidation();
+        });
+
+        function getURLParameter(url, name) {
+            return (RegExp(name + '=' + '(.+?)(&|$)').exec(url)||[,null])[1];
+        }
+        
     });
 </script>
 <div class="row" style="margin-left: 10px">
@@ -169,9 +188,9 @@
                         <c:forEach items="${version.resources}" var="resource" varStatus="indResources">
                             <c:set var="totalResources" value="${indResources.count}" />
                             <tr>
-                                <td>${version.version} - ${resource.nombreResource}</td>
+                                <td>${resource.nombreResource}</td>
                                 <td><a href=""><img src="<c:url value="/resources/images/download2.png" />"/></a></td>
-                                <td style="width: 30px"><a href="" class="edit"><img src="<c:url value="/resources/images/edit.png" />"></a></td>
+                                <td style="width: 30px"><a href="?version=${indVersion.index}&resource=${indResources.index}" class="editResource"><img src="<c:url value="/resources/images/edit.png" />"></a></td>
                                 <td style="width: 30px"><a href="<c:url value="/apis/view/downloads?version=${indVersion.index}&resource=${indResources.index}" />" class="remove"><img src="<c:url value="/resources/images/remove.png" />"></a></td>
 
                             </tr>
@@ -179,9 +198,9 @@
                     </tbody>
                 </table>
                 <p class="text-right">
-                    <button class="btn btn-default" data-toggle="modal" data-target="#downloadModal${indVersion.index}">Agregar Archivo</button>
+                    <button class="btn btn-default" data-toggle="modal" data-target="#newDownloadModal${indVersion.index}">Agregar Archivo</button>
                 </p>
-                <div class="modal fade" id="downloadModal${indVersion.index}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                <div class="modal fade modalResource" id="newDownloadModal${indVersion.index}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
                     <div class="modal-dialog">
                         <div class="modal-content">
                             <div class="modal-header">
@@ -191,17 +210,17 @@
 
                             <div class="modal-body">
                                 <!-- The form is placed inside the body of modal -->
-                                <form:form id="form" method="post" class="form-horizontal" modelAttribute="api" enctype="multipart/form-data">
+                                <form:form method="post" class="form-horizontal" modelAttribute="api" enctype="multipart/form-data">
                                     <div class="form-group">
                                         <label class="col-xs-3 control-label">Nombre</label>
                                         <div class="col-xs-9">
-                                            <input type="text" class="form-control" name="versiones[${indVersion.index}].resources[${totalResources}].nombreResource" required/>
+                                            <input type="text" class="form-control nombre" name="versiones[${indVersion.index}].resources[${totalResources}].nombreResource" required />
                                         </div>
                                     </div>
                                     <div class="form-group">
                                         <label class="col-xs-3 control-label">Archivo</label>
                                         <div class="col-xs-9">
-                                            <input type="file" name="versiones[${indVersion.index}].resources[${totalResources}].files" required/>
+                                            <input type="file" class="file" name="versiones[${indVersion.index}].resources[${totalResources}].files" required/>
                                         </div>
                                     </div>
                                     <div class="form-group">
@@ -215,6 +234,39 @@
                     </div>
                 </div>
             </c:forEach>
+                <div class="modal fade modalResource" id="editDownloadModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                                <h4 class="modal-title">Editar Archivo</h4>
+                            </div>
+
+                            <div class="modal-body">
+                                <!-- The form is placed inside the body of modal -->
+                                <form:form method="post" class="form-horizontal" modelAttribute="api" enctype="multipart/form-data">
+                                    <div class="form-group">
+                                        <label class="col-xs-3 control-label">Nombre</label>
+                                        <div class="col-xs-9">
+                                            <input type="text" class="form-control nombre" name="nombreResource" required />
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-xs-3 control-label">Archivo</label>
+                                        <div class="col-xs-9">
+                                            <input type="file" class="file" name="files"/>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <div class="col-xs-5 col-xs-offset-5">
+                                            <button type="submit" class="btn btn-default">Aceptar</button>
+                                        </div>
+                                    </div>
+                                </form:form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             <br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br />
         </section>
         <section id="documentation">

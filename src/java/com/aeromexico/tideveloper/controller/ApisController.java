@@ -60,7 +60,7 @@ public class ApisController {
     
     @RequestMapping(value="view/{idApi}", method = RequestMethod.POST )  
     public String postApiById(@PathVariable("idApi") int idApi, Model model, @ModelAttribute("api") Api apiMod){
-        
+        apiDao.update(apiMod);
         model.addAttribute("api",apiMod);
         return "apisVersiones";
     }
@@ -70,7 +70,7 @@ public class ApisController {
             , @RequestParam(value = "resource") int posResource){
         System.out.println("Estamos en redireccion");
         RedirectView rv = new RedirectView(request.getContextPath()+"/apis/view/1");
-		rv.setExposeModelAttributes(false);
-		return rv;
+	rv.setExposeModelAttributes(false);
+	return rv;
     }
 }
