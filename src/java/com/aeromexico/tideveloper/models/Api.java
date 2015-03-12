@@ -20,6 +20,7 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import org.hibernate.annotations.Cascade;
 
 /**
  *
@@ -40,11 +41,12 @@ public class Api implements Serializable{
     private Date fechaCreacion;
     @Temporal(TemporalType.TIMESTAMP)
     private Date fechaModificacion;
-    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-    @JoinColumn(name = "idApi")
+    @OneToMany(cascade = CascadeType.ALL,fetch = FetchType.EAGER)
+    @JoinColumn(name = "idApi",nullable = false)
+    //@Cascade({org.hibernate.annotations.CascadeType.SAVE_UPDATE, org.hibernate.annotations.CascadeType.DELETE})
     private List<ApisVersiones> versiones;
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-    @JoinColumn(name = "idApi")
+    @JoinColumn(name = "idApi",nullable = false)
     private List<ApisDocs> docs;
 
    

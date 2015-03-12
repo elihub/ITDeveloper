@@ -87,35 +87,37 @@ public class ApiControllerAlta {
         if (apisVersionesResources.getFiles().length >= 1 && apisVersionesResources.getFiles().length == apisVersionesResources.getNombreResources().length) {
             for (int i = 0; i < apisVersionesResources.getFiles().length; i++) {
                 MultipartFile file = apisVersionesResources.getFiles()[i];
-                System.out.println("name file:"+file.getOriginalFilename());
-                String extencionFile = "."+FilenameUtils.getExtension(file.getOriginalFilename());
-                String name = apisVersionesResources.getNombreResources()[i] + extencionFile;
-                try {
-                    byte[] bytes = file.getBytes();
+                if (!file.isEmpty()) {
+                    System.out.println("name file:" + file.getOriginalFilename());
+                    String extencionFile = "." + FilenameUtils.getExtension(file.getOriginalFilename());
+                    String name = apisVersionesResources.getNombreResources()[i] + extencionFile;
+                    try {
+                        byte[] bytes = file.getBytes();
 
-                    // Creating the directory to store file                     
-                    File dir = new File(rootPath + nameFolder + "\\resources");
-                    if (!dir.exists()) {
-                        dir.mkdirs();
+                        // Creating the directory to store file                     
+                        File dir = new File(rootPath + nameFolder + "\\resources");
+                        if (!dir.exists()) {
+                            dir.mkdirs();
+                        }
+
+                        // Create the file on server
+                        String pathFile = dir.getAbsolutePath() + File.separator + name;
+                        File serverFile = new File(pathFile);
+                        BufferedOutputStream stream = new BufferedOutputStream(
+                                new FileOutputStream(serverFile));
+                        stream.write(bytes);
+                        stream.close();
+
+                        System.out.println("Server File Location=" + serverFile.getAbsolutePath());
+
+                        message = message + "You successfully uploaded file=" + name + extencionFile + "<br />";
+                        ApisVersionesResources apiVR = new ApisVersionesResources(name, serverFile.getAbsolutePath());
+                        listApisVersionesResources.add(apiVR);
+
+                        System.out.println(message);
+                    } catch (Exception e) {
+                        return "You failed to upload " + name + " => " + e.getMessage();
                     }
-
-                    // Create the file on server
-                    String pathFile = dir.getAbsolutePath() + File.separator + name;
-                    File serverFile = new File(pathFile);
-                    BufferedOutputStream stream = new BufferedOutputStream(
-                            new FileOutputStream(serverFile));
-                    stream.write(bytes);
-                    stream.close();
-
-                    System.out.println("Server File Location=" + serverFile.getAbsolutePath());
-
-                    message = message + "You successfully uploaded file=" + name + extencionFile + "<br />";
-                    ApisVersionesResources apiVR = new ApisVersionesResources(name, serverFile.getAbsolutePath());
-                    listApisVersionesResources.add(apiVR);
-
-                    System.out.println(message);
-                } catch (Exception e) {
-                    return "You failed to upload " + name + " => " + e.getMessage();
                 }
             }
         }
@@ -128,52 +130,53 @@ public class ApiControllerAlta {
 
             for (int i = 0; i < apiDocs.getFilesDocs().length; i++) {
                 MultipartFile file = apiDocs.getFilesDocs()[i];
-                String name = apiDocs.getNombreDocs()[i];
-                String resumen = apiDocs.getResumenDocs()[i];                
-                String extencionFile =  "."+FilenameUtils.getExtension(file.getOriginalFilename());
-               
+                if (!file.isEmpty()) {
+                    String name = apiDocs.getNombreDocs()[i];
+                    String resumen = apiDocs.getResumenDocs()[i];
+                    String extencionFile = "." + FilenameUtils.getExtension(file.getOriginalFilename());
 
-                try {
-                    byte[] bytes = file.getBytes();
+                    try {
+                        byte[] bytes = file.getBytes();
 
-                    // Creating the directory to store file                    
-                    File dir = new File(rootPath + nameFolder + "\\docs");
-                    if (!dir.exists()) {
-                        dir.mkdirs();
+                        // Creating the directory to store file                    
+                        File dir = new File(rootPath + nameFolder + "\\docs");
+                        if (!dir.exists()) {
+                            dir.mkdirs();
+                        }
+
+                        // Create the file on server
+                        String pathFile = dir.getAbsolutePath() + File.separator + name + extencionFile;
+                        File serverFile = new File(pathFile);
+                        BufferedOutputStream stream = new BufferedOutputStream(
+                                new FileOutputStream(serverFile));
+                        stream.write(bytes);
+                        stream.close();
+
+                        System.out.println("Server File Location="
+                                + serverFile.getAbsolutePath());
+
+                        message = message + "You successfully uploaded docs=" + name + extencionFile + "<br />";
+
+                        ApisDocs apiDoc = new ApisDocs(name, resumen, pathFile);
+                        listApisDocs.add(apiDoc);
+
+                        System.out.println(message);
+                    } catch (Exception e) {
+                        return "You failed to upload " + name + " => " + e.getMessage();
                     }
-
-                    // Create the file on server
-                    String pathFile = dir.getAbsolutePath() + File.separator + name + extencionFile;
-                    File serverFile = new File(pathFile);
-                    BufferedOutputStream stream = new BufferedOutputStream(
-                            new FileOutputStream(serverFile));
-                    stream.write(bytes);
-                    stream.close();
-
-                    System.out.println("Server File Location="
-                            + serverFile.getAbsolutePath());
-
-                    message = message + "You successfully uploaded docs=" + name + extencionFile + "<br />";
-
-                    ApisDocs apiDoc = new ApisDocs(name, resumen, pathFile);
-                    listApisDocs.add(apiDoc);
-
-                    System.out.println(message);
-                } catch (Exception e) {
-                    return "You failed to upload " + name + " => " + e.getMessage();
                 }
             }
         }
         api.setDocs(listApisDocs);
-        System.out.println("Api" + api.toString());       
+        System.out.println("Api" + api.toString());
         System.out.println("Estoy en alta de apis");
         try {
-            if(apiDao.save(api)!=0);
+            if (apiDao.save(api) != 0);
             System.out.println("success insert");
         } catch (Exception e) {
             return "fail upload contact the administrator of the page";
         }
         return "apis";
     }
-   
+
 }

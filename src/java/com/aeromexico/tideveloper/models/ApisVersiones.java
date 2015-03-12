@@ -12,6 +12,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
 /**
  *
@@ -26,7 +27,7 @@ public class ApisVersiones implements Serializable{
     private Integer id;
     private Double version;
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-    @JoinColumn(name = "idApiVersion")
+    @JoinColumn(name = "idApiVersion",nullable = false)
     private List<ApisVersionesResources> resources;
 
     public ApisVersiones() {

@@ -13,6 +13,8 @@
 <!--<script src="<%--<c:url value="/resources/js/formValidation.min.js" />">--%></script>-->
 <!--<script src="<%--<c:url value="/resources/js/jquery.validate.js" />">--%></script>-->
 <%--<script src="<c:url value="/resources/js/bootstrap.formValidation.js" />"></script>--%>
+<script src="<c:url value="/resources/js/formValidation.min.js" />"></script>
+<script src="<c:url value="/resources/js/bootstrap.formValidation.js" />"></script>
 
 
 
@@ -23,7 +25,7 @@
         var i = 1;
         $("#add_row").click(function () {
             $('#addr' + i).html("<td>" + (i + 1) + "</td>" +
-                    "<td><input name='nombreResources' type='text' placeholder='Nombre' class='form-control input-md'  /> </td>"
+                    " <td><div class='form-group'><input type='text' name='nombreResources' id='nombreResource'  placeholder='Nombre Archivo' class='form-control' required='required'/></div></td>"
                     + "<td><input  name='files' type='file' id='files'></td>");
             $('#tab_logic').append('<tr id="addr' + (i + 1) + '"></tr>');
             i++;
@@ -94,6 +96,36 @@
 
         $('div.setup-panel div a.btn-primary').trigger('click');
 
+        $('#apiAltaForm').formValidation({
+            framework: 'bootstrap',
+            icon: {
+                valid: 'glyphicon glyphicon-ok',
+                invalid: 'glyphicon glyphicon-remove',
+                validating: 'glyphicon glyphicon-refresh'
+            },
+            fields: {
+                files: {
+                    validators: {
+                        notEmpty: {
+                            message: 'El resource es obligatorio'
+                        }
+                    }
+                },
+                version: {
+                    decimal: true,
+                    validators: {
+                        notEmpty: {
+                            message: 'La version es obligatoria'
+                        },
+                        numeric: {
+                            message: 'El valor debe ser un numero'
+                        }
+                    }
+                }
+            }
+        });
+
+
     });</script>    
 
 <div class='container'  style="width: 70%;padding-left: 20%">
@@ -124,7 +156,7 @@
             </div>
         </div>
     </div>
-    <form role="form" method="POST" enctype="multipart/form-data">
+    <form role="form" method="POST" enctype="multipart/form-data" id="apiAltaForm">
         <div class="row setup-content" id="step-1">
             <div class="col-xs-12">
                 <div class="col-md-12">
@@ -132,10 +164,16 @@
                     <div class="form-group">
                         <label  class="control-label" for="nombre" >Nombre:</label>
                         <input type="text" value="${api.nombre}" class="form-control" id="nombre" name="nombre" placeholder="Nombre Api" required="required" >
+                    </div>
+                    <div class="form-group">
                         <label for="version">Versión:</label>
                         <input type="text" value="${apiVersion.version}"  class="form-control" id="version" name="version"  placeholder="Versión" required="required">
+                    </div>
+                    <div class="form-group">
                         <label for="descripcion">Descripción:</label>
                         <input type="text"  value="${api.descripcion}" class="form-control" id="descripcion" name="descripcion" placeholder="Descripción" required="required">
+                    </div>
+                    <div class="form-group">
                         <label for="resumen">Resumen:</label>
                         <textarea value="${api.resumen}" class="form-control" rows="3" name="resumen"></textarea>
                     </div>
@@ -146,43 +184,40 @@
         <div class="row setup-content" id="step-2">
             <div class="col-xs-12">
                 <div class="col-md-12">
-                    <h3> Step 2</h3>
-                    <div class="form-group">
-                        <table class="table table-bordered table-hover" id="tab_logic">
-                            <thead>
-                                <tr >
-                                    <th class="text-center">
-                                        #
-                                    </th>
-                                    <th class="text-center">
-                                        Nombre
-                                    </th>                                   
-                                    <th class="text-center">
-                                        Resource
-                                    </th>                                            
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr id='addr0'>
-                                    <td>
-                                        1
-                                    </td>
-                                    <td>
-                                        <input type="text" name='nombreResources' id='nombreResource'  placeholder='Nombre Archivo' class="form-control" required="required"/>
-                                    </td>
-                                    <td>
-                                        <input type="file" id="files" name="files">
-                                    </td> 
-
-                                </tr>
-                                <tr id='addr1'></tr>
-                            </tbody>                                    
-                            <tfoot>
-                            <a id="add_row" class="btn btn-default pull-left">Nuevo</a>
-                            <a id='delete_row' class="pull-right btn btn-default">Eliminar</a>
-                            </tfoot>
-                        </table>
-                    </div>
+                    <h3> Step 2</h3>                    
+                    <table class="table table-bordered table-hover" id="tab_logic">
+                        <thead>
+                            <tr >
+                                <th class="text-center">
+                                    #
+                                </th>
+                                <th class="text-center">
+                                    Nombre
+                                </th>                                   
+                                <th class="text-center">
+                                    Resource
+                                </th>                                            
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr id='addr0'>
+                                <td>
+                                    1
+                                </td>
+                                <td>
+                                    <div class="form-group"><input type="text" name='nombreResources' id='nombreResource'  placeholder='Nombre Archivo' class="form-control" required="required"/></div>
+                                </td>
+                                <td>
+                                    <div class="form-group"><input type="file" id="files" name="files" class="form-control" required="required" ></div>
+                                </td>                         
+                            </tr>
+                            <tr id='addr1'></tr>
+                        </tbody>                                    
+                        <tfoot>
+                        <a id="add_row" class="btn btn-default pull-left">Nuevo</a>
+                        <a id='delete_row' class="pull-right btn btn-default">Eliminar</a>
+                        </tfoot>
+                    </table>                    
                     <button class="btn btn-primary nextBtn btn-lg pull-right" type="button" >Next</button>
                 </div>
             </div>
