@@ -5,12 +5,15 @@
        xmlns:p="http://www.springframework.org/schema/p"
        xmlns:tx="http://www.springframework.org/schema/tx"
 
-       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.0.xsd
-          http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.0.xsd
-          http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.0.xs">
-    
+       xsi:schemaLocation="http://www.springframework.org/schema/beans 
+            http://www.springframework.org/schema/beans/spring-beans-4.0.xsd
+            http://www.springframework.org/schema/context 
+            http://www.springframework.org/schema/context/spring-context-4.0.xsd
+            http://www.springframework.org/schema/tx 
+            http://www.springframework.org/schema/tx/spring-tx-4.0.xsd">
     
     <context:annotation-config /> 
+    <tx:annotation-driven />
     <context:property-placeholder location="classpath:datasource.properties"/>
     
     <bean id="dataSource"
@@ -40,6 +43,10 @@
         </property>
     </bean>
     
+    <bean id="transactionManager"
+		class="org.springframework.orm.hibernate4.HibernateTransactionManager"
+		p:sessionFactory-ref="sessionFactory" />
+    
     <bean id="usuariosDAOImpl"
 		class="com.aeromexico.tideveloper.dao.UsuariosDAOImpl">
 		<!--<beans:constructor-arg index="0" ref="sessionFactory" />-->
@@ -51,10 +58,6 @@
 		class="com.aeromexico.tideveloper.security.DaoAuthenticationProvider">
 		<property name="userDao" ref="usuariosDAOImpl" />
 	</bean>
-        
-   <bean id="transactionManager"
-		class="org.springframework.orm.hibernate4.HibernateTransactionManager"
-		p:sessionFactory-ref="sessionFactory" />
    
    
        

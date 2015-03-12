@@ -70,4 +70,6 @@
         <property name="maxUploadSize" value="15728640" />
         <property name="maxInMemorySize" value="15800000" />
     </bean>
+    
+    <import resource="spring-persistence.xml"/>
 </beans>
