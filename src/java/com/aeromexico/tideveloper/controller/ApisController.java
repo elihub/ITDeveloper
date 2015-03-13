@@ -51,6 +51,7 @@ public class ApisController {
         responce.setRecordsFiltered(1);
         responce.setData(ListApi);
         System.out.println("Recupera los datos del api: ");
+        System.out.println(responce);
         return responce;
     }
     @RequestMapping(value="view/{idApi}", method = RequestMethod.GET )  

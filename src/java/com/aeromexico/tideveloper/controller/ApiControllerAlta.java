@@ -11,6 +11,7 @@ import com.aeromexico.tideveloper.models.ApisDocs;
 import com.aeromexico.tideveloper.models.ApisVersiones;
 import com.aeromexico.tideveloper.models.ApisVersionesResources;
 import com.aeromexico.tideveloper.models.Usuarios;
+import com.aeromexico.tideveloper.models.ajax.Response;
 import com.aeromexico.tideveloper.security.CustomUser;
 import com.aeromexico.tideveloper.util.Util;
 import java.io.BufferedOutputStream;
@@ -177,6 +178,24 @@ public class ApiControllerAlta {
             return "fail upload contact the administrator of the page";
         }
         return "apis";
+    }
+    
+    @RequestMapping(value="delete/{idApi}", method = RequestMethod.GET)
+    public void getDelete(@RequestParam("idApi") int idAPi){
+        /* List<Api> ListApi =apiDao.findAll();
+       // Api api =apiDao.findById(1);
+        Response responce=new Response();
+        responce.setDraw(1);
+        responce.setRecordsTotal(1);
+        responce.setRecordsFiltered(1);
+        responce.setData(ListApi);
+        System.out.println("Recupera los datos del api: ");*/
+       // return responce;
+        
+        Api api=new Api();
+        api.setId(idAPi);
+        apiDao.delete(api);
+        //return "apis";
     }
 
 }
