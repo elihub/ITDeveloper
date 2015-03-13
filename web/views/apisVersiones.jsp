@@ -22,8 +22,8 @@
                 $('#mycontent > section > h2').css('padding-top', 0);
             clicked = false;
         });
-        
-        
+
+
         $('#loginForm').formValidation({
             framework: 'bootstrap',
             icon: {
@@ -66,39 +66,39 @@
         $('#loginForm').on('success.form.fv', function (e) {
             // Prevent form submission
             /*e.preventDefault();
-
-            var validator = $(e.target).data('formValidation');
-            $('#loginModal')
-                    .one('hidden.bs.modal', function () {
-                        $('#welcomeModal')
-                                .find('.nombre')
-                                .html(validator.getFieldElements('nombre').val()).end()
-                                .modal('show');
-                    })
-                    .modal('hide');
-            */
+             
+             var validator = $(e.target).data('formValidation');
+             $('#loginModal')
+             .one('hidden.bs.modal', function () {
+             $('#welcomeModal')
+             .find('.nombre')
+             .html(validator.getFieldElements('nombre').val()).end()
+             .modal('show');
+             })
+             .modal('hide');
+             */
         });
         $('.form-horizontal').formValidation();
 
-        $('.editResource').bind('click',function(e){
+        $('.editResource').bind('click', function (e) {
             e.preventDefault();
             var td1 = $(this).parent().parent().find('td').text()
             var url = ($(this).attr('href'));
             var cat = getURLParameter(url, 'version');
             var typ = getURLParameter(url, 'resource');
-            
+
             $('#editDownloadModal')
-                .find('.nombre')
-                .prop('name','versiones['+cat+'].resources['+typ+'].nombreResource').val(td1).end()
-                .find('.file').prop('name','versiones['+cat+'].resources['+typ+'].files').removeAttr('required').end()
-                .modal('show');
+                    .find('.nombre')
+                    .prop('name', 'versiones[' + cat + '].resources[' + typ + '].nombreResource').val(td1).end()
+                    .find('.file').prop('name', 'versiones[' + cat + '].resources[' + typ + '].files').removeAttr('required').end()
+                    .modal('show');
             $('.form-horizontal').formValidation();
         });
 
         function getURLParameter(url, name) {
-            return (RegExp(name + '=' + '(.+?)(&|$)').exec(url)||[,null])[1];
+            return (RegExp(name + '=' + '(.+?)(&|$)').exec(url) || [, null])[1];
         }
-        
+
     });
 </script>
 <div class="row" style="margin-left: 10px">
@@ -234,39 +234,39 @@
                     </div>
                 </div>
             </c:forEach>
-                <div class="modal fade modalResource" id="editDownloadModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-                    <div class="modal-dialog">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                                <h4 class="modal-title">Editar Archivo</h4>
-                            </div>
+            <div class="modal fade modalResource" id="editDownloadModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                            <h4 class="modal-title">Editar Archivo</h4>
+                        </div>
 
-                            <div class="modal-body">
-                                <!-- The form is placed inside the body of modal -->
-                                <form:form method="post" class="form-horizontal" modelAttribute="api" enctype="multipart/form-data">
-                                    <div class="form-group">
-                                        <label class="col-xs-3 control-label">Nombre</label>
-                                        <div class="col-xs-9">
-                                            <input type="text" class="form-control nombre" name="nombreResource" required />
-                                        </div>
+                        <div class="modal-body">
+                            <!-- The form is placed inside the body of modal -->
+                            <form:form method="post" class="form-horizontal" modelAttribute="api" enctype="multipart/form-data">
+                                <div class="form-group">
+                                    <label class="col-xs-3 control-label">Nombre</label>
+                                    <div class="col-xs-9">
+                                        <input type="text" class="form-control nombre" name="nombreResource" required />
                                     </div>
-                                    <div class="form-group">
-                                        <label class="col-xs-3 control-label">Archivo</label>
-                                        <div class="col-xs-9">
-                                            <input type="file" class="file" name="files"/>
-                                        </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-xs-3 control-label">Archivo</label>
+                                    <div class="col-xs-9">
+                                        <input type="file" class="file" name="files"/>
                                     </div>
-                                    <div class="form-group">
-                                        <div class="col-xs-5 col-xs-offset-5">
-                                            <button type="submit" class="btn btn-default">Aceptar</button>
-                                        </div>
+                                </div>
+                                <div class="form-group">
+                                    <div class="col-xs-5 col-xs-offset-5">
+                                        <button type="submit" class="btn btn-default">Aceptar</button>
                                     </div>
-                                </form:form>
-                            </div>
+                                </div>
+                            </form:form>
                         </div>
                     </div>
                 </div>
+            </div>
             <br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br />
         </section>
         <section id="documentation">

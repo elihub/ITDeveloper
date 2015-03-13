@@ -7,7 +7,9 @@ package com.aeromexico.tideveloper.controller;
 
 import com.aeromexico.tideveloper.dao.ApiDAO;
 import com.aeromexico.tideveloper.models.Api;
+import com.aeromexico.tideveloper.models.ApisVersiones;
 import com.aeromexico.tideveloper.models.ajax.Response;
+import com.aeromexico.tideveloper.util.Util;
 import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -59,7 +61,12 @@ public class ApisController {
     }
     
     @RequestMapping(value="view/{idApi}", method = RequestMethod.POST )  
-    public String postApiById(@PathVariable("idApi") int idApi, Model model, @ModelAttribute("api") Api apiMod){
+    public String postApiById(@PathVariable("idApi") int idApi, Model model
+            , @ModelAttribute("api") Api apiMod, HttpServletRequest request){
+        
+        for(ApisVersiones apiVersion: apiMod.getVersiones()){
+            Util.editResources(apiVersion.getResources(), apiMod.getId());
+        }
         apiDao.update(apiMod);
         model.addAttribute("api",apiMod);
         return "apisVersiones";

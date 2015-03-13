@@ -13,6 +13,10 @@ import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Transient;
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
+import org.hibernate.annotations.LazyCollection;
+import org.hibernate.annotations.LazyCollectionOption;
 
 /**
  *
@@ -26,6 +30,8 @@ public class ApisVersiones implements Serializable{
     @Column(name="idApiVersion")
     private Integer id;
     private Double version;
+    @Fetch(value = FetchMode.SUBSELECT)
+    //@LazyCollection(LazyCollectionOption.FALSE)
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JoinColumn(name = "idApiVersion",nullable = false)
     private List<ApisVersionesResources> resources;
