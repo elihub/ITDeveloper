@@ -1,5 +1,10 @@
 <%@taglib uri="http://tiles.apache.org/tags-tiles" prefix="tiles" %>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%--<script src="<c:url value="/resources/js/jquery.dataTables.min.js" />"></script>
+<script src="<c:url value="/resources/js/dataTables.editor.js" />"></script>
+<script src="<c:url value="/resources/js/jquery-1.11.1.min.js" />"></script>--%>
+
+
 
 
 <tiles:insertDefinition name="bodyTemplate">
@@ -12,8 +17,26 @@
             function format(d) {
                 return d.descripcion + "  " + "<a href='<c:url value="view/" />" + d.id + "'>Ver documentacion</a>";
             }
-
+            function eliminar(d) {
+                return d.id;
+            }
+            var editor;
             $(document).ready(function () {
+
+                /*editor = new $.fn.dataTable.Editor({
+                 ajax: "delete",
+                 table: "#example",
+                 display: 'envelope',
+                 fields: [/*{
+                 label: "nada",
+                 name: "uno"
+                 },
+                 ]
+                 });*/
+
+                // Delete a record               
+
+
                 var table = $('#example').DataTable({
                     "ajax": "<c:url value="apisJson" />",
                     "columns": [
@@ -23,20 +46,25 @@
                             "orderable": false,
                             "data": 'valor',
                             "defaultContent": ''
-                        },                        
+                        },
                         {"data": 'nombre'},
                         {"data": 'descripcion'},
                         /*{data: null,
                          orderable: false,
                          defaultContent: '<a href="" class="edit"><img src="../resources/images/edit.png"></a>'},*/
-                         {data: null,
-                         orderable: false,
-                         //defaultContent: "<a href='<c:url value='delete/'/>"+{"data":'id'}+"' class='remove'><img src='../resources/images/remove.png'></a>"}
-                         defaultContent: "<a href='' class='remove'><img src='../resources/images/remove.png'></a>"}
+                        {data: null,
+                            orderable: false,
+                            // defaultContent: "<a href='<c:url value='delete/'/>'class='remove'><img src='../resources/images/remove.png'></a>"}
+                            defaultContent: "<a href='#' class='remove'><img src='../resources/images/remove.png'></a>"}
 
                     ],
                     "order": [[1, 'asc']]
                 });
+                
+                 function getId() {                    
+                    var data = table.row(0).data();
+                    alert(table);
+                }
 
                 // Add event listener for opening and closing details
                 $('#example tbody').on('click', 'td.details-control', function () {
@@ -55,8 +83,9 @@
                     }
                 });
 
+
             });
-            // Delete a record            
+
 
 
         </script>        
@@ -97,11 +126,12 @@
                     </tfoot>
                 </table>
                 <a href="new">Nueva Api <img src="../resources/images/new.png"/></a>
+                <a href="javascript:void(0);" onclick="getId();">id</a>
 
         </header>
         <!-- About Section -->
         <section id="new" class="content-section">
-                   
+
         </section>
     </tiles:putAttribute>
 </tiles:insertDefinition>

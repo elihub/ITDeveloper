@@ -49,6 +49,11 @@ public class Response {
         this.data = data;
     }
 
+    @Override
+    public String toString() {
+        return "Response{" + "draw=" + draw + ", recordsTotal=" + recordsTotal + ", recordsFiltered=" + recordsFiltered + ", data=" + data + '}';
+    }
+
    
     
 }
