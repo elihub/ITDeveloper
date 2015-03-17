@@ -63,21 +63,7 @@
             /*$('.textArea').val('');*/
             $('#loginForm').find('[name="nombre"]').focus();
         });
-        $('#loginForm').on('success.form.fv', function (e) {
-            // Prevent form submission
-            /*e.preventDefault();
-             
-             var validator = $(e.target).data('formValidation');
-             $('#loginModal')
-             .one('hidden.bs.modal', function () {
-             $('#welcomeModal')
-             .find('.nombre')
-             .html(validator.getFieldElements('nombre').val()).end()
-             .modal('show');
-             })
-             .modal('hide');
-             */
-        });
+        
         $('.form-horizontal').formValidation();
 
         $('.editResource').bind('click', function (e) {
@@ -94,7 +80,24 @@
                     .modal('show');
             $('.form-horizontal').formValidation();
         });
+        
+        $('.editDocs').bind('click', function (e) {
+            e.preventDefault();
+            var td1 = $(this).parent().parent().find('td').text();
+            var resumen = $(this).closest('tr').next('tr').find('td').text();
+            var url = ($(this).attr('href'));
+            var docId = getURLParameter(url, 'docs');
 
+            $('#editDocsModal')
+                    .find('.nombre')
+                    .prop('name', 'docs[' + docId + '].nombreDoc').val(td1).end()
+                    .find('.resumen')
+                    .prop('name', 'docs[' + docId + '].resumenDoc').val(resumen.trim()).end()
+                    .find('.file')
+                    .prop('name', 'docs[' + docId + '].filesDocs').removeAttr('required').end()
+                    .modal('show');
+            $('.form-horizontal').formValidation();
+        });
         function getURLParameter(url, name) {
             return (RegExp(name + '=' + '(.+?)(&|$)').exec(url) || [, null])[1];
         }
@@ -212,6 +215,7 @@
                                 <!-- The form is placed inside the body of modal -->
                                 <form:form method="post" class="form-horizontal" modelAttribute="api" enctype="multipart/form-data">
                                     <div class="form-group">
+                                        <input type="hidden" name="resource" value="true" />
                                         <label class="col-xs-3 control-label">Nombre</label>
                                         <div class="col-xs-9">
                                             <input type="text" class="form-control nombre" name="versiones[${indVersion.index}].resources[${totalResources}].nombreResource" required />
@@ -246,6 +250,7 @@
                             <!-- The form is placed inside the body of modal -->
                             <form:form method="post" class="form-horizontal" modelAttribute="api" enctype="multipart/form-data">
                                 <div class="form-group">
+                                    <input type="hidden" name="resource" value="true" />
                                     <label class="col-xs-3 control-label">Nombre</label>
                                     <div class="col-xs-9">
                                         <input type="text" class="form-control nombre" name="nombreResource" required />
@@ -271,13 +276,114 @@
         </section>
         <section id="documentation">
             <h2>DOCUMENTACION</h2>
-            <c:forEach items="${api.docs}" var="doc" >
-                ${doc.nombreDoc}-${doc.resumenDoc} <br />
-            </c:forEach>
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th colspan="4"></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <c:forEach items="${api.docs}" var="doc" varStatus="ind">
+                        <c:set var="totalVersionesDocs" value="${ind.count}" />
+                        <tr>
+                            <td>${doc.nombreDoc}</td>
+                            <td><a href=""><img src="<c:url value="/resources/images/download2.png" />"/></a></td>
+                            <td style="width: 30px"><a href="?docs=${ind.index}" class="editDocs"><img src="<c:url value="/resources/images/edit.png" />"></a></td>
+                            <td style="width: 30px"><a href="<c:url value="/apis/view/docs?docs=${ind.index}" />" class="remove"><img src="<c:url value="/resources/images/remove.png" />"></a></td>
+                        </tr>
+                        <tr>
+                            <td colspan="4" style="border-top:none">
+                                ${doc.resumenDoc}
+                            </td>
+                        </tr>
+                    </c:forEach>
+                </tbody>
+            </table>
+            <p class="text-right">
+                <button class="btn btn-default" data-toggle="modal" data-target="#newDocsModal">Agregar Archivo</button>
+            </p>
+            <div class="modal fade modalResource" id="newDocsModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                            <h4 class="modal-title">Agregar Archivo</h4>
+                        </div>
+
+                        <div class="modal-body">
+                            <!-- The form is placed inside the body of modal -->
+                            <form:form method="post" class="form-horizontal" modelAttribute="api" enctype="multipart/form-data">
+                                <div class="form-group">
+                                    <input type="hidden" name="documentos" value="true" />
+                                    <label class="col-xs-3 control-label">Nombre</label>
+                                    <div class="col-xs-9">
+                                        <input type="text" class="form-control nombre" name="docs[${totalVersionesDocs}].nombreDoc" required />
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-xs-3 control-label">Resumen</label>
+                                    <div class="col-xs-9">
+                                        <input type="text" class="form-control resumen" name="docs[${totalVersionesDocs}].resumenDoc" required />
+                                    </div>
+                                </div>    
+                                <div class="form-group">
+                                    <label class="col-xs-3 control-label">Archivo</label>
+                                    <div class="col-xs-9">
+                                        <input type="file" class="file" name="docs[${totalVersionesDocs}].filesDocs" required/>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <div class="col-xs-5 col-xs-offset-5">
+                                        <button type="submit" class="btn btn-default">Aceptar</button>
+                                    </div>
+                                </div>
+                            </form:form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal fade modalResource" id="editDocsModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                            <h4 class="modal-title">Editar Archivo</h4>
+                        </div>
+                        <div class="modal-body">
+                            <form:form method="post" class="form-horizontal" modelAttribute="api" enctype="multipart/form-data">
+                                <div class="form-group">
+                                    <input type="hidden" name="documentos" value="true" />
+                                    <label class="col-xs-3 control-label">Nombre</label>
+                                    <div class="col-xs-9">
+                                        <input type="text" class="form-control nombre" name="nombreDocs" required />
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-xs-3 control-label">Resumen</label>
+                                    <div class="col-xs-9">
+                                        <input type="text" class="form-control resumen" name="resumenDocs" />
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-xs-3 control-label">Archivo</label>
+                                    <div class="col-xs-9">
+                                        <input type="file" class="file" name="filesDocs"/>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <div class="col-xs-5 col-xs-offset-5">
+                                        <button type="submit" class="btn btn-default">Aceptar</button>
+                                    </div>
+                                </div>
+                            </form:form>
+                        </div>
+                    </div>
+                </div>
+            </div>
             <br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br />
         </section>
         <section id="technology">
-            <h2>Tecnologias</h2>
+            <h2>TECNOLOGIAS</h2>
             <br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br />
         </section>
     </div>
