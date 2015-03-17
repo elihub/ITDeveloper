@@ -181,6 +181,7 @@ public class ApiControllerAlta {
         //api.setId(Integer.valueOf(idAPi));
         apiDao.delete(api);
         rv.setExposeModelAttributes(false);
+        //coment
 	return rv;
     }
 
