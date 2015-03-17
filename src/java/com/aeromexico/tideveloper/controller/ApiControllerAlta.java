@@ -10,9 +10,6 @@ import com.aeromexico.tideveloper.models.Api;
 import com.aeromexico.tideveloper.models.ApisDocs;
 import com.aeromexico.tideveloper.models.ApisVersiones;
 import com.aeromexico.tideveloper.models.ApisVersionesResources;
-import com.aeromexico.tideveloper.models.Usuarios;
-import com.aeromexico.tideveloper.models.ajax.Response;
-import com.aeromexico.tideveloper.security.CustomUser;
 import com.aeromexico.tideveloper.util.Util;
 import java.io.BufferedOutputStream;
 import java.io.File;
@@ -22,19 +19,14 @@ import java.util.List;
 import java.util.ResourceBundle;
 import javax.servlet.http.HttpServletRequest;
 import org.apache.commons.io.FilenameUtils;
-import org.kohsuke.rngom.digested.Main;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.context.SecurityContext;
-import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.User;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.view.RedirectView;
 
 /**
  *
@@ -180,22 +172,16 @@ public class ApiControllerAlta {
         return "apis";
     }
     
-    @RequestMapping(value="delete/{idApi}", method = RequestMethod.GET)
-    public void getDelete(@RequestParam("idApi") int idAPi){
-        /* List<Api> ListApi =apiDao.findAll();
-       // Api api =apiDao.findById(1);
-        Response responce=new Response();
-        responce.setDraw(1);
-        responce.setRecordsTotal(1);
-        responce.setRecordsFiltered(1);
-        responce.setData(ListApi);
-        System.out.println("Recupera los datos del api: ");*/
-       // return responce;
-        
-        Api api=new Api();
-        api.setId(idAPi);
+    @RequestMapping(value="delete", method = RequestMethod.GET)
+    public RedirectView getDelete(HttpServletRequest request, Model model/*,@PathVariable("idApi") int idAPi*/){        
+        RedirectView rv = new RedirectView(request.getContextPath()+"/apis/view");         
+        String idAPi=request.getParameter("idApi");
+        System.out.println(idAPi); 
+        Api api=apiDao.findById(Integer.valueOf(idAPi));
+        //api.setId(Integer.valueOf(idAPi));
         apiDao.delete(api);
-        //return "apis";
+        rv.setExposeModelAttributes(false);
+	return rv;
     }
 
 }

@@ -54,17 +54,12 @@
                          defaultContent: '<a href="" class="edit"><img src="../resources/images/edit.png"></a>'},*/
                         {data: null,
                             orderable: false,
-                            // defaultContent: "<a href='<c:url value='delete/'/>'class='remove'><img src='../resources/images/remove.png'></a>"}
+            <%-- defaultContent: "<a href='<c:url value='delete/'/>'class='remove'><img src='../resources/images/remove.png'></a>"}--%>
                             defaultContent: "<a href='#' class='remove'><img src='../resources/images/remove.png'></a>"}
 
                     ],
                     "order": [[1, 'asc']]
                 });
-                
-                 function getId() {                    
-                    var data = table.row(0).data();
-                    alert(table);
-                }
 
                 // Add event listener for opening and closing details
                 $('#example tbody').on('click', 'td.details-control', function () {
@@ -83,10 +78,22 @@
                     }
                 });
 
+                $('#example').on('click', 'a.remove', function () {
 
-            });
+                    var tr = $(this).closest('tr');
+                    var row = table.row(tr);
+                    // Open this row
+                    var id = eliminar(row.data());                                   
+                    $.get("delete", {idApi: id});
+                    
+                    
+                    var parent = $(this).closest('tr');
+                    $(parent).remove();
+                });
 
 
+
+            });           
 
         </script>        
         <!-- Intro Header -->
@@ -126,7 +133,7 @@
                     </tfoot>
                 </table>
                 <a href="new">Nueva Api <img src="../resources/images/new.png"/></a>
-                <a href="javascript:void(0);" onclick="getId();">id</a>
+
 
         </header>
         <!-- About Section -->

@@ -9,10 +9,6 @@
 <!--<link href="<%--<c:url value="/resources/dist/css/prettify.css" />"--%> rel="stylesheet">-->
 <link href="<c:url value="/resources/css/form-wizard-and-validation.css" />" rel="stylesheet">
 <script src="<c:url value="/resources/js/jquery-1.10.2.min.js" />"></script>
-<!--<script src="<%--<c:url value="/resources/dist/js/jquery.bootstrap.wizard.min.js" />">--%></script>-->
-<!--<script src="<%--<c:url value="/resources/js/formValidation.min.js" />">--%></script>-->
-<!--<script src="<%--<c:url value="/resources/js/jquery.validate.js" />">--%></script>-->
-<%--<script src="<c:url value="/resources/js/bootstrap.formValidation.js" />"></script>--%>
 <script src="<c:url value="/resources/js/formValidation.min.js" />"></script>
 <script src="<c:url value="/resources/js/bootstrap.formValidation.js" />"></script>
 
