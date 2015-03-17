@@ -32,7 +32,7 @@ public class ApisVersiones implements Serializable{
     private Double version;
     @Fetch(value = FetchMode.SUBSELECT)
     //@LazyCollection(LazyCollectionOption.FALSE)
-    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, orphanRemoval = true)
     @JoinColumn(name = "idApiVersion",nullable = false)
     private List<ApisVersionesResources> resources;
 

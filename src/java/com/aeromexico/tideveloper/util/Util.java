@@ -5,6 +5,7 @@
  */
 package com.aeromexico.tideveloper.util;
 
+import com.aeromexico.tideveloper.models.ApisDocs;
 import com.aeromexico.tideveloper.models.ApisVersionesResources;
 import com.aeromexico.tideveloper.security.CustomUser;
 import java.io.BufferedOutputStream;
@@ -112,4 +113,83 @@ public class Util {
         }
     }
     
+    public static void editDocs(ApisDocs apiDoc, int idApi){
+        ResourceBundle properties = ResourceBundle.getBundle("TIDeveloper");
+        String rootPath = properties.getString("RootPath");
+        String nameFolder = idApi + "";
+        
+            if((apiDoc.getDirDoc() == null || apiDoc.getDirDoc().equals("")) && apiDoc.getFilesDocs() != null){
+                for (int i = 0; i < apiDoc.getFilesDocs().length; i++) {
+                    MultipartFile file = apiDoc.getFilesDocs()[i];
+                    if (!file.isEmpty()) {
+                        System.out.println("name file:" + file.getOriginalFilename());
+                        String extencionFile = "." + FilenameUtils.getExtension(file.getOriginalFilename());
+                        String name = apiDoc.getNombreDoc()+ extencionFile;
+                        try {
+                            byte[] bytes = file.getBytes();
+
+                            // Creating the directory to store file                     
+                            File dir = new File(rootPath + nameFolder + "\\docs");
+                            if (!dir.exists()) {
+                                dir.mkdirs();
+                            }
+
+                            // Create the file on server
+                            String pathFile = dir.getAbsolutePath() + File.separator + name;
+                            File serverFile = new File(pathFile);
+                            BufferedOutputStream stream = new BufferedOutputStream(
+                                new FileOutputStream(serverFile));
+                            stream.write(bytes);
+                            stream.close();
+
+                            System.out.println("Server File Location=" + serverFile.getAbsolutePath());
+
+                            //message = message + "You successfully uploaded file=" + name + extencionFile + "<br />";
+                            apiDoc.setDirDoc(serverFile.getAbsolutePath());
+
+                            //System.out.println(message);
+                        } catch (Exception e) {
+                            System.out.println(e.getMessage());
+                           //return "You failed to upload " + name + " => " + e.getMessage();
+                        }
+                    }
+                }
+            }else if(apiDoc.getFilesDocs()!= null && apiDoc.getFilesDocs().length > 0){
+                for (int i = 0; i < apiDoc.getFilesDocs().length; i++) {
+                    MultipartFile file = apiDoc.getFilesDocs()[i];
+                    if (!file.isEmpty()) {
+                        System.out.println("name file:" + file.getOriginalFilename());
+                        String extencionFile = "." + FilenameUtils.getExtension(file.getOriginalFilename());
+                        String name = apiDoc.getNombreDoc()+ extencionFile;
+                        try {
+                            byte[] bytes = file.getBytes();
+
+                            // Creating the directory to store file                     
+                            File dir = new File(rootPath + nameFolder + "\\docs");
+                            if (!dir.exists()) {
+                                dir.mkdirs();
+                            }
+
+                            // Create the file on server
+                            String pathFile = dir.getAbsolutePath() + File.separator + name;
+                            File serverFile = new File(pathFile);
+                            BufferedOutputStream stream = new BufferedOutputStream(
+                                new FileOutputStream(serverFile));
+                            stream.write(bytes);
+                            stream.close();
+
+                            System.out.println("Server File Location=" + serverFile.getAbsolutePath());
+
+                            //message = message + "You successfully uploaded file=" + name + extencionFile + "<br />";
+                            apiDoc.setDirDoc(serverFile.getAbsolutePath());
+
+                            //System.out.println(message);
+                        } catch (Exception e) {
+                            System.out.println(e.getMessage());
+                           //return "You failed to upload " + name + " => " + e.getMessage();
+                        }
+                    }
+                }
+            }
+    }
 }

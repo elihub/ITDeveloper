@@ -7,6 +7,7 @@ package com.aeromexico.tideveloper.controller;
 
 import com.aeromexico.tideveloper.dao.ApiDAO;
 import com.aeromexico.tideveloper.models.Api;
+import com.aeromexico.tideveloper.models.ApisDocs;
 import com.aeromexico.tideveloper.models.ApisVersiones;
 import com.aeromexico.tideveloper.models.ajax.Response;
 import com.aeromexico.tideveloper.util.Util;
@@ -65,9 +66,20 @@ public class ApisController {
     public String postApiById(@PathVariable("idApi") int idApi, Model model
             , @ModelAttribute("api") Api apiMod, HttpServletRequest request){
         
-        for(ApisVersiones apiVersion: apiMod.getVersiones()){
-            Util.editResources(apiVersion.getResources(), apiMod.getId());
+        String resource = request.getParameter("resource");
+        String docs = request.getParameter("documentos");
+        
+        if(resource != null){
+            for(ApisVersiones apiVersion: apiMod.getVersiones()){
+                Util.editResources(apiVersion.getResources(), apiMod.getId());
+            }
         }
+        if(docs != null){
+            for(ApisDocs apiDoc: apiMod.getDocs()){
+                Util.editDocs(apiDoc, apiMod.getId());
+            }
+        }
+        
         apiDao.update(apiMod);
         model.addAttribute("api",apiMod);
         return "apisVersiones";
@@ -75,9 +87,26 @@ public class ApisController {
     
     @RequestMapping(value="view/downloads", method = RequestMethod.GET )  
     public RedirectView getDeleteResource(HttpServletRequest request, @RequestParam(value = "version") int posVersion
-            , @RequestParam(value = "resource") int posResource){
+            , @RequestParam(value = "resource") int posResource, @ModelAttribute("api") Api apiMod){
         System.out.println("Estamos en redireccion");
-        RedirectView rv = new RedirectView(request.getContextPath()+"/apis/view/1");
+        
+        apiMod.getVersiones().get(posVersion).getResources().remove(posResource);
+        apiDao.update(apiMod);
+        
+        RedirectView rv = new RedirectView(request.getContextPath()+"/apis/view/" + apiMod.getId());
+	rv.setExposeModelAttributes(false);
+	return rv;
+    }
+    
+    @RequestMapping(value="view/docs", method = RequestMethod.GET )  
+    public RedirectView getDeleteDocs(HttpServletRequest request, @RequestParam(value = "doc") int posDoc
+            , @ModelAttribute("api") Api apiMod){
+        System.out.println("Estamos en redireccion");
+        
+        apiMod.getDocs().remove(posDoc);
+        apiDao.update(apiMod);
+        
+        RedirectView rv = new RedirectView(request.getContextPath()+"/apis/view/" + apiMod.getId());
 	rv.setExposeModelAttributes(false);
 	return rv;
     }
