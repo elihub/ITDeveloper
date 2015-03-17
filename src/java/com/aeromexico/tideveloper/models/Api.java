@@ -23,6 +23,8 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import org.hibernate.annotations.Cascade;
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
 
 /**
  *
@@ -43,11 +45,15 @@ public class Api implements Serializable{
     private Date fechaCreacion;
     @Temporal(TemporalType.TIMESTAMP)
     private Date fechaModificacion;
-    @OneToMany(cascade = CascadeType.ALL,fetch = FetchType.EAGER)
-    @JoinColumn(name = "idApi",nullable = false)
+    @OneToMany( cascade ={CascadeType.REMOVE, CascadeType.PERSIST},fetch = FetchType.EAGER, orphanRemoval = true)
+    @JoinColumn(name = "idApi",nullable = false)   
+    @Cascade({org.hibernate.annotations.CascadeType.DELETE_ORPHAN,
+        org.hibernate.annotations.CascadeType.PERSIST,
+        org.hibernate.annotations.CascadeType.SAVE_UPDATE})
     private List<ApisVersiones> versiones;
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JoinColumn(name = "idApi",nullable = false)
+    //@OnDelete(action = OnDeleteAction.CASCADE) @Cascade(org.hibernate.annotations.CascadeType.DELETE_ORPHAN)
     private List<ApisDocs> docs;
 
    
