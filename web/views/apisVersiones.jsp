@@ -289,7 +289,7 @@
                             <td>${doc.nombreDoc}</td>
                             <td><a href=""><img src="<c:url value="/resources/images/download2.png" />"/></a></td>
                             <td style="width: 30px"><a href="?docs=${ind.index}" class="editDocs"><img src="<c:url value="/resources/images/edit.png" />"></a></td>
-                            <td style="width: 30px"><a href="<c:url value="/apis/view/docs?docs=${ind.index}" />" class="remove"><img src="<c:url value="/resources/images/remove.png" />"></a></td>
+                            <td style="width: 30px"><a href="<c:url value="/apis/view/docs?doc=${ind.index}" />" class="remove"><img src="<c:url value="/resources/images/remove.png" />"></a></td>
                         </tr>
                         <tr>
                             <td colspan="4" style="border-top:none">
