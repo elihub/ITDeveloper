@@ -100,8 +100,42 @@
         });
         function getURLParameter(url, name) {
             return (RegExp(name + '=' + '(.+?)(&|$)').exec(url) || [, null])[1];
-        }
-
+        };
+        
+        var i=1; 
+        $('#newVersionForm').formValidation()
+        // Add button click handler
+        .on('click', '.addButton', function() {
+            var $template = $('#optionTemplate'),
+                $clone    = $template
+                                .clone()
+                                .removeClass('hide')
+                                .removeAttr('id')
+                                .attr('id','resource'+i)
+                                .insertBefore($template),
+                $option = $clone.find('.nombre');
+                var indVersion = $option.val();
+                var nuevoNombre = 'versiones[' + indVersion + '].resource['+i+'].nombreResource';
+                $option.prop('name', nuevoNombre);
+                $option.val('');
+                
+                $option2 = $clone.find('.file');
+                var nuevoFile = 'versiones[' + indVersion + '].resource['+i+'].files';
+                $option2.prop('name', nuevoFile);
+                
+            // Add new field
+            $('#newVersionForm').formValidation('addField', $option);
+            $('#newVersionForm').formValidation('addField', $option2);
+            i++;
+        })
+        .on('click', '.removeButton', function() {
+            if (i > 1) {
+                $("#resource" + (i - 1)).remove();
+                i--;
+            }
+        })
+        ;
+        
     });
 </script>
 <div class="row" style="margin-left: 10px">
@@ -272,6 +306,63 @@
                     </div>
                 </div>
             </div>
+                
+            <p class="text-left">
+                <button class="btn btn-default" data-toggle="modal" data-target="#newVersionModal">Agregar Version</button>
+            </p>    
+            <div class="modal fade bs-example-modal-lg" id="newVersionModal" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+                <div class="modal-dialog modal-lg">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                            <h4 class="modal-title">Nueva Version</h4>
+                        </div>
+
+                        <div class="modal-body">
+                            <!-- The form is placed inside the body of modal -->
+                            <form:form method="post" id="newVersionForm" class="form-horizontal" modelAttribute="api" enctype="multipart/form-data">
+                                <div class="form-group">
+                                    <input type="hidden" name="resource" value="true" />
+                                    <label class="col-xs-5 control-label">Version</label>
+                                    <div class="col-xs-3">
+                                        <input type="text" class="form-control nombre" name="versiones[${totalVersiones}].version" required />
+                                    </div>
+                                </div>
+                                <hr />
+                                <div class="form-group">
+                                    <label class="col-xs-2 control-label">Nombre:</label>
+                                    <div class="col-xs-3">
+                                        <input type="text" class="form-control nombre" name="versiones[${totalVersiones}].resources[0].nombreResource" required />
+                                    </div>
+                                    <label class="col-xs-1 control-label">Archivo</label>
+                                    <div class="col-xs-3">
+                                        <input type="file" class="file" name="versiones[${totalVersiones}].resources[0].files" required/>
+                                    </div>
+                                </div>
+                                <div class="form-group hide" id="optionTemplate">
+                                    <label class="col-xs-2 control-label">Nombre:</label>
+                                    <div class="col-xs-3">
+                                        <input type="text" class="form-control nombre" name="nombre" required value = "${totalVersiones}"/>
+                                    </div>
+                                    <label class="col-xs-1 control-label">Archivo</label>
+                                    <div class="col-xs-3">
+                                        <input type="file" class="file" name="file" required/>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <button type="button" class="btn btn-default addButton"><i class="fa fa-plus">+</i></button>
+                                    <button type="button" class="btn btn-default removeButton"><i class="fa fa-plus">-</i></button>
+                                </div>
+                                <div class="form-group">
+                                    <div class="col-xs-5 col-xs-offset-5">
+                                        <button type="submit" class="btn btn-default">Aceptar</button>
+                                    </div>
+                                </div>
+                            </form:form>
+                        </div>
+                    </div>
+                </div>
+            </div>
             <br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br />
         </section>
         <section id="documentation">
@@ -289,7 +380,7 @@
                             <td>${doc.nombreDoc}</td>
                             <td><a href=""><img src="<c:url value="/resources/images/download2.png" />"/></a></td>
                             <td style="width: 30px"><a href="?docs=${ind.index}" class="editDocs"><img src="<c:url value="/resources/images/edit.png" />"></a></td>
-                            <td style="width: 30px"><a href="<c:url value="/apis/view/docs?docs=${ind.index}" />" class="remove"><img src="<c:url value="/resources/images/remove.png" />"></a></td>
+                            <td style="width: 30px"><a href="<c:url value="/apis/view/docs?doc=${ind.index}" />" class="remove"><img src="<c:url value="/resources/images/remove.png" />"></a></td>
                         </tr>
                         <tr>
                             <td colspan="4" style="border-top:none">
