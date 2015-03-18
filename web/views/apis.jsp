@@ -60,12 +60,10 @@
                     ],
                     "order": [[1, 'asc']]
                 });
-
                 // Add event listener for opening and closing details
                 $('#example tbody').on('click', 'td.details-control', function () {
                     var tr = $(this).closest('tr');
                     var row = table.row(tr);
-
                     if (row.child.isShown()) {
                         // This row is already open - close it
                         row.child.hide();
@@ -77,23 +75,32 @@
                         tr.addClass('shown');
                     }
                 });
-
                 $('#example').on('click', 'a.remove', function () {
-
                     var tr = $(this).closest('tr');
                     var row = table.row(tr);
                     // Open this row
-                    var id = eliminar(row.data());                                   
-                    $.get("delete", {idApi: id});
-                    
-                    
+                    var id = eliminar(row.data());
                     var parent = $(this).closest('tr');
-                    $(parent).remove();
+                    $.ajax({
+                        type: "GET",
+                        url:"<c:url value="delete" />",
+                        data: "idApi=" + id,
+                        success: function (jResponse) {
+                            //$.get("delete", {idApi: id});
+                            if (jResponse.status == "SUCCESS") {                                
+                                $(parent).remove();                                
+                            } else {
+                                //show an error
+                            }
+
+                        },
+                        /*error: function (xhr) {
+                         
+                         }*/
+
+                    });
                 });
-
-
-
-            });           
+            });
 
         </script>        
         <!-- Intro Header -->
