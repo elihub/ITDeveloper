@@ -162,8 +162,40 @@ public class ApisController {
         }catch(Exception ex){
             System.out.println(ex.getMessage());
         }
+	return null;
+    }
+    
+    @RequestMapping(value="view/downloadDocs", method = RequestMethod.GET )  
+    public ModelAndView getDownloadResource(HttpServletRequest request
+            , HttpServletResponse response
+            , @RequestParam(value = "version") int posVersion
+            , @ModelAttribute("api") Api apiMod){
+        System.out.println("Estamos en redireccion");
+        ServletContext context = request.getServletContext();
         
-	
+        String rutaFile = apiMod.getDocs().get(posVersion).getDirDoc();
+        String nombreArchivo = rutaFile.substring(rutaFile.lastIndexOf("\\"));
+        File downloadFile = new File(rutaFile);
+        try{
+            FileInputStream inputStream = new FileInputStream(downloadFile);
+        
+            // get MIME type of the file
+            String mimeType = context.getMimeType(rutaFile);
+            if (mimeType == null) {
+                // set to binary type if MIME mapping not found
+                mimeType = "application/octet-stream";
+            }
+            System.out.println("MIME type: " + mimeType);
+            response.setContentType("application/zip");
+            response.setHeader("Content-Disposition", "attachment; filename=\""
+                    + nombreArchivo + "\"");
+             
+            //IOUtils.copy(is, response.getOutputStream());
+            FileCopyUtils.copy(inputStream, response.getOutputStream());
+            response.flushBuffer();
+        }catch(Exception ex){
+            System.out.println(ex.getMessage());
+        }
 	return null;
     }
 }

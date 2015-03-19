@@ -43,7 +43,7 @@ public class Util {
                     if (!file.isEmpty()) {
                         System.out.println("name file:" + file.getOriginalFilename());
                         String extencionFile = "." + FilenameUtils.getExtension(file.getOriginalFilename());
-                        String name = versionResource.getNombreResource() + extencionFile;
+                        String name = file.getOriginalFilename();
                         try {
                             byte[] bytes = file.getBytes();
 
@@ -79,7 +79,7 @@ public class Util {
                     if (!file.isEmpty()) {
                         System.out.println("name file:" + file.getOriginalFilename());
                         String extencionFile = "." + FilenameUtils.getExtension(file.getOriginalFilename());
-                        String name = versionResource.getNombreResource() + extencionFile;
+                        String name = file.getOriginalFilename();
                         try {
                             byte[] bytes = file.getBytes();
 
@@ -124,7 +124,7 @@ public class Util {
                     if (!file.isEmpty()) {
                         System.out.println("name file:" + file.getOriginalFilename());
                         String extencionFile = "." + FilenameUtils.getExtension(file.getOriginalFilename());
-                        String name = apiDoc.getNombreDoc()+ extencionFile;
+                        String name = file.getOriginalFilename();
                         try {
                             byte[] bytes = file.getBytes();
 
@@ -160,7 +160,7 @@ public class Util {
                     if (!file.isEmpty()) {
                         System.out.println("name file:" + file.getOriginalFilename());
                         String extencionFile = "." + FilenameUtils.getExtension(file.getOriginalFilename());
-                        String name = apiDoc.getNombreDoc()+ extencionFile;
+                        String name = file.getOriginalFilename();
                         try {
                             byte[] bytes = file.getBytes();
 
