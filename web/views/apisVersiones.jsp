@@ -115,12 +115,12 @@
                                 .insertBefore($template),
                 $option = $clone.find('.nombre');
                 var indVersion = $option.val();
-                var nuevoNombre = 'versiones[' + indVersion + '].resource['+i+'].nombreResource';
+                var nuevoNombre = 'versiones[' + indVersion + '].resources['+i+'].nombreResource';
                 $option.prop('name', nuevoNombre);
                 $option.val('');
                 
                 $option2 = $clone.find('.file');
-                var nuevoFile = 'versiones[' + indVersion + '].resource['+i+'].files';
+                var nuevoFile = 'versiones[' + indVersion + '].resources['+i+'].files';
                 $option2.prop('name', nuevoFile);
                 
             // Add new field
@@ -218,15 +218,17 @@
                 <table class="table">
                     <thead>
                         <tr>
-                            <th colspan="4">${indVersion.index} - v${version.version}</th>
+                            <th colspan="1">${indVersion.index} - v${version.version}</th>
+                            <th colspan="3" class="text-right"><a href="<c:url value="/apis/view/delVersion?version=${indVersion.index}" />">Eliminar Version</a></th>
                         </tr>
+                        
                     </thead>
                     <tbody>
                         <c:forEach items="${version.resources}" var="resource" varStatus="indResources">
                             <c:set var="totalResources" value="${indResources.count}" />
                             <tr>
                                 <td>${resource.nombreResource}</td>
-                                <td><a href=""><img src="<c:url value="/resources/images/download2.png" />"/></a></td>
+                                <td><a href="<c:url value="/apis/view/downloadFile?version=${indVersion.index}&resource=${indResources.index}" />"><img src="<c:url value="/resources/images/download2.png" />"/></a></td>
                                 <td style="width: 30px"><a href="?version=${indVersion.index}&resource=${indResources.index}" class="editResource"><img src="<c:url value="/resources/images/edit.png" />"></a></td>
                                 <td style="width: 30px"><a href="<c:url value="/apis/view/downloads?version=${indVersion.index}&resource=${indResources.index}" />" class="remove"><img src="<c:url value="/resources/images/remove.png" />"></a></td>
 
@@ -342,11 +344,11 @@
                                 <div class="form-group hide" id="optionTemplate">
                                     <label class="col-xs-2 control-label">Nombre:</label>
                                     <div class="col-xs-3">
-                                        <input type="text" class="form-control nombre" name="nombre" required value = "${totalVersiones}"/>
+                                        <input type="text" class="form-control nombre" name="nombreTemplate" required value = "${totalVersiones}"/>
                                     </div>
                                     <label class="col-xs-1 control-label">Archivo</label>
                                     <div class="col-xs-3">
-                                        <input type="file" class="file" name="file" required/>
+                                        <input type="file" class="file" name="fileTemplate" required/>
                                     </div>
                                 </div>
                                 <div class="form-group">

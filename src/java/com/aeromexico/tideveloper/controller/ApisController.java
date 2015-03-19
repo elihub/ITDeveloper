@@ -11,11 +11,17 @@ import com.aeromexico.tideveloper.models.ApisDocs;
 import com.aeromexico.tideveloper.models.ApisVersiones;
 import com.aeromexico.tideveloper.models.ajax.Response;
 import com.aeromexico.tideveloper.util.Util;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.util.List;
+import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.util.FileCopyUtils;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -23,6 +29,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
+import org.springframework.web.portlet.ModelAndView;
 import org.springframework.web.servlet.view.RedirectView;
 
 /**
@@ -85,6 +92,19 @@ public class ApisController {
         return "apisVersiones";
     }
     
+    @RequestMapping(value="view/delVersion", method = RequestMethod.GET )  
+    public RedirectView getDeleteResource(HttpServletRequest request, @RequestParam(value = "version") int posVersion
+            , @ModelAttribute("api") Api apiMod){
+        System.out.println("Estamos en redireccion");
+        
+        apiMod.getVersiones().remove(posVersion);
+        apiDao.update(apiMod);
+        
+        RedirectView rv = new RedirectView(request.getContextPath()+"/apis/view/" + apiMod.getId());
+	rv.setExposeModelAttributes(false);
+	return rv;
+    }
+    
     @RequestMapping(value="view/downloads", method = RequestMethod.GET )  
     public RedirectView getDeleteResource(HttpServletRequest request, @RequestParam(value = "version") int posVersion
             , @RequestParam(value = "resource") int posResource, @ModelAttribute("api") Api apiMod){
@@ -109,5 +129,41 @@ public class ApisController {
         RedirectView rv = new RedirectView(request.getContextPath()+"/apis/view/" + apiMod.getId());
 	rv.setExposeModelAttributes(false);
 	return rv;
+    }
+    
+    @RequestMapping(value="view/downloadFile", method = RequestMethod.GET )  
+    public ModelAndView getDownloadResource(HttpServletRequest request
+            , HttpServletResponse response
+            , @RequestParam(value = "version") int posVersion
+            , @RequestParam(value = "resource") int posResource, @ModelAttribute("api") Api apiMod){
+        System.out.println("Estamos en redireccion");
+        ServletContext context = request.getServletContext();
+        
+        String rutaFile = apiMod.getVersiones().get(posVersion).getResources().get(posResource).getDirResource();
+        String nombreArchivo = rutaFile.substring(rutaFile.lastIndexOf("\\"));
+        File downloadFile = new File(rutaFile);
+        try{
+            FileInputStream inputStream = new FileInputStream(downloadFile);
+        
+            // get MIME type of the file
+            String mimeType = context.getMimeType(rutaFile);
+            if (mimeType == null) {
+                // set to binary type if MIME mapping not found
+                mimeType = "application/octet-stream";
+            }
+            System.out.println("MIME type: " + mimeType);
+            response.setContentType("application/zip");
+            response.setHeader("Content-Disposition", "attachment; filename=\""
+                    + nombreArchivo + "\"");
+             
+            //IOUtils.copy(is, response.getOutputStream());
+            FileCopyUtils.copy(inputStream, response.getOutputStream());
+            response.flushBuffer();
+        }catch(Exception ex){
+            System.out.println(ex.getMessage());
+        }
+        
+	
+	return null;
     }
 }
