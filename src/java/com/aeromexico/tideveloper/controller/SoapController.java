@@ -1,8 +1,8 @@
 package com.aeromexico.tideveloper.controller;
 
-import com.aeromexico.tideveloper.dao.ServiciosDAO;
+import com.aeromexico.tideveloper.dao.SoapDAO;
 import com.aeromexico.tideveloper.models.ajax.Response;
-import com.aeromexico.tideveloper.models.Servicios;
+import com.aeromexico.tideveloper.models.Soap;
 import com.aeromexico.tideveloper.models.ajax.MenuItem;
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -10,7 +10,6 @@ import java.util.List;
 import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpRequest;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -29,29 +28,29 @@ import org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandl
  */
 @Controller
 @RequestMapping(value = "/servicios/*")
-public class ServiciosController {
+public class SoapController {
 
     @Autowired
-    private ServiciosDAO serviciosDAO;
+    private SoapDAO soapDAO;
     
-    private List<Servicios> listaServicios= new ArrayList<>();
+    private List<Soap> listaSoap= new ArrayList<>();
     private final RequestMappingHandlerMapping handlerMapping;
     
     @ModelAttribute("listaServicios")
-    public List<Servicios> getPerson(){
-        listaServicios = serviciosDAO.findAll();
-        return listaServicios;
+    public List<Soap> getPerson(){
+        listaSoap = soapDAO.findAll();
+        return listaSoap;
     }
 
     @Autowired
-    public ServiciosController(RequestMappingHandlerMapping handlerMapping) {
+    public SoapController(RequestMappingHandlerMapping handlerMapping) {
         this.handlerMapping = handlerMapping;
     }
 
     @RequestMapping(value = "/soap", method = RequestMethod.GET)
-    public String getServicioSoap(HttpServletRequest request,Model model) {
+    public String getSoap(HttpServletRequest request,Model model) {
         System.out.println("En getServicioSOAP");
-        Servicios servicio = serviciosDAO.findById(1);
+        Soap servicio = soapDAO.findById(1);
         System.out.println(servicio);
         model.addAttribute("serv", servicio);
         
@@ -94,26 +93,26 @@ public class ServiciosController {
 
     @RequestMapping(value = "/soapData", produces = MediaType.APPLICATION_JSON_VALUE)
     public @ResponseBody
-    Response getListServicios() {
+    Response getListSoap() {
         System.out.println("En lista servicios response body");
          
-        for (Servicios s : listaServicios) {
+        for (Soap s : listaSoap) {
             System.out.println(s);
         }
 
         Response r = new Response();
         r.setDraw(1);
-        r.setRecordsFiltered(listaServicios.size());
-        r.setData(listaServicios);
+        r.setRecordsFiltered(listaSoap.size());
+        r.setData(listaSoap);
 
         return r;
     }
 
-    @RequestMapping(value = "/versiones/{id}")
-    public String getServiciosVersiones(@PathVariable int id, Model model) {
+    @RequestMapping(value = "/soap/{id}")
+    public String getSoapVersiones(@PathVariable int id, Model model) {
         System.out.println("En lista servicios response body");
-        Servicios servicio = serviciosDAO.findById(id);
-        model.addAttribute("serv", servicio);
-        return "servicioVersiones";
+        Soap servicio = soapDAO.findById(id);
+        model.addAttribute("soap", servicio);
+        return "soapVersiones";
     }
 }

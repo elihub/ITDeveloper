@@ -14,7 +14,7 @@
         <script>
             function format(d) {
                 return d.descripcion +
-                        '<br /><a href="<c:url value="/servicios/versiones/"/>' + d.id + '">Ver documentacion</a>';
+                        '<br /><a href="<c:url value="/servicios/soap/"/>' + d.id + '">Ver documentacion</a>';
             }
             
             $(document).ready(function () {
@@ -80,14 +80,11 @@
                     <td>${serv.nombre}</td>
                     <td>${serv.descripcion}</td>
                     <td>${serv.funcion.nombre}</td>
-                    <td>${serv.servicioTipo.nombre}</td>
                     <td>${serv.area.nombre}</td>
                 </tr>
             </table>
             <c:forEach items="${serv.versiones}" var="version" >
-                ${version.nombre}
-                </br>
-                ${version.valor}
+                ${version.version}
                 </br>
             </c:forEach>
             <div class="divDataTable">

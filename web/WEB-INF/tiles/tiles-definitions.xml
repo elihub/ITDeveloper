@@ -26,8 +26,8 @@
     <definition name="soap" extends="defaultTemplate" >
 		<put-attribute name="content" value="/views/soap.jsp" ></put-attribute>
     </definition>
-    <definition name="servicioVersiones" extends="defaultTemplate">
-		<put-attribute name="content" value="/views/servicioVersiones.jsp"></put-attribute>
+    <definition name="soapVersiones" extends="defaultTemplate">
+		<put-attribute name="content" value="/views/soapVersiones.jsp"></put-attribute>
     </definition>
     
     <definition name="apis" extends="defaultTemplate">
