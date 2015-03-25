@@ -109,6 +109,7 @@
                         </tr>
                     </tfoot>
                 </table>
+                <a href="newSoap">Nueva Api <img src="../resources/images/new.png"/></a>
             </div>
         </header>
         <!-- About Section -->

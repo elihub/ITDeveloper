@@ -34,15 +34,15 @@ import org.springframework.web.multipart.MultipartFile;
  *
  * @author Elida Carrillo
  */
-@Controller
-@RequestMapping("/apis/*")
+//@Controller
+//@RequestMapping("/apis/*")
 public class ApiControllerAlta {
 
-    @Autowired
+   /* @Autowired
     ApiDAO apiDao;
     private List<Api> listaApis = new ArrayList<>();
 
-    @ModelAttribute("listaServicios")
+    @ModelAttribute("listaApis")
     public List<Api> getApis() {
         listaApis = apiDao.findAll();
         return listaApis;
@@ -220,8 +220,8 @@ public class ApiControllerAlta {
 
     @RequestMapping(value = "delete", method = RequestMethod.GET)
     public @ResponseBody
-    JsonResponse getDelete(HttpServletRequest request, Model model/*,@PathVariable("idApi") int idAPi*/) {
-        // public RedirectView getDelete(HttpServletRequest request, Model model/*,@PathVariable("idApi") int idAPi*/) {
+    JsonResponse getDelete(HttpServletRequest request, Model model) {
+        // public RedirectView getDelete(HttpServletRequest request, Model model) {
         //RedirectView rv = new RedirectView(request.getContextPath() + "/apis/view");
         JsonResponse jResponse = new JsonResponse();
         String idAPi = request.getParameter("idApi");
@@ -241,6 +241,6 @@ public class ApiControllerAlta {
         //return rv;}
         return jResponse;
 
-    }
+    }*/
 
 }

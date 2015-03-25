@@ -1,8 +1,15 @@
 package com.aeromexico.tideveloper.controller;
 
+import com.aeromexico.tideveloper.dao.AreaDAO;
+import com.aeromexico.tideveloper.dao.FuncionDAO;
 import com.aeromexico.tideveloper.dao.SoapDAO;
+import com.aeromexico.tideveloper.models.Area;
+import com.aeromexico.tideveloper.models.Funcion;
 import com.aeromexico.tideveloper.models.ajax.Response;
 import com.aeromexico.tideveloper.models.Soap;
+import com.aeromexico.tideveloper.models.SoapDocs;
+import com.aeromexico.tideveloper.models.SoapVersiones;
+import com.aeromexico.tideveloper.models.SoapVersionesResources;
 import com.aeromexico.tideveloper.models.ajax.MenuItem;
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -32,14 +39,29 @@ public class SoapController {
 
     @Autowired
     private SoapDAO soapDAO;
+    @Autowired
+    private AreaDAO areaDAO;
+    private FuncionDAO funcionDAO;
     
     private List<Soap> listaSoap= new ArrayList<>();
     private final RequestMappingHandlerMapping handlerMapping;
+    private List<Area> listArea=new ArrayList<>();
+    private List<Funcion>listFunciones=new ArrayList<>();
+    
     
     @ModelAttribute("listaServicios")
     public List<Soap> getPerson(){
         listaSoap = soapDAO.findAll();
         return listaSoap;
+    }
+    @ModelAttribute("catArea")
+    public void getAreas(){
+        this.listArea=areaDAO.findAll();
+    }
+    
+    @ModelAttribute("catFuncion")
+    public void getFunciones(){
+        listFunciones=funcionDAO.findAll();
     }
 
     @Autowired
@@ -115,4 +137,19 @@ public class SoapController {
         model.addAttribute("soap", servicio);
         return "soapVersiones";
     }
+    
+    @RequestMapping(value = "newSoap", method = RequestMethod.GET)
+    public String getAltaApi(Model model) {
+        Soap soap = new Soap();
+        SoapVersiones soapVersion = new SoapVersiones();
+        SoapVersionesResources soapVersionesResources = new SoapVersionesResources();
+        SoapDocs soapDocs = new SoapDocs();
+        model.addAttribute("soap", soap);
+        model.addAttribute("soapVersion", soapVersion);
+        model.addAttribute("soapVersionesResources", soapVersionesResources);
+        model.addAttribute("soapDocs", soapDocs);
+        return "newSoap";
+    }
+    
+    
 }

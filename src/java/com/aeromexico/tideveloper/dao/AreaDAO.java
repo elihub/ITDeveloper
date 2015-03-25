@@ -5,10 +5,22 @@
  */
 package com.aeromexico.tideveloper.dao;
 
+import com.aeromexico.tideveloper.models.Area;
+import java.util.List;
+
 /**
  *
  * @author Elida Carrillo
  */
-public class Dao {
-    
+public interface AreaDAO {
+
+    Area findById(int id);
+
+    List<Area> findAll();
+
+    int save(Area s);
+
+    void update(Area s);
+
+    void delete(Area s);
 }
