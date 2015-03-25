@@ -25,6 +25,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.method.HandlerMethod;
 import org.springframework.web.servlet.mvc.method.RequestMappingInfo;
 import org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping;
@@ -35,12 +36,14 @@ import org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandl
  */
 @Controller
 @RequestMapping(value = "/servicios/*")
+@SessionAttributes("soap")
 public class SoapController {
 
     @Autowired
     private SoapDAO soapDAO;
     @Autowired
     private AreaDAO areaDAO;
+    @Autowired
     private FuncionDAO funcionDAO;
     
     private List<Soap> listaSoap= new ArrayList<>();
@@ -135,6 +138,29 @@ public class SoapController {
         System.out.println("En lista servicios response body");
         Soap servicio = soapDAO.findById(id);
         model.addAttribute("soap", servicio);
+        return "soapVersiones";
+    }
+    
+    @RequestMapping(value = "/soap/{id}", method = RequestMethod.POST)
+    public String postSoapVersiones(@PathVariable int id, Model model, @ModelAttribute("soap") Soap soapMod, HttpServletRequest request) {
+        String resource = request.getParameter("resource");
+        String docs = request.getParameter("documentos");
+
+        /*VALIDAR SI SE VA A NECESITAR
+        if (resource != null) {
+            for (ApisVersiones apiVersion : apiMod.getVersiones()) {
+                Util.editResources(apiVersion.getResources(), apiMod.getId());
+            }
+        }*/
+        
+        /*if (docs != null) {
+            for (SoapDocs soapDoc : soapMod.getDocs()) {
+                Util.editDocs(soapDoc, soapMod.getId());
+            }
+        }*/
+
+        soapDAO.update(soapMod);
+        model.addAttribute("soap", soapMod);
         return "soapVersiones";
     }
     

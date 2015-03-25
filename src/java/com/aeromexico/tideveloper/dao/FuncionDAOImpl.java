@@ -10,11 +10,15 @@ import java.util.List;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 /**
  *
  * @author Elida Carrillo
  */
+@Transactional
+@Repository
 public class FuncionDAOImpl implements FuncionDAO{
     
     private SessionFactory sessionFactory;
