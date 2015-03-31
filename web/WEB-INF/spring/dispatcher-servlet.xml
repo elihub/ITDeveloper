@@ -20,7 +20,7 @@
     <context:component-scan base-package="com.aeromexico.tideveloper"/>
     <!-- Used to serve static resources like css, images and javascript files-->
     <mvc:resources mapping="/resources/**" location="/resources/" />
-    
+
     <!--
     Most controllers will use the ControllerClassNameHandlerMapping above, but
     for the index controller we are using ParameterizableViewController, so we must

@@ -91,9 +91,9 @@ public class SoapController {
     @RequestMapping(value = "/soap", method = RequestMethod.GET)
     public String getSoap(HttpServletRequest request, Model model) {
         System.out.println("En getServicioSOAP");
-        Soap servicio = soapDAO.findById(1);
-        System.out.println(servicio);
-        model.addAttribute("serv", servicio);
+        //Soap servicio = soapDAO.findById(1);
+        //System.out.println(servicio);
+        //model.addAttribute("serv", servicio);
 
         Map<RequestMappingInfo, HandlerMethod> mapeo = this.handlerMapping.getHandlerMethods();
         Iterator<RequestMappingInfo> itM = mapeo.keySet().iterator();
@@ -159,9 +159,23 @@ public class SoapController {
 
     @RequestMapping(value = "/soap/{id}", method = RequestMethod.POST)
     public String postSoapVersiones(@PathVariable int id, Model model, @ModelAttribute("soap") Soap soapMod, HttpServletRequest request) {
+        String datosGenerales = request.getParameter("general");
         String resource = request.getParameter("resource");
         String docs = request.getParameter("documentos");
-
+        
+        if(datosGenerales!=null){
+            for (Area area : listArea) {
+                if (area.getId() == Integer.valueOf(request.getParameter("soapArea"))) {
+                    soapMod.setArea(area);
+                }
+            }
+            for (Funcion funcion : listFunciones) {
+                if (funcion.getId() == Integer.valueOf(request.getParameter("soapFuncion"))) {
+                    soapMod.setFuncion(funcion);
+                }
+            }
+        }
+        
         /*VALIDAR SI SE VA A NECESITAR
         if (resource != null) {
             for (ApisVersiones apiVersion : apiMod.getVersiones()) {

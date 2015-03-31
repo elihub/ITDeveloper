@@ -2,8 +2,8 @@
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>  
 <%@taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 
-<!--<script src="<c:url value="/resources/js/formValidation.min.js" />"></script>
-<script src="<c:url value="/resources/js/bootstrap.formValidation.js" />"></script>-->
+<script src="<c:url value="/resources/js/formValidation.min.js" />"></script>
+<script src="<c:url value="/resources/js/bootstrap.formValidation.js" />"></script>
 <script src="<c:url value="/resources/js/bootstrap-tooltip.js" />"></script>
 <script src="<c:url value="/resources/js/bootstrap-confirmation.js" />"></script>
 <script>
@@ -179,10 +179,11 @@
 
                         <div class="modal-body">
                             <!-- The form is placed inside the body of modal -->
-                            <form:form id="loginForm" method="post" class="form-horizontal" commandname="soap">
+                            <form:form id="loginForm" method="post" class="form-horizontal" modelAttribute="soap">
                                 <div class="form-group">
                                     <label class="col-xs-3 control-label">Nombre</label>
                                     <div class="col-xs-9">
+                                        <input type="hidden" name="general" value="true" />
                                         <input type="text" class="form-control" name="nombre" value="${soap.nombre}" />
                                     </div>
                                 </div>
@@ -198,7 +199,26 @@
                                         <textarea cols="30" rows="10" class="form-control textArea" name="resumen">${soap.resumen}</textarea>
                                     </div>
                                 </div>
-
+                                <div class="form-group">
+                                    <label class="col-xs-3 control-label">Área</label>
+                                    <div class="col-xs-9">
+                                        <select name="soapArea" class="form-control">
+                                            <c:forEach items="${catArea}" var="itemArea">
+                                                <option value="${itemArea.id}">${itemArea.nombre}</option>
+                                            </c:forEach>                            
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-xs-3 control-label">Función</label>
+                                    <div class="col-xs-9">
+                                        <select class="form-control" name="soapFuncion">
+                                            <c:forEach items="${catFuncion}" var="itemFuncion">
+                                                <option value="${itemFuncion.id}" label="${itemFuncion.nombre}">                                
+                                            </c:forEach>
+                                        </select>    
+                                    </div>
+                                </div>
                                 <div class="form-group">
                                     <div class="col-xs-5 col-xs-offset-5">
                                         <button type="submit" class="btn btn-default">Aceptar</button>
@@ -221,7 +241,7 @@
                     <thead>
                         <tr>
                             <th colspan="1">${indVersion.index} - v${version.version}</th>
-                            <th colspan="3" class="text-right"><a href="<c:url value="/servicios/soap/delVersion?version=${indVersion.index}" />">Eliminar Version</a></th>
+                            <th colspan="3" class="text-right"><a data-href="<c:url value="/servicios/soap/delVersion?version=${indVersion.index}" />" data-toggle="confirmation-singleton" data-placement="top" title="¿Estás seguro de eliminar esta versión?" class="remove">Eliminar Version</a></th>
                         </tr>
                         
                     </thead>
@@ -261,7 +281,7 @@
                                     <div class="form-group">
                                         <label class="col-xs-3 control-label">URL</label>
                                         <div class="col-xs-9">
-                                            <input type="text" class="form-control dir" name="versiones[${indVersion.index}].resources[${totalResources + 0}].dirResource" required/>
+                                            <input type="url" class="form-control dir" name="versiones[${indVersion.index}].resources[${totalResources + 0}].dirResource" required/>
                                         </div>
                                     </div>
                                     <div class="form-group">
@@ -296,7 +316,7 @@
                                 <div class="form-group">
                                     <label class="col-xs-3 control-label">Url</label>
                                     <div class="col-xs-9">
-                                        <input type="text" class="form-control dir" name="dirResource" required/>
+                                        <input type="url" class="form-control dir" name="dirResource" required/>
                                     </div>
                                 </div>
                                 <div class="form-group">
@@ -339,7 +359,7 @@
                                     </div>
                                     <label class="col-xs-1 control-label">Url</label>
                                     <div class="col-xs-3">
-                                        <input type="text" class="form-control dir" name="versiones[${totalVersiones}].resources[0].dirResource" required/>
+                                        <input type="url" class="form-control dir" name="versiones[${totalVersiones}].resources[0].dirResource" required/>
                                     </div>
                                 </div>
                                 <div class="form-group hide" id="optionTemplate">
@@ -349,7 +369,7 @@
                                     </div>
                                     <label class="col-xs-1 control-label">Url</label>
                                     <div class="col-xs-3">
-                                        <input type="text" class="form-control dir" name="fileTemplate" required/>
+                                        <input type="url" class="form-control dir" name="fileTemplate" required/>
                                     </div>
                                 </div>
                                 <div class="form-group">
@@ -383,7 +403,7 @@
                             <td>${doc.nombreDoc}</td>
                             <td><a href="<c:url value="/servicios/soap/downloadDocs?version=${ind.index}" />"><img src="<c:url value="/resources/images/download2.png" />"/></a></td>
                             <td style="width: 30px"><a href="?docs=${ind.index}" class="editDocs"><img src="<c:url value="/resources/images/edit.png" />"></a></td>
-                            <td style="width: 30px"><a href="<c:url value="/servicios/soap/delDocs?doc=${ind.index}" />" class="remove"><img src="<c:url value="/resources/images/remove.png" />"></a></td>
+                            <td style="width: 30px"><a data-href="<c:url value="/servicios/soap/delDocs?doc=${ind.index}" />" class="remove" data-toggle="confirmation-singleton" data-placement="top" title="¿Estás seguro de eliminar este registro?"><img src="<c:url value="/resources/images/remove.png" />"></a></td>
                         </tr>
                         <tr>
                             <td colspan="4" style="border-top:none">
@@ -480,43 +500,5 @@
             <h2>TECNOLOGIAS</h2>
             <br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br />
         </section>
-        <div class="modal fade modalDelete" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-                <div class="modal-dialog">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                            <h4 class="modal-title">Eliminar</h4>
-                        </div>
-                        <div class="modal-body">
-                            <form:form method="post" class="form-horizontal" modelAttribute="soap" enctype="multipart/form-data">
-                                <div class="form-group">
-                                    <input type="hidden" name="documentos" value="true" />
-                                    <label class="col-xs-3 control-label">Nombre</label>
-                                    <div class="col-xs-9">
-                                        <input type="text" class="form-control nombre" name="nombreDocs" required />
-                                    </div>
-                                </div>
-                                <div class="form-group">
-                                    <label class="col-xs-3 control-label">Resumen</label>
-                                    <div class="col-xs-9">
-                                        <input type="text" class="form-control resumen" name="resumenDocs" />
-                                    </div>
-                                </div>
-                                <div class="form-group">
-                                    <label class="col-xs-3 control-label">Archivo</label>
-                                    <div class="col-xs-9">
-                                        <input type="file" class="file" name="filesDocs"/>
-                                    </div>
-                                </div>
-                                <div class="form-group">
-                                    <div class="col-xs-5 col-xs-offset-5">
-                                        <button type="submit" class="btn btn-default">Aceptar</button>
-                                    </div>
-                                </div>
-                            </form:form>
-                        </div>
-                    </div>
-                </div>
-            </div>
     </div>
 </div>
