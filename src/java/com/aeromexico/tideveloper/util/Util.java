@@ -7,6 +7,7 @@ package com.aeromexico.tideveloper.util;
 
 import com.aeromexico.tideveloper.models.ApisDocs;
 import com.aeromexico.tideveloper.models.ApisVersionesResources;
+import com.aeromexico.tideveloper.models.SoapDocs;
 import com.aeromexico.tideveloper.security.CustomUser;
 import java.io.BufferedOutputStream;
 import java.io.File;
@@ -41,12 +42,16 @@ public class Util {
             if (versionResource.getDirResource() == null || versionResource.getDirResource().equals("")) {
                 for (int i = 0; i < versionResource.getFiles().length; i++) {
                     MultipartFile file = versionResource.getFiles()[i];
-                    versionResource.setDirResource(uploadFile(file, rootPath, nameFolder));
+                    if (!file.isEmpty()) {
+                        versionResource.setDirResource(uploadFile(file, rootPath, nameFolder));
+                    }
                 }
             } else if (versionResource.getFiles() != null && versionResource.getFiles().length > 0) {
                 for (int i = 0; i < versionResource.getFiles().length; i++) {
                     MultipartFile file = versionResource.getFiles()[i];
-                    versionResource.setDirResource(uploadFile(file, rootPath, nameFolder));
+                    if (!file.isEmpty()) {
+                        versionResource.setDirResource(uploadFile(file, rootPath, nameFolder));
+                    }
                 }
             }
         }
@@ -60,19 +65,43 @@ public class Util {
         if ((apiDoc.getDirDoc() == null || apiDoc.getDirDoc().equals("")) && apiDoc.getFilesDocs() != null) {
             for (int i = 0; i < apiDoc.getFilesDocs().length; i++) {
                 MultipartFile file = apiDoc.getFilesDocs()[i];
-                apiDoc.setDirDoc(uploadFile(file, rootPath, nameFolder));
+                if (!file.isEmpty()) {
+                    apiDoc.setDirDoc(uploadFile(file, rootPath, nameFolder));
+                }
             }
         } else if (apiDoc.getFilesDocs() != null && apiDoc.getFilesDocs().length > 0) {
             for (int i = 0; i < apiDoc.getFilesDocs().length; i++) {
                 MultipartFile file = apiDoc.getFilesDocs()[i];
-                apiDoc.setDirDoc(uploadFile(file, rootPath, nameFolder));
+                if (!file.isEmpty()) {
+                    apiDoc.setDirDoc(uploadFile(file, rootPath, nameFolder));
+                }
+            }
+        }
+    }
+    
+    public static void editDocs(SoapDocs soapDoc, int idSoap) {
+        ResourceBundle properties = ResourceBundle.getBundle("TIDeveloper");
+        String rootPath = properties.getString("SoapPath");
+        String nameFolder = idSoap + "\\docs";
+
+        if ((soapDoc.getDirDoc() == null || soapDoc.getDirDoc().equals("")) && soapDoc.getFilesDocs() != null) {
+            for (int i = 0; i < soapDoc.getFilesDocs().length; i++) {
+                MultipartFile file = soapDoc.getFilesDocs()[i];
+                if (!file.isEmpty()) {
+                    soapDoc.setDirDoc(uploadFile(file, rootPath, nameFolder));
+                }
+            }
+        } else if (soapDoc.getFilesDocs() != null && soapDoc.getFilesDocs().length > 0) {
+            for (int i = 0; i < soapDoc.getFilesDocs().length; i++) {
+                MultipartFile file = soapDoc.getFilesDocs()[i];
+                if (!file.isEmpty()) {
+                    soapDoc.setDirDoc(uploadFile(file, rootPath, nameFolder));
+                }
             }
         }
     }
 
     private static String uploadFile(MultipartFile file, String rootPath, String folderFinal) {
-        
-        if (!file.isEmpty()) {
             System.out.println("name file:" + file.getOriginalFilename());
             String extencionFile = "." + FilenameUtils.getExtension(file.getOriginalFilename());
             String name = file.getOriginalFilename();
@@ -102,7 +131,6 @@ public class Util {
                 System.out.println(e.getMessage());
                 //return "You failed to upload " + name + " => " + e.getMessage();
             }
-        }
         return "";
     }
 }

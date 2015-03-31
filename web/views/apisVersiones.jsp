@@ -386,7 +386,9 @@
                         </tr>
                         <tr>
                             <td colspan="4" style="border-top:none">
-                                ${doc.resumenDoc}
+                                <code class="pre">
+                                    ${doc.resumenDoc}
+                                </code>
                             </td>
                         </tr>
                     </c:forEach>

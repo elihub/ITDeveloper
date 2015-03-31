@@ -176,7 +176,7 @@ public class ApisController {
     }
 
     @RequestMapping(value = "view/downloadDocs", method = RequestMethod.GET)
-    public ModelAndView getDownloadResource(HttpServletRequest request, HttpServletResponse response, @RequestParam(value = "version") int posVersion, @ModelAttribute("api") Api apiMod) {
+    public ModelAndView getDownloadDocs(HttpServletRequest request, HttpServletResponse response, @RequestParam(value = "version") int posVersion, @ModelAttribute("api") Api apiMod) {
         System.out.println("Estamos en redireccion");
         ServletContext context = request.getServletContext();
 

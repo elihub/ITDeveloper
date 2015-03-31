@@ -75,18 +75,6 @@
                 <br>
                 <h1>SOAP</h1>
             </div>
-            <table>
-                <tr>
-                    <td>${serv.nombre}</td>
-                    <td>${serv.descripcion}</td>
-                    <td>${serv.funcion.nombre}</td>
-                    <td>${serv.area.nombre}</td>
-                </tr>
-            </table>
-            <c:forEach items="${serv.versiones}" var="version" >
-                ${version.version}
-                </br>
-            </c:forEach>
             <div class="divDataTable">
                 <table id="example" class="display" cellspacing="0" width="100%">
                     <thead>

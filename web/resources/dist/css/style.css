@@ -94,3 +94,17 @@ ol.linenums li {
   line-height: 20px;
   text-shadow: 0 1px 0 #fff;
 }
+
+.remove:hover{
+    cursor: pointer;
+}
+
+.pre {
+  background-color:#F1F1F1;
+  border:1px solid #00000;
+  padding:10px;
+  overflow:auto;
+  margin:7px;
+  color:#0150c7;
+  
+}
