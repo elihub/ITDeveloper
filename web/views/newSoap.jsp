@@ -5,6 +5,7 @@
 --%>
 <%--<%@taglib uri="http://tiles.apache.org/tags-tiles" prefix="tiles" %>--%>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <!-- Custom styles -->
 <link href="<c:url value="/resources/css/form-wizard-and-validation.css" />" rel="stylesheet">
 <script src="<c:url value="/resources/js/jquery-1.10.2.min.js" />"></script>
@@ -19,7 +20,7 @@
 
         var i = 1;
         $("#add_row").click(function () {
-            $('#addr' + i).html("<td>" + (i + 1) + "</td>" +
+            $('#addr' + i).html("<td></td>" +
                     " <td><div class='form-group'><input type='text' name='nombreResources' id='nombreResource'  placeholder='Nombre Archivo' class='form-control' required='required'/></div></td>"
                     + "<td><input  name='files' type='file' id='files'></td>");
             $('#tab_logic').append('<tr id="addr' + (i + 1) + '"></tr>');
@@ -91,7 +92,7 @@
 
         $('div.setup-panel div a.btn-primary').trigger('click');
 
-        $('#apiAltaForm').formValidation({
+        $('#soapAltaForm').formValidation({
             framework: 'bootstrap',
             icon: {
                 valid: 'glyphicon glyphicon-ok',
@@ -127,7 +128,7 @@
 
     <section id="wizard">
         <div class="page-header">
-            <h3>Alta de API</h3>
+            <h3>Alta de Servicio</h3>
         </div> 
     </section>
 
@@ -151,131 +152,169 @@
             </div>
         </div>
     </div>
-    <form role="form" method="POST" enctype="multipart/form-data" id="apiAltaForm">
+    <form:form role="form" method="POST" enctype="multipart/form-data" id="soapAltaForm" modelAttribute="soap" >
         <div class="row setup-content" id="step-1">
             <div class="col-xs-12">
                 <div class="col-md-12">
-                    <h3> Step 1</h3>
+                    <h3> Datos Generales del Servicio</h3>
                     <div class="form-group">
                         <label  class="control-label" for="nombre" >Nombre:</label>
-                        <input type="text" value="${api.nombre}" class="form-control" id="nombre" name="nombre" placeholder="Nombre Api" required="required" >
+                        <form:input type="text" path="nombre" class="form-control" id="nombre" name="nombre" placeholder="Nombre Servicio" required="required" />                            
+                    </div>                    
+                    <div class="form-group">
+                        <label class="control-label" for="area">Área:</label>
+                        <select name="soapArea" class="form-control" >
+                            <c:forEach items="${catArea}" var="itemArea">
+                                <option value="${itemArea.id}">${itemArea.nombre}</option>
+                            </c:forEach>                            
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label" for="funcion">Función:</label>
+                        <select class="form-control" id="funcion" name="soapFuncion">
+                            <c:forEach items="${catFuncion}" var="itemFuncion">
+                                <option value="${itemFuncion.id}" label="${itemFuncion.nombre}">                                
+                                </c:forEach>
+                        </select>                       
                     </div>
                     <div class="form-group">
                         <label for="version">Versión:</label>
-                        <input type="text" value="${apiVersion.version}"  class="form-control" id="version" name="version"  placeholder="Versión" required="required">
+                        <input type="text" value="1.0"  class="form-control" id="version" name="version"  placeholder="Versión" required="required">
                     </div>
                     <div class="form-group">
                         <label for="descripcion">Descripción:</label>
-                        <input type="text"  value="${api.descripcion}" class="form-control" id="descripcion" name="descripcion" placeholder="Descripción" required="required">
+                        <form:input type="text"  path="descripcion" class="form-control" id="descripcion" name="descripcion" placeholder="Descripción" required="required"/>
                     </div>
                     <div class="form-group">
                         <label for="resumen">Resumen:</label>
-                        <textarea value="${api.resumen}" class="form-control" rows="3" name="resumen"></textarea>
+                        <form:textarea path="resumen" class="form-control" rows="3" name="resumen"></form:textarea>
+                        </div>
+                        <button class="btn btn-primary nextBtn btn-lg pull-right" type="button" >Next</button>
                     </div>
-                    <button class="btn btn-primary nextBtn btn-lg pull-right" type="button" >Next</button>
                 </div>
             </div>
-        </div>
-        <div class="row setup-content" id="step-2">
-            <div class="col-xs-12">
-                <div class="col-md-12">
-                    <h3> Step 2</h3>                    
-                    <table class="table table-bordered table-hover" id="tab_logic">
-                        <thead>
-                            <tr >
-                                <th class="text-center">
-                                    #
-                                </th>
-                                <th class="text-center">
-                                    Nombre
-                                </th>                                   
-                                <th class="text-center">
-                                    Resource
-                                </th>                                            
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr id='addr0'>
-                                <td>
-                                    1
-                                </td>
-                                <td>
-                                    <div class="form-group"><input type="text" name='nombreResources' id='nombreResource'  placeholder='Nombre Archivo' class="form-control" required="required"/></div>
-                                </td>
-                                <td>
-                                    <div class="form-group"><input type="file" id="files" name="files" class="form-control" required="required" ></div>
-                                </td>                         
-                            </tr>
-                            <tr id='addr1'></tr>
-                        </tbody>                                    
-                        <tfoot>
-                        <a id="add_row" class="btn btn-default pull-left">Nuevo</a>
-                        <a id='delete_row' class="pull-right btn btn-default">Eliminar</a>
-                        </tfoot>
-                    </table>                    
-                    <button class="btn btn-primary nextBtn btn-lg pull-right" type="button" >Next</button>
-                </div>
-            </div>
-        </div>
-        <div class="row setup-content" id="step-3">
-            <div class="col-xs-12">
-                <div class="col-md-12">
-                    <h3> Step 3</h3>
-                    <div class="form-group">
-                        <table class="table table-bordered table-hover" id="tab_logic2">
+            <div class="row setup-content" id="step-2">
+                <div class="col-xs-12">
+                    <div class="col-md-12">
+                        <h3>Resources</h3>                    
+                        <table class="table table-bordered table-hover" id="tab_logic">
                             <thead>
                                 <tr >
                                     <th class="text-center">
                                         #
                                     </th>
                                     <th class="text-center">
-                                        Nombre Archivo
-                                    </th>
+                                        Nombre
+                                    </th>                                   
                                     <th class="text-center">
-                                        Resumen
-                                    </th>
-                                    <th class="text-center">
-                                        Archivo
+                                        Resource
                                     </th>                                            
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr id='add0'>
+                                <tr>
                                     <td>
-                                        1
+                                        Request Schema
                                     </td>
                                     <td>
-                                        <input type="text" name='nombreDocs'  placeholder='Nombre' class="form-control"/>
+                                        <div class="form-group"><input type="text" name='nombreResources' id='nombreResource'  placeholder='Nombre Archivo' class="form-control" required="required"/></div>
                                     </td>
                                     <td>
-                                        <textarea name ="resumenDocs" class="form-control" rows="3"></textarea>
-                                    </td>
-                                    <td>
-                                        <input type="file" name="filesDocs" id="resource">
-                                    </td> 
-
+                                        <div class="form-group"><input type="url" id="files" name="files" class="form-control" required="required" ></div>
+                                    </td>                         
                                 </tr>
-                                <tr id='add1'></tr>
+                                <tr>
+                                    <td>
+                                        Response Schema
+                                    </td>
+                                    <td>
+                                        <div class="form-group"><input type="text" name='nombreResources' id='nombreResource'  placeholder='Nombre Archivo' class="form-control" required="required"/></div>
+                                    </td>
+                                    <td>
+                                        <div class="form-group"><input type="url" id="files" name="files" class="form-control" required="required" ></div>
+                                    </td>                         
+                                </tr>
+                                <tr id='addr0'>
+                                    <td>
+                                        WSDL
+                                    </td>
+                                    <td>
+                                        <div class="form-group"><input type="text" name='nombreResources' id='nombreResource'  placeholder='Nombre Archivo' class="form-control" required="required"/></div>
+                                    </td>
+                                    <td>
+                                        <div class="form-group"><input type="url" id="files" name="files" class="form-control" required="required" ></div>
+                                    </td>                         
+                                </tr>
+                                <tr id='addr1'></tr>
                             </tbody>                                    
                             <tfoot>
-                            <a id="add_row2" class="btn btn-default pull-left">Nuevo</a>
-                            <a id='delete_row2' class="pull-right btn btn-default">Eliminar</a>
+                            <a id="add_row" class="btn btn-default pull-left">Nuevo</a>
+                            <a id='delete_row' class="pull-right btn btn-default">Eliminar</a>
                             </tfoot>
-                        </table>
+                        </table>                    
+                        <button class="btn btn-primary nextBtn btn-lg pull-right" type="button" >Next</button>
                     </div>
-                    <button class="btn btn-primary nextBtn btn-lg pull-right" type="button" >Next</button>
                 </div>
             </div>
-        </div>
-        <div class="row setup-content" id="step-4">
-            <div class="col-xs-12">
-                <div class="col-md-12">
-                    <h3> Step 4</h3>
-                    <button class="btn btn-success btn-lg pull-right" type="submit">Finish!</button>
+             <div class="row setup-content" id="step-3">
+                 <div class="col-xs-12">
+                     <div class="col-md-12">
+                         <h3>Documentación</h3>
+                         <div class="form-group">
+                             <table class="table table-bordered table-hover" id="tab_logic2">
+                                 <thead>
+                                     <tr >
+                                         <th class="text-center">
+                                             #
+                                         </th>
+                                         <th class="text-center">
+                                             Nombre Archivo
+                                         </th>
+                                         <th class="text-center">
+                                             Resumen
+                                         </th>
+                                         <th class="text-center">
+                                             Archivo
+                                         </th>                                            
+                                     </tr>
+                                 </thead>
+                                 <tbody>
+                                     <tr id='add0'>
+                                         <td>
+                                             1
+                                         </td>
+                                         <td>
+                                             <input type="text" name='nombreDocs'  placeholder='Nombre' class="form-control"/>
+                                         </td>
+                                         <td>
+                                             <textarea name ="resumenDocs" class="form-control" rows="3"></textarea>
+                                         </td>
+                                         <td>
+                                             <input type="file" name="filesDocs" id="resource">
+                                         </td> 
+     
+                                     </tr>
+                                     <tr id='add1'></tr>
+                                 </tbody>                                    
+                                 <tfoot>
+                                 <a id="add_row2" class="btn btn-default pull-left">Nuevo</a>
+                                 <a id='delete_row2' class="pull-right btn btn-default">Eliminar</a>
+                                 </tfoot>
+                             </table>
+                         </div>
+                         <button class="btn btn-primary nextBtn btn-lg pull-right" type="button" >Next</button>
+                     </div>
+                 </div>
+             </div>
+            <div class="row setup-content" id="step-4">
+                <div class="col-xs-12">
+                    <div class="col-md-12">
+                        <h3> Step 4</h3>
+                        <button class="btn btn-success btn-lg pull-right" type="submit">Finish!</button>
+                    </div>
                 </div>
             </div>
-        </div>
-    </form>
+    </form:form>
 
 </div>
 

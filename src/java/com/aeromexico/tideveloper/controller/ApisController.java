@@ -240,7 +240,7 @@ public class ApisController {
         api.setFechaModificacion(new Date());
 
         ResourceBundle properties = ResourceBundle.getBundle("TIDeveloper");
-        String rootPath = properties.getString("RootPath");
+        String rootPath = properties.getString("ApisPath");
         String nameFolder = api.getNombre();
         //String rootPath + nameFolder + "\\resources;
 

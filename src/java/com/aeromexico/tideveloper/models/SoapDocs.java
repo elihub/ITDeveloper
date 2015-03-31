@@ -33,6 +33,15 @@ public class SoapDocs implements Serializable {
     @Transient
     private MultipartFile[] filesDocs;
 
+    public SoapDocs() {
+    }
+
+    public SoapDocs(String nombreDoc, String resumenDoc, String dirDoc) {        
+        this.nombreDoc = nombreDoc;
+        this.resumenDoc = resumenDoc;
+        this.dirDoc = dirDoc;        
+    }       
+
     public Integer getId() {
         return id;
     }
