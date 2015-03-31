@@ -8,6 +8,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.persistence.Transient;
+import org.springframework.web.multipart.MultipartFile;
 
 /**
  *
@@ -27,6 +28,16 @@ public class SoapVersionesResources implements Serializable {
     private String[] nombreResources;
     @Transient
     private String[] files;
+
+    public SoapVersionesResources() {
+    }
+
+        
+    public SoapVersionesResources(String nombreResource, String dirResource) {        
+        this.nombreResource = nombreResource;
+        this.dirResource = dirResource;        
+    }    
+    
 
     public Integer getId() {
         return id;

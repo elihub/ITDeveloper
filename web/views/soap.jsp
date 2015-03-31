@@ -2,6 +2,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
 
+
 <tiles:insertDefinition name="bodyTemplate">
     <tiles:putAttribute name="right">
         <c:import url="/template/menuVertical.jsp" >
@@ -109,7 +110,7 @@
                         </tr>
                     </tfoot>
                 </table>
-                <a href="newSoap">Nueva Api <img src="../resources/images/new.png"/></a>
+                <a href="newSoap">Nuevo Servicio <img src="../resources/images/new.png"/></a>
             </div>
         </header>
         <!-- About Section -->

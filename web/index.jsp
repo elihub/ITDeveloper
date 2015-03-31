@@ -39,7 +39,7 @@
         <div class="col-lg-4">
             <div><div style="display: inline-block;margin-right: 10px"><h2>Servicios</h2></div><div style="display: inline-block"><img src="<c:url value='/resources/images/services.png'/>" class="img-responsive" alt="Responsive image" style="display: inline-block"></div> </div>
             <p>Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui. </p>
-            <p><a class="btn btn-primary" href="#" role="button">Ver</a></p>
+            <p><a class="btn btn-primary" href="<c:url value="/servicios/soap"/>" role="button">Ver</a></p>
         </div>
         <div class="col-lg-4">
             <div><div style="display: inline-block;margin-right: 10px"><h2>Resources</h2></div><div style="display: inline-block"><img src="<c:url value='/resources/images/resources.png'/>" class="img-responsive" alt="Responsive image" style="display: inline-block"></div> </div>

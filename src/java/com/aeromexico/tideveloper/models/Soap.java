@@ -53,6 +53,7 @@ public class Soap implements Serializable{
     @JoinColumn(name = "idSoap",nullable = false)
     private List<SoapDocs> docs;
 
+   
     public int getId() {
         return id;
     }
